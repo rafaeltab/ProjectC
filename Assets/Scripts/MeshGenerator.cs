@@ -204,7 +204,7 @@ public class MeshGenerator : MonoBehaviour
         Mesh m = Visualise(Generate(x, y, z));
 
         template.transform.position = new Vector3(x * model.sizeX, y * model.sizeY, z * model.sizeZ);
-        GameObject go = Instantiate(template);
+        GameObject go = Instantiate(template,transform);
         go.GetComponent<MeshFilter>().mesh = m;
         chunks.Add(go);
 
