@@ -342,7 +342,7 @@ MonoBehaviour:
     wPos: 5.56
     noiseScale: 0.1
     threshold: 0.4
-    renderDistance: 1
+    renderDistance: 4
     template: {fileID: 903845302}
     loadPoint: {fileID: 698343237}
     loadPointPos: {x: 0, y: 0, z: 0}
