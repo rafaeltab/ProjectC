@@ -13,27 +13,25 @@ namespace Assets.Scripts
         public MeshGenModel() { }
         public MeshGenModel(MeshGenModel m)
         {
-            autoUpdate = m.autoUpdate;
-            sizeX = m.sizeX;
-            sizeY = m.sizeY;
-            sizeZ = m.sizeZ;
+            size = m.size;
             wPos = m.wPos;
             noiseScale = m.noiseScale;
             threshold = m.threshold;
-            created = m.created;
+            template = m.template;
+            loadPoint = m.loadPoint;
         }
 
         public Vector3Int chunks;
 
-        public bool autoUpdate = false;
-        public int sizeX = 10;
-        public int sizeY = 10;
-        public int sizeZ = 10;
+        public int size = 10;
         [Range(0,10)]
         public float wPos;
 
         public float noiseScale = 0.45f;
         public float threshold = 0.5f;
-        public bool created = false;
+        public int renderDistance = 1;
+        public GameObject template;
+        public Transform loadPoint;
+        public Vector3 loadPointPos;
     }
 }

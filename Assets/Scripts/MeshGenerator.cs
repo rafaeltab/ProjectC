@@ -6,284 +6,232 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using UnityEngine;
+using System.Linq;
+
+//TODO:
+//-optimize
+//-implement Marching Cubes
 
 public class MeshGenerator : MonoBehaviour
 {
+
+    [Header("Press I to go up in wPos")]
+    [Header("Press J to go down in wPos")]
     public MeshGenModel model;
     private MeshGenModel previous;
 
-    public GameObject template;
-    public MeshGenerator()
-    {
-    }
-
+    private bool generated = false;
+    private Vector3Int oldLoadChunk;
     // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
-        if (!model.created)
+        if (!generated)
         {
-            model.created = true;
-            await Gen();
+            if (model.template != null)
+            {
+                AssureObjects();
+
+                Generate(true);
+                previous = model;
+                generated = true;
+            }
         }
-        previous = model;
+        
     }
 
     // Update is called once per frame
-    async Task Update()
+    void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        DoInputs();
+
+        Vector3Int currentLoad = new Vector3Int((int) (model.loadPoint.position.x/model.size)+1, (int)(model.loadPoint.position.y / model.size), (int)(model.loadPoint.position.z / model.size) + 1);
+
+        if (currentLoad != oldLoadChunk)
+        {
+            generated = false;
+            StopCurrentGen();
+        }
+
+        if (!generated)
+        {
+            AssureObjects();
+
+            Generate(genFull);
+            genFull = false;
+            previous = model;
+            generated = true;
+        }
+
+        previous = new MeshGenModel(model);
+        oldLoadChunk = currentLoad;
+    }
+
+    public bool gen = true;
+    private Coroutine currentGen;
+    private bool genFull = false;
+
+    private void DoInputs()
+    {
+        if (Input.GetKey(KeyCode.J))
         {
             model.wPos += 0.05f;
+            generated = false;
+            genFull = true;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.I))
         {
             model.wPos -= 0.05f;
+            generated = false;
+            genFull = true;
         }
-
-        if (!model.created)
-        {
-            model.created = true;
-            await Gen();
-        }
-        else if (model.autoUpdate)
-        {
-            if (previous.wPos != model.wPos)
-            {
-                await Gen();
-            }
-        }
-        previous = new MeshGenModel(model);
     }
 
-    List<GameObject> chunks = new List<GameObject>(); 
-
-    public async Task Gen()
+    /// <summary>
+    /// Check if the right ammount of Game Objects have been created for this render distance
+    /// </summary>
+    private void AssureObjects()
     {
-        Stopwatch watch = new Stopwatch();
-        watch.Start();
-        foreach (var chunk in chunks)
+        int loadAmount = (int)Math.Pow(1 + model.renderDistance * 2, 3);
+        if (model.template != null && loadAmount != chunks.Count)
         {
-            Destroy(chunk);
-        }
-
-        for (int x = 0; x < model.chunks.x; x++)
-        {
-            for (int y = 0; y < model.chunks.y; y++)
+            for (int i = 0; i < chunks.Count; i++)
             {
-                for (int z = 0; z < model.chunks.z; z++)
-                {
-                    StartCoroutine(GenSingleCoroutine(x,y,z));
-                }
+                Destroy(chunks[i]);
+            }
+            chunks.Clear();
+            for (int i = 0; i < loadAmount; i++)
+            {
+                GameObject go = Instantiate(model.template,transform);
+                chunks.Add(go);
+                chunkLocs.Add(null);
             }
         }
-        watch.Stop();
-        UnityEngine.Debug.Log($"Total Generation time was {watch.Elapsed}");
-
     }
 
-    public float[,,] Generate(int chunkX, int chunkY, int chunkZ)
-    {
-        Stopwatch watch = new Stopwatch();
-        watch.Start();
-
-        SimplexNoise sn = new SimplexNoise(1);
-
-        float[,,] values = new float[model.sizeX, model.sizeY, model.sizeZ];
-        
-        //go through each block position
-        for (int x = 0; x < model.sizeX; x++)
+    /// <summary>
+    /// Generate the chunks only if not currently genning
+    /// </summary>
+    private void Generate(bool full)
+    { 
+        if (gen)
         {
-            for (int y = 0; y < model.sizeY; y++)
-            {
-                for (int z = 0; z < model.sizeZ; z++)
-                {
+            int offsetX = (int) (model.loadPoint.position.x / model.size) - model.renderDistance;
+            int offsetY = (int) (model.loadPoint.position.y / model.size) - model.renderDistance;
+            int offsetZ = (int) (model.loadPoint.position.z / model.size) - model.renderDistance;
 
-                    //get value of the noise at given x, y, and z.
-                    float noiseValue = ((float)sn.Evaluate((x+chunkX*model.sizeX) * model.noiseScale, (y + chunkY * model.sizeY) * model.noiseScale, (z + chunkZ * model.sizeZ) * model.noiseScale, model.wPos))/2+0.5f;
-                    values[x, y, z] = noiseValue;
-                    
-                }
-            }
+            Vector3Int offset = new Vector3Int(offsetX,offsetY,offsetZ);
+            currentGen = StartCoroutine(AllChunks(offset,full));
         }
-        watch.Stop();
-        UnityEngine.Debug.Log($"Generation time was {watch.Elapsed}");
-        return values;
-    }
+    }  
     
-    public Mesh Visualise(float[,,] values)
+    /// <summary>
+    /// Stop current generation
+    /// </summary>
+    public void StopCurrentGen()
     {
-        Stopwatch watch = new Stopwatch();
-        watch.Start();
-        List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
-        List<Vector2> uvs = new List<Vector2>();
-
-        for (int x = 0; x < model.sizeX; x++)
+        if (currentGen != null)
         {
-            for (int y = 0; y < model.sizeY; y++)
+            StopCoroutine(currentGen);
+            gen = true;
+        }
+    }
+
+    private List<GameObject> chunks = new List<GameObject>();
+    private List<Vector3Int?> chunkLocs = new List<Vector3Int?>();
+
+    /// <summary>
+    /// Generate all chunks
+    /// </summary>
+    /// <param name="offset">Location offset</param>
+    /// <param name="full">generate everything or only new chunks NOT IMPLEMENTED</param>
+    /// <returns></returns>
+    private IEnumerator AllChunks(Vector3Int offset,bool full)
+    {
+        gen = false;
+
+        List<Vector3Int> ToBeSet = new List<Vector3Int>();
+
+        int s = 1 + model.renderDistance * 2;
+        for (int x = 0; x < s; x++)
+        {
+            for (int y = 0; y < s; y++)
             {
-                for (int z = 0; z < model.sizeZ; z++)
+                for (int z = 0; z < s; z++)
                 {
-                    if (Enabled(values[x,y,z]))
-                    {
-                        Vector3 current = new Vector3(x,y,z);
-                        #region x
-                        if (values.GetLength(0) == x + 1)
-                        {                            
-                            CreateFace(drawRight(),vertices,triangles, uvs, current);
-                        }else if (!Enabled(values[x+1,y,z]))
-                        {                            
-                            CreateFace(drawRight(), vertices, triangles, uvs, current);
-                        }
-
-                        if (x == 0)
-                        {                            
-                            CreateFace(drawLeft(), vertices, triangles, uvs, current);
-                        }else if (!Enabled(values[x - 1, y, z]))
-                        {
-                            CreateFace(drawLeft(), vertices, triangles, uvs, current);
-                        }
-                        #endregion x
-
-                        #region y
-                        if (values.GetLength(1) == y + 1)
-                        {
-                            
-                            CreateFace(drawUp(), vertices, triangles, uvs, current);
-                        }else if (!Enabled(values[x, y + 1, z]))
-                        {
-                            
-                            CreateFace(drawUp(), vertices, triangles, uvs, current);
-                        }
-
-                        if (y == 0)
-                        {
-                            
-                            CreateFace(drawDown(), vertices, triangles, uvs, current);
-                        }else if (!Enabled(values[x, y - 1, z]))
-                        {
-                            
-                            CreateFace(drawDown(), vertices, triangles, uvs, current);
-                        }
-                        #endregion y
-
-                        #region z
-                        if (values.GetLength(2) == z + 1)
-                        {
-                            CreateFace(drawFar(), vertices, triangles, uvs, current);
-                        }else if (!Enabled(values[x, y, z + 1]))
-                        {
-                            CreateFace(drawFar(), vertices, triangles, uvs, current);
-                        }
-
-                        if (z == 0)
-                        {
-                            CreateFace(drawNear(), vertices, triangles, uvs, current);
-                        }else if (!Enabled(values[x, y, z - 1]))
-                        {
-                            CreateFace(drawNear(),vertices,triangles, uvs, current);
-                        }
-                        #endregion z
-                    }
+                    Vector3Int loc = new Vector3Int(x + offset.x, y + offset.y, z + offset.z);
+                    ToBeSet.Add(loc);
                 }
             }
         }
+        ToBeSet = Helper.Order(ToBeSet, model.size, model.loadPoint).ToList();
+        var cac = GetChangeChunks(ToBeSet, full);
+        var gos = cac.Item1;
+        var locs = cac.Item2;
+        var linxeses = cac.Item3;
 
-        Mesh mesh = new Mesh();
-        mesh.Clear();
-        mesh.vertices = vertices.ToArray();
-        mesh.triangles = triangles.ToArray();
-        mesh.RecalculateNormals();
-        watch.Stop();
-        UnityEngine.Debug.Log($"Visualisation time was {watch.Elapsed}");
-        return mesh;
-    }
-
-    public IEnumerator GenSingleCoroutine(int x, int y, int z)
-    {
-        Mesh m = Visualise(Generate(x, y, z));
-
-        template.transform.position = new Vector3(x * model.sizeX, y * model.sizeY, z * model.sizeZ);
-        GameObject go = Instantiate(template,transform);
-        go.GetComponent<MeshFilter>().mesh = m;
-        chunks.Add(go);
-
-        yield return null;
-    }
-
-    #region draw methods
-    private static readonly Vector3 up = new Vector3() { x = 0, y = 1, z = 0 }; // up
-    private static readonly Vector3 rightup = new Vector3() { x = 0, y = 1, z = 1 }; // rightup
-    private static readonly Vector3 nearup = new Vector3() { x = 1, y = 1, z = 0 }; // nearup
-    private static readonly Vector3 nearrightup = new Vector3() { x = 1, y = 1, z = 1 }; // nearrightup
-    private static readonly Vector3 near = new Vector3() { x = 1, y = 0, z = 0 }; // near
-    private static readonly Vector3 nearright = new Vector3() { x = 1, y = 0, z = 1 }; // nearright
-    private static readonly Vector3 basis = new Vector3() { x = 0, y = 0, z = 0 }; // base
-    private static readonly Vector3 right = new Vector3() { x = 0, y = 0, z = 1 }; // right
-
-
-    public Vector3[] drawUp()
-    {
-        return new Vector3[] { up, rightup, nearup, nearrightup };
-    }
-
-    public Vector3[] drawDown()
-    {
-        return new Vector3[] { near, nearright, basis, right };
-    }
-
-    public Vector3[] drawLeft()
-    {
-        return new Vector3[] { basis, right, up, rightup };
-    }
-
-
-    public Vector3[] drawRight()
-    {
-        return new Vector3[] { nearup, nearrightup, near, nearright };
-    }
-
-    public Vector3[] drawNear()
-    {
-        return new Vector3[] { basis, up, near, nearup };
-    }
-
-    public Vector3[] drawFar()
-    {
-        return new Vector3[] { nearright, nearrightup, right, rightup };
-    }
-
-    public void CreateFace(Vector3[] verticesTBA,List<Vector3> vertices, List<int> triangles, List<Vector2> uvs, Vector3 pos)
-    {
-        verticesTBA[0] = Add(verticesTBA[0], pos);
-        verticesTBA[1] = Add(verticesTBA[1], pos);
-        verticesTBA[2] = Add(verticesTBA[2], pos);
-        verticesTBA[3] = Add(verticesTBA[3], pos);
-
-        int b = vertices.Count;
-
-        foreach (Vector3 v in verticesTBA)
+        for (int i = 0; i < gos.Count; i++)
         {
-            vertices.Add(v);
-            uvs.Add(new Vector2(0,1));
+            Chunk c = new Chunk(locs[i], model.wPos, 1, model.threshold, model.size, model.noiseScale);
+            c.Display(gos[i]);
+            chunkLocs[linxeses[i]] = locs[i];
+            yield return null;
         }
-       
-        triangles.Add(b);
-        triangles.Add(b + 1);
-        triangles.Add(b + 2);
-        triangles.Add(b + 2);
-        triangles.Add(b + 1);
-        triangles.Add(b + 3);
-    }
-    #endregion draw methods
 
-    public bool Enabled(float val)
-    {
-        return val >= model.threshold;
+        gen = true;
     }
 
-    public Vector3 Add(Vector3 a, Vector3 b)
+    /// <summary>
+    /// Get the chunks that can be changed and the chunkLocations that need to be changed
+    /// </summary>
+    /// <param name="ToBeSet">Locations of chunks that are in render distance</param>
+    /// <param name="fullRegen">Whether or not to fully regen</param>
+    private Tuple<List<GameObject>, List<Vector3Int>, List<int>> GetChangeChunks(List<Vector3Int> ToBeSet,bool fullRegen)
     {
-        return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
+        //get all the locations that are in tbs but not in cl        
+        List<Vector3Int> ToBeGenned = new List<Vector3Int>();
+
+        List<Vector3Int> cl = Helper.GetNotNulls(chunkLocs).ToList();
+        int ind = 0;
+        foreach (var tbs in ToBeSet)
+        {
+            if (!cl.Contains(tbs) || fullRegen)
+            {
+                ToBeGenned.Add(tbs);
+
+            }
+            ind++;
+        }
+
+        //get all the indexes of locations that are in cl but not in tbs
+        List<GameObject> gos = new List<GameObject>();
+        List<int> indexes = new List<int>();
+        ind = 0;
+        
+        foreach (var c in chunkLocs)
+        {
+            if (!c.HasValue || fullRegen)
+            {
+                gos.Add(chunks[ind]);
+                indexes.Add(ind);
+            }
+            else
+            {                
+                if (!ToBeSet.Contains(c.Value))
+                {
+                    gos.Add(chunks[ind]);
+                    indexes.Add(ind);
+                }
+            }
+            ind++;
+        }
+        return Tuple.Create(gos, ToBeGenned,indexes);
     }
+}
+
+/// <summary>
+/// A way to say if a certain function (coroutine or async) should stop executing
+/// </summary>
+public class StopToken
+{
+    public bool stop { get; set; } = false;
 }
