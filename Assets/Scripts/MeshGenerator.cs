@@ -14,7 +14,6 @@ using System.Linq;
 
 public class MeshGenerator : MonoBehaviour
 {
-
     [Header("Press I to go up in wPos")]
     [Header("Press J to go down in wPos")]
     public MeshGenModel model;
@@ -22,9 +21,21 @@ public class MeshGenerator : MonoBehaviour
 
     private bool generated = false;
     private Vector3Int oldLoadChunk;
-    // Start is called before the first frame update
+
+    private Stopwatch watch = new Stopwatch();
+
+    public double time { get
+        {
+            return watch.Elapsed.TotalSeconds;
+        }
+    }
+
+    /// <summary>
+    /// Do everything that needs to be done when this gameobject is created
+    /// </summary>
     void Start()
     {
+        watch.Start();
         if (!generated)
         {
             if (model.template != null)
@@ -39,7 +50,9 @@ public class MeshGenerator : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Do everything that needs to be done every frame like updating the 
+    /// </summary>
     void Update()
     {
         DoInputs();
@@ -70,19 +83,35 @@ public class MeshGenerator : MonoBehaviour
     private Coroutine currentGen;
     private bool genFull = false;
 
+    /// <summary>
+    /// Alter the wPos based on the current inputs
+    /// </summary>
     private void DoInputs()
     {
         if (Input.GetKey(KeyCode.J))
         {
+            if (watch.Elapsed.TotalSeconds > model.wPosUpdateRate)
+            {
+                StopCurrentGen();
+                watch.Restart();
+            }
             model.wPos += 0.05f;
             generated = false;
             genFull = true;
+            
+            
         }
         if (Input.GetKey(KeyCode.I))
         {
+            if (watch.Elapsed.TotalSeconds > model.wPosUpdateRate)
+            {
+                StopCurrentGen();
+                watch.Restart();
+            }
             model.wPos -= 0.05f;
             generated = false;
             genFull = true;
+            
         }
     }
 

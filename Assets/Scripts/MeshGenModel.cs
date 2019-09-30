@@ -33,5 +33,6 @@ namespace Assets.Scripts
         public GameObject template;
         public Transform loadPoint;
         public Vector3 loadPointPos;
+        public float wPosUpdateRate = 1f;//in seconds
     }
 }
