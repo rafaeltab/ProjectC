@@ -63,7 +63,6 @@
      <Compile Include="Assets\Scripts\MeshGenModel.cs" />
      <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\Scripts\SimplexNoise.cs" />
-     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/unityFiles/projects/4DGame/ProjectC/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
