@@ -97,8 +97,7 @@ public class MeshGenerator : MonoBehaviour
             }
             model.wPos += 0.05f;
             generated = false;
-            genFull = true;
-            
+            genFull = true;           
             
         }
         if (Input.GetKey(KeyCode.I))
