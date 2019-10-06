@@ -9,30 +9,31 @@ public class ItemDatabase : MonoBehaviour
 
     public class Item
     {
-        public int id { get; }
+        public int id { get; set; }
         public string title { get; set; }
         public string description { get; set; }
-        public int amount { get; set; }
+        public Sprite sprite { get; set; }
         public bool stackable { get; set; }
 
-        public Item(int id, string title, string description, bool stackable)
+        public Item(int id, string title, string description, string spriteLocation, bool stackable)
         {
             this.id = id;
             this.title = title;
             this.description = description;
+            this.sprite = Resources.Load<Sprite>("Sprites/Items/" + spriteLocation);
             this.stackable = stackable;
         }
     }
 
-    public static Item getItem(int id)
+    public static Item fetchItemByID(int id)
     {
         return database[id];
     }
 
     public static void fillDatabase()
     {
-        database.Add(new Item(0, "Empty", "", false));
-        database.Add(new Item(1, "Dirt", "Some dirt", true));
+        database.Add(new Item(0, "Empty", "", "empty", false));
+        database.Add(new Item(1, "Dirt", "Some dirt", "dirt", true));
         Debug.Log("Items added to the database");
     }
 

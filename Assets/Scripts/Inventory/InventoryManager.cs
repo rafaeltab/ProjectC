@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -8,20 +9,52 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryPanel;
     public GameObject itemSlotPrefab;
     public int startSlotRows = 4;
-    private int slotRows;
-    public List<ItemSlot> inventoryList = new List<ItemSlot>();
+    private int slotRow;
+    public static List<ItemSlot> inventoryList = new List<ItemSlot>();
     private Vector3 firstSlotPos;
 
 
     public class ItemSlot
     {
-        public GameObject gameObject { get; }
+        public GameObject slotObj { get; set; }
+        public int slotID { get; set; }
+        public GameObject itemObj { get; set; }
         public ItemDatabase.Item item { get; set; }
+        public int amount { get; set; }
+        public bool isHotbar;
 
-        public ItemSlot(GameObject gameObject, ItemDatabase.Item item)
+        public ItemSlot(GameObject slotObj, int slotID, ItemDatabase.Item item, int amount, bool isHotbar)
         {
-            this.gameObject = gameObject;
+            this.slotObj = slotObj;
+            this.slotObj.transform.GetComponent<Slot>().itemSlot = this;
+            this.slotID = slotID;
+            this.isHotbar = isHotbar;
+
+            this.itemObj = this.slotObj.transform.GetChild(0).gameObject;
             this.item = item;
+            this.amount = amount;
+
+            initiateItem();
+            updateAmount();
+
+        }
+
+        public void initiateItem()
+        {
+            this.itemObj.GetComponent<ItemDrag>().itemSlot = this;
+            
+            this.itemObj.GetComponent<Image>().sprite = this.item.sprite;
+            this.itemObj.name = this.item.title;
+        }
+
+        public void updateAmount()
+        {
+            GameObject amountObj = this.itemObj.transform.GetChild(0).gameObject;
+
+            string amountText;
+            if (this.amount == 0) { amountText = ""; }
+            else { amountText = this.amount.ToString(); }
+            amountObj.GetComponent<Text>().text = amountText;
         }
 
     }
@@ -34,7 +67,7 @@ public class InventoryManager : MonoBehaviour
 
         updateInventorySize();
 
-        while (slotRows < startSlotRows)
+        while (slotRow < startSlotRows)
         {
             addRow();
         }
@@ -72,14 +105,19 @@ public class InventoryManager : MonoBehaviour
 
     public void addRow()
     {
+        bool isHotbar;
+        if (slotRow == 0) { isHotbar = true; }
+        else { isHotbar = false; }
+
         for (int i = 0; i < 5; i++)
         {
-            GameObject obj = Instantiate(itemSlotPrefab, new Vector3(firstSlotPos.x + 70*i, firstSlotPos.y + 70*slotRows, 0), new Quaternion(0, 0, 0, 0), inventoryPanel.transform.GetChild(0));
-            ItemSlot itemSlot = new ItemSlot(obj, ItemDatabase.getItem(0));
+            GameObject slotObj = Instantiate(itemSlotPrefab, new Vector3(firstSlotPos.x + 70*i, firstSlotPos.y + 70*slotRow, 0), new Quaternion(0, 0, 0, 0), inventoryPanel.transform.GetChild(0));
+
+            ItemSlot itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(1), 1, isHotbar);
             inventoryList.Add(itemSlot);
         }
 
-        slotRows += 1;
+        slotRow += 1;
     }
 
 
@@ -94,4 +132,10 @@ public class InventoryManager : MonoBehaviour
 
 
     }
+
+    public static ItemSlot fetchItemSlotByID(int id)
+    {
+        return inventoryList[id];
+    }
+
 }
