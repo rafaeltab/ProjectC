@@ -11,8 +11,8 @@ public class InventoryManager : MonoBehaviour
     public int startSlotRows = 4;
     private int slotRow;
     public static List<ItemSlot> inventoryList = new List<ItemSlot>();
-    private Vector3 firstSlotPos;
-
+    public GameObject canvas;
+    public Vector3 offset;
 
     public class ItemSlot
     {
@@ -77,30 +77,36 @@ public class InventoryManager : MonoBehaviour
 
     /* Item image square width and height = 50
      * distance between item slots = 70
-     * distance between slot panel and inventory panel width = 20 (left and right)
-     * distance between slot panel and inventory panel height = 16.75 (up and down)
-     * inventory width = 370
+     * distance between slot panel and inventory panel width = 10 (left and right)
+     * distance between slot panel and inventory panel height = 10 (up and down)
      */
 
 
 
     public void updateInventorySize()
     {
-        /* start position x = 551.5 - 140 = 411.5
-         * start position y = 269 - 35*(slotRows-1)
-         */
+        Vector2 canvasSize = canvas.transform.GetComponent<RectTransform>().sizeDelta;
 
-        firstSlotPos = new Vector3(411.5f, 269 - 35*(startSlotRows-1), 0);
         RectTransform rectTransform = inventoryPanel.transform.GetComponent<RectTransform>();
 
-        //* inventory row 1 top + bottom = 454.35, 454.35 + 70 = 524.35 (0 rows)
+        /* width inventory = 350
+         * Calculate left and right:
+         * (canvas width - width inventory) / 2 = left and right
+         * 
+         * height 1 row inventory = 70
+         * Calculate top and bottom:
+         * (canvas height - height inventory) / 2 = top and bottom
+         */
 
-        float inventoryHeight = 524.35f - 70*startSlotRows;
+        float inventoryHeight = (canvasSize.y - 70*startSlotRows) / 2;
+        float inventoryWidth = (canvasSize.x - 350) / 2;
 
         // [ left - bottom ]
-        rectTransform.offsetMin = new Vector2(366.5f, inventoryHeight/2);
+        rectTransform.offsetMin = new Vector2(inventoryWidth, inventoryHeight);
         // [ right - top ]
-        rectTransform.offsetMax = new Vector2(-366.5f, -inventoryHeight/2);
+        rectTransform.offsetMax = new Vector2(-inventoryWidth, -inventoryHeight);
+
+        offset = new Vector3(inventoryWidth + 10, inventoryHeight + 10, 0);
     }
 
     public void addRow()
@@ -111,13 +117,19 @@ public class InventoryManager : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            GameObject slotObj = Instantiate(itemSlotPrefab, new Vector3(firstSlotPos.x + 70*i, firstSlotPos.y + 70*slotRow, 0), new Quaternion(0, 0, 0, 0), inventoryPanel.transform.GetChild(0));
+            GameObject slotObj = Instantiate(itemSlotPrefab, new Vector3(25 + 70*i, 25 + 70*slotRow, 0) + offset, new Quaternion(0, 0, 0, 0), inventoryPanel.transform.GetChild(0));
 
             ItemSlot itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(1), 1, isHotbar);
             inventoryList.Add(itemSlot);
         }
 
         slotRow += 1;
+    }
+
+
+    public static ItemSlot fetchItemSlotByID(int id)
+    {
+        return inventoryList[id];
     }
 
 
@@ -133,9 +145,10 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    public static ItemSlot fetchItemSlotByID(int id)
+
+    private void OnRectTransformDimensionsChange()
     {
-        return inventoryList[id];
+        updateInventorySize();
     }
 
 }
