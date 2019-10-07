@@ -21,6 +21,7 @@ public class MovementController : MonoBehaviour
     void Start()
     {
         sc.height = 1;
+         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
