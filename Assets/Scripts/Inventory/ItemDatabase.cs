@@ -34,6 +34,7 @@ public class ItemDatabase : MonoBehaviour
     {
         database.Add(new Item(0, "Empty", "", "empty", false));
         database.Add(new Item(1, "Dirt", "Some dirt", "dirt", true));
+        database.Add(new Item(2, "Stone", "Some stone", "stone", true));
         Debug.Log("Items added to the database");
     }
 

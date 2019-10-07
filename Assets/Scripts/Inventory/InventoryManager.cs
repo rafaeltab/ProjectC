@@ -31,20 +31,21 @@ public class InventoryManager : MonoBehaviour
             this.isHotbar = isHotbar;
 
             this.itemObj = this.slotObj.transform.GetChild(0).gameObject;
+
+            initiateItem(item, amount);
+        }
+
+        public void initiateItem(ItemDatabase.Item item, int amount)
+        {
             this.item = item;
             this.amount = amount;
 
-            initiateItem();
-            updateAmount();
-
-        }
-
-        public void initiateItem()
-        {
             this.itemObj.GetComponent<ItemDrag>().itemSlot = this;
             
             this.itemObj.GetComponent<Image>().sprite = this.item.sprite;
             this.itemObj.name = this.item.title;
+
+            updateAmount();
         }
 
         public void updateAmount()
@@ -56,6 +57,26 @@ public class InventoryManager : MonoBehaviour
             else { amountText = this.amount.ToString(); }
             amountObj.GetComponent<Text>().text = amountText;
         }
+
+        public void sumItems(ItemSlot secondItemSlot)
+        {
+            secondItemSlot.amount += this.amount;
+            secondItemSlot.updateAmount();
+
+            initiateItem(ItemDatabase.fetchItemByID(0), 0);
+        }
+
+        public void switchItems(ItemSlot secondItemSlot)
+        {
+            ItemDatabase.Item itemTemp = this.item;
+            int amountTemp = this.amount;
+
+            initiateItem(secondItemSlot.item, secondItemSlot.amount);
+
+            secondItemSlot.initiateItem(itemTemp, amountTemp);
+        }
+
+
 
     }
 
@@ -118,8 +139,13 @@ public class InventoryManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             GameObject slotObj = Instantiate(itemSlotPrefab, new Vector3(25 + 70*i, 25 + 70*slotRow, 0) + offset, new Quaternion(0, 0, 0, 0), inventoryPanel.transform.GetChild(0));
+            slotObj.name = "Item Slot " + inventoryList.Count;
+            //ItemSlot itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(0), 0, isHotbar); //Default
 
-            ItemSlot itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(1), 1, isHotbar);
+            ItemSlot itemSlot;
+            if (i%2 == 0) { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(1), 1, isHotbar); }
+            else { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(2), 1, isHotbar); }
+
             inventoryList.Add(itemSlot);
         }
 
