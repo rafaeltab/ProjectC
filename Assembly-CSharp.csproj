@@ -167,6 +167,8 @@
     <Compile Include="Assets\AssetStoreImports\Standard Assets\Vehicles\Car\Scripts\WheelEffects.cs" />
     <Compile Include="Assets\Editors\MeshGeneratorEditor.cs" />
     <Compile Include="Assets\Scripts\Grappling Hook\GrapplingHook.cs" />
+    <Compile Include="Assets\Scripts\Inventory\CheckInventoryHover.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Equip.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\ItemDatabase.cs" />
     <Compile Include="Assets\Scripts\Inventory\ItemDrag.cs" />

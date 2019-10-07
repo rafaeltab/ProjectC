@@ -13,7 +13,7 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
         ItemDrag droppedItem = eventData.pointerDrag.GetComponent<ItemDrag>();
 
 
-        if (itemSlot.slotID != droppedItem.itemSlot.slotID)
+        if (itemSlot.slotID != droppedItem.itemSlot.slotID && !droppedItem.disabled)
         {
             if (itemSlot.item == droppedItem.itemSlot.item)
             {
@@ -23,7 +23,7 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
 
             else if (droppedItem.itemSlot.item.id != 0)
             {
-                //Switch items from slots
+                //Switch items from item slots
                 droppedItem.itemSlot.switchItems(itemSlot);
             }
         }
@@ -33,19 +33,19 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
     //Hover over item slot
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Mouse enter");
         itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Mouse exit");
         itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(false);
     }
 
     public void OnDisable()
     {
-        Debug.Log("Call Disable");
-        itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(false);
+        if (itemSlot != null)
+        {
+            itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(false);
+        }
     }
 }

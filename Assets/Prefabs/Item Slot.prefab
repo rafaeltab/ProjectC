@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalParent: {fileID: 0}
+  inventoryPanel: {fileID: 0}
+  dragging: 0
 --- !u!225 &8696903607976438578
 CanvasGroup:
   m_ObjectHideFlags: 0
