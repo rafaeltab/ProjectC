@@ -14,8 +14,25 @@ using System.Linq;
 
 public class MeshGenerator : MonoBehaviour
 {
-    [Header("Press I to go up in wPos")]
-    [Header("Press J to go down in wPos")]
+    private KeyCode wup;
+    private KeyCode wdown;
+
+    public KeyCode WUp
+    {
+        get
+        {
+            return wup;
+        }
+    }
+
+    public KeyCode WDown
+    {
+        get
+        {
+            return wdown;
+        }
+    }
+
     public MeshGenModel model;
     private MeshGenModel previous;
 
@@ -35,6 +52,21 @@ public class MeshGenerator : MonoBehaviour
     /// </summary>
     void Start()
     {
+        Setting wu = SettingsManager.GetInstance().Settings[0].GetSetting("wup");
+        Setting wd = SettingsManager.GetInstance().Settings[0].GetSetting("wdown");
+        wu.changeEvent += (sender,value) => 
+        {
+            wup = (KeyCode) value;
+        };
+
+        wd.changeEvent += (sender, value) =>
+        {
+            wup = (KeyCode)value;
+        };
+
+        wup = (KeyCode) wu.Value;
+        wdown = (KeyCode)wd.Value;
+
         watch.Start();
         if (!generated)
         {
@@ -46,8 +78,7 @@ public class MeshGenerator : MonoBehaviour
                 previous = model;
                 generated = true;
             }
-        }
-        
+        }        
     }
 
     /// <summary>
@@ -83,12 +114,14 @@ public class MeshGenerator : MonoBehaviour
     private Coroutine currentGen;
     private bool genFull = false;
 
+    
+
     /// <summary>
     /// Alter the wPos based on the current inputs
     /// </summary>
     private void DoInputs()
     {
-        if (Input.GetKey(KeyCode.J))
+        if (Input.GetKey(wup))
         {
             if (watch.Elapsed.TotalSeconds > model.wPosUpdateRate)
             {
@@ -100,7 +133,7 @@ public class MeshGenerator : MonoBehaviour
             genFull = true;           
             
         }
-        if (Input.GetKey(KeyCode.I))
+        if (Input.GetKey(wdown))
         {
             if (watch.Elapsed.TotalSeconds > model.wPosUpdateRate)
             {

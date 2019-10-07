@@ -22,6 +22,9 @@ public class MeshGeneratorEditor : Editor
     /// </summary>
     public override void OnInspectorGUI()
     {
+        GUILayout.Label($"Press {meshGen.WUp} to go up in w pos");
+        GUILayout.Label($"Press {meshGen.WDown} to go up in w pos");
+        GUILayout.Space(20);
         base.OnInspectorGUI();
 
         if (meshGen.gen)

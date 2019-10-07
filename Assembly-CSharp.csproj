@@ -160,6 +160,8 @@
      <Compile Include="Assets\AssetStoreImports\Standard Assets\Vehicles\Car\Scripts\WheelEffects.cs" />
      <Compile Include="Assets\Editors\MeshGeneratorEditor.cs" />
      <Compile Include="Assets\Scripts\Grappling Hook\GrapplingHook.cs" />
+     <Compile Include="Assets\Scripts\Settings\CustomExceptions.cs" />
+     <Compile Include="Assets\Scripts\Settings\SettingsManager.cs" />
      <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Chunk.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\GeneratorHelper.cs" />
@@ -444,9 +446,6 @@
  </Reference>
  <Reference Include="UnityEngine.XRModule">
  <HintPath>D:/unityInstalls/2019.2.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
- </Reference>
- <Reference Include="Assembly-CSharp-firstpass">
- <HintPath>D:/unityFiles/projects/4DGame/ProjectC/Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Editor">
  <HintPath>D:/unityFiles/projects/4DGame/ProjectC/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
