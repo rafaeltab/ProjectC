@@ -159,7 +159,9 @@
      <Compile Include="Assets\AssetStoreImports\Standard Assets\Vehicles\Car\Scripts\Suspension.cs" />
      <Compile Include="Assets\AssetStoreImports\Standard Assets\Vehicles\Car\Scripts\WheelEffects.cs" />
      <Compile Include="Assets\Editors\MeshGeneratorEditor.cs" />
-     <Compile Include="Assets\Scripts\Grappling Hook\GrapplingHook.cs" />
+     <Compile Include="Assets\Scripts\GrapplingHook\GrapplingHook.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\MovementController\MovementController.cs" />
      <Compile Include="Assets\Scripts\Settings\CustomExceptions.cs" />
      <Compile Include="Assets\Scripts\Settings\SettingsManager.cs" />
      <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
