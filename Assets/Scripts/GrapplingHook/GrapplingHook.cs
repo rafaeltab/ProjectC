@@ -10,7 +10,7 @@ namespace Assets.Scripts.Grappling_Hook
         public Camera mainCam;
         private bool grappled = false;
         private Vector3 grappleLocation;
-        public float force = 10;
+        public float force = 5;
         public Rigidbody body;
 
         private void Update()
@@ -20,20 +20,20 @@ namespace Assets.Scripts.Grappling_Hook
                 Grapple();
             }
 
-            else if (Input.GetMouseButtonDown(1))
+            else if (Input.GetMouseButtonUp(0))
             {
                 grappled = false;
             }
 
             if (grappled)
             {
-                body.AddForce(-LookAt(transform.position, grappleLocation) * force, ForceMode.Force);
+                body.AddForce(LookAt(transform.position, grappleLocation) * force, ForceMode.Force);
             }
         }
 
         private Vector3 LookAt(Vector3 current, Vector3 target)
         {
-            Vector3 direction = (current - target) / Vector3.Distance(current, target);
+            Vector3 direction = (target - current) / Vector3.Distance(current, target);
             return direction;
         }
 
