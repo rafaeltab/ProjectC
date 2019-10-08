@@ -13,15 +13,15 @@ public class ItemDatabase : MonoBehaviour
         public string title { get; set; }
         public string description { get; set; }
         public Sprite sprite { get; set; }
-        public bool stackable { get; set; }
+        public int stackLimit { get; set; }
 
-        public Item(int id, string title, string description, string spriteLocation, bool stackable)
+        public Item(int id, string title, string description, string spriteLocation, int stackLimit)
         {
             this.id = id;
             this.title = title;
             this.description = description;
             this.sprite = Resources.Load<Sprite>("Sprites/Items/" + spriteLocation);
-            this.stackable = stackable;
+            this.stackLimit = stackLimit;
         }
     }
 
@@ -32,9 +32,9 @@ public class ItemDatabase : MonoBehaviour
 
     public static void fillDatabase()
     {
-        database.Add(new Item(0, "Empty", "", "empty", false));
-        database.Add(new Item(1, "Dirt", "Some dirt", "dirt", true));
-        database.Add(new Item(2, "Stone", "Some stone", "stone", true));
+        database.Add(new Item(0, "Empty", "", "empty", 0));
+        database.Add(new Item(1, "Dirt", "Some dirt", "dirt", 64));
+        database.Add(new Item(2, "Stone", "Some stone", "stone", 64));
         Debug.Log("Items added to the database");
     }
 

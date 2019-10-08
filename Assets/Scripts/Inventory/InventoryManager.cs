@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class InventoryManager : MonoBehaviour
     private int slotRow;
     public static List<ItemSlot> inventoryList = new List<ItemSlot>();
     public GameObject canvas;
-    public Vector3 offsetInventory;
+    public static Vector3 offsetInventory;
     public static Vector3 offsetHotbar;
 
     public class ItemSlot
@@ -63,21 +64,30 @@ public class InventoryManager : MonoBehaviour
             string amountText;
             if (this.amount == 0) { amountText = ""; }
             else { amountText = this.amount.ToString(); }
-            amountObj.GetComponent<Text>().text = amountText;
+            amountObj.GetComponent<TextMeshProUGUI>().text = amountText;
 
             if (this.hotbarObj != null)
             {
                 amountObj = this.hotbarObj.transform.GetChild(0).GetChild(0).gameObject;
-                amountObj.GetComponent<Text>().text = amountText;
+                amountObj.GetComponent<TextMeshProUGUI>().text = amountText;
             }
         }
 
         public void sumItems(ItemSlot secondItemSlot)
         {
             secondItemSlot.amount += this.amount;
-            secondItemSlot.updateAmount();
+            if (secondItemSlot.amount > secondItemSlot.item.stackLimit) //If more than stacklimit
+            {
+                this.amount = secondItemSlot.amount - secondItemSlot.item.stackLimit;
+                secondItemSlot.amount = secondItemSlot.item.stackLimit;
+                updateAmount();
+            }
+            else
+            {
+                emptyItemSlot();
+            }
 
-            emptyItemSlot();
+            secondItemSlot.updateAmount();
         }
 
         public void switchItems(ItemSlot secondItemSlot)
@@ -195,8 +205,8 @@ public class InventoryManager : MonoBehaviour
 
             //ItemSlot itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(0), 0, hotbarObj); //Default
             ItemSlot itemSlot;
-            if (i % 2 == 0) { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(1), 1, hotbarObj); }
-            else { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(2), 1, hotbarObj); }
+            if (i % 2 == 0) { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(1), 32, hotbarObj); }
+            else { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(2), 50, hotbarObj); }
 
             inventoryList.Add(itemSlot);
         }
