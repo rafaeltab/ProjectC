@@ -61,6 +61,7 @@
      <Compile Include="Assets\AssetStoreImports\Standard Assets\Editor\Water\Water4\SpecularLightingEditor.cs" />
      <Compile Include="Assets\AssetStoreImports\Standard Assets\Editor\Water\Water4\WaterBaseEditor.cs" />
      <Compile Include="Assets\AssetStoreImports\Standard Assets\Editor\Water\Water4\WaterEditorUtility.cs" />
+     <Compile Include="Assets\Editor\MeshGeneratorEditor.cs" />
  <Reference Include="UnityEditor.TestRunner">
  <HintPath>D:/unityFiles/projects/4DGame/ProjectC/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>

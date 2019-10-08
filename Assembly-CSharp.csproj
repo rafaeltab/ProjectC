@@ -158,13 +158,13 @@
      <Compile Include="Assets\AssetStoreImports\Standard Assets\Vehicles\Car\Scripts\SkidTrail.cs" />
      <Compile Include="Assets\AssetStoreImports\Standard Assets\Vehicles\Car\Scripts\Suspension.cs" />
      <Compile Include="Assets\AssetStoreImports\Standard Assets\Vehicles\Car\Scripts\WheelEffects.cs" />
-     <Compile Include="Assets\Editors\MeshGeneratorEditor.cs" />
+     <Compile Include="Assets\Scripts\General\FPSCounter.cs" />
+     <Compile Include="Assets\Scripts\General\SimpleCameraController.cs" />
      <Compile Include="Assets\Scripts\GrapplingHook\GrapplingHook.cs" />
      <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
      <Compile Include="Assets\Scripts\MovementController\MovementController.cs" />
      <Compile Include="Assets\Scripts\Settings\CustomExceptions.cs" />
      <Compile Include="Assets\Scripts\Settings\SettingsManager.cs" />
-     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Chunk.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\GeneratorHelper.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Helper.cs" />

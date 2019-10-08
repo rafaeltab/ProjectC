@@ -29,6 +29,7 @@ public class SettingsManager
         settings.Add(new ControlsSettings());
         settings.Add(new AudioSettings());
         settings.Add(new VideoSettings());
+        settings.Add(new GeneralSettings());
     }
 
     /// <summary>
@@ -132,6 +133,15 @@ public class VideoSettings : Settings
     {
         ClassName = "Video";
         SettingsList.Add(new Setting("TestSetting","test","",typeof(string)));
+    }
+}
+
+public class GeneralSettings : Settings
+{
+    public GeneralSettings()
+    {
+        ClassName = "General";
+        SettingsList.Add(new Setting("Show fps", "showfps", true, typeof(bool)));
     }
 }
 
