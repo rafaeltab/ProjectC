@@ -12,6 +12,10 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
     public GameObject itemInfoBox;
     public Vector3 offset;
 
+    /// <summary>
+    /// <para>Gets called if the item gets dropped in the item slot</para>
+    /// If the items are the same call sumItems, if not then call switchItems
+    /// </summary>
     public void OnDrop(PointerEventData eventData)
     {
 
@@ -36,13 +40,18 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
 
     }
 
+    /// <summary>
+    /// Get the itemInfoBox GameObject
+    /// </summary>
     private void Start()
     {
         itemInfoBox = itemSlot.slotObj.transform.parent.parent.GetChild(1).gameObject;
     }
 
 
-    //Hover over item slot
+    /// <summary>
+    /// If the mouse hovers over the item slot, activate Hover and show item info
+    /// </summary>
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("Enter");
@@ -56,6 +65,10 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
         }
     }
 
+
+    /// <summary>
+    /// While hovering, move the item info to the mouse position
+    /// </summary>
     public void Update()
     {
         if (hovering)
@@ -65,6 +78,9 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
         }
     }
 
+    /// <summary>
+    /// If the mouse stops hovering, disable Hover and the item info
+    /// </summary>
     public void OnPointerExit(PointerEventData eventData)
     {
         Debug.Log("Exit");
@@ -73,6 +89,9 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
         itemInfoBox.SetActive(false);
     }
 
+    /// <summary>
+    /// If the mouse stops hovering, disable Hover and the item info
+    /// </summary>
     public void OnDisable()
     {
         hovering = false;

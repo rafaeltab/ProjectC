@@ -13,7 +13,9 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public bool disabled = false;
 
-
+    /// <summary>
+    /// If item gets dragged
+    /// </summary>
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (itemSlot.amount != 0)
@@ -29,6 +31,9 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         }
     }
 
+    /// <summary>
+    /// While item gets dragged, mouse the item to the mouse position
+    /// </summary>
     public void OnDrag(PointerEventData eventData)
     {
         if (itemSlot.amount != 0 && dragging)
@@ -37,16 +42,25 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         }
     }
 
+    /// <summary>
+    /// If items stops getting dragged
+    /// </summary>
     public void OnEndDrag(PointerEventData eventData)
     {
         endDrag();
     }
 
+    /// <summary>
+    /// If the inventory gets disabled
+    /// </summary>
     public void OnDisable()
     {
         if (dragging) { disabled = true; endDrag(); }
     }
 
+    /// <summary>
+    /// Ends the dragging and drop the item if it's dragged outside the inventory
+    /// </summary>
     public void endDrag()
     {
         Debug.Log("End dragging item");

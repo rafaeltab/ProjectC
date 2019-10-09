@@ -12,6 +12,10 @@ public class Equip : MonoBehaviour
 
     public static GameObject obj;
 
+    /// <summary>
+    /// Get the hotbar slots from inventoryList
+    /// </summary>
+    /// <param name="inventoryList">The list of the inventory with all the item slots</param>
     public static void getHotbarItemSlots(List<InventoryManager.ItemSlot> inventoryList)
     {
 
@@ -24,12 +28,20 @@ public class Equip : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Set up an empty GameObject
+    /// </summary>
     public void Start()
     {
         obj = new GameObject();
         obj.SetActive(false);
     }
 
+
+    /// <summary>
+    /// <para>If the player is scrolling up, equip the hotbar slot to the left</para>
+    /// If the player is scrolling down, equip the hotbar slot to the right
+    /// </summary>
     public void Update()
     {
         if (Input.mouseScrollDelta.y != 0)

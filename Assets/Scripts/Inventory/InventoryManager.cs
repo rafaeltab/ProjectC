@@ -26,6 +26,14 @@ public class InventoryManager : MonoBehaviour
         public int amount { get; set; }
         public GameObject hotbarObj { get; set; }
 
+        /// <summary>
+        /// Class for the item slots
+        /// </summary>
+        /// <param name="slotObj">GameObject of the item slot</param>
+        /// <param name="slotID">ID of the item slot</param>
+        /// <param name="item">The item in the item slot</param>
+        /// <param name="amount">How much of the item is in the slot</param>
+        /// <param name="hotbarObj">GameObject of the hotbar slot, is null if the item slot is not a hotbar slot (not the first 5 item slots at the bottom in the inventory)</param>
         public ItemSlot(GameObject slotObj, int slotID, ItemDatabase.Item item, int amount, GameObject hotbarObj)
         {
             this.slotObj = slotObj;
@@ -38,6 +46,12 @@ public class InventoryManager : MonoBehaviour
             initiateItem(item, amount);
         }
 
+
+        /// <summary>
+        /// Refreshes the item in the item slot with a new item
+        /// </summary>
+        /// <param name="item">The new item in the item slot</param>
+        /// <param name="amount">How much of the item there is</param>
         public void initiateItem(ItemDatabase.Item item, int amount)
         {
             this.item = item;
@@ -49,7 +63,7 @@ public class InventoryManager : MonoBehaviour
             this.itemObj.name = this.item.title;
 
 
-            if (this.hotbarObj != null)
+            if (this.hotbarObj != null) //If it's not a hotbar item slot
             {
                 this.hotbarObj.transform.GetChild(0).GetComponent<Image>().sprite = this.item.sprite;
                 this.hotbarObj.transform.GetChild(0).name = this.item.title;
@@ -58,6 +72,9 @@ public class InventoryManager : MonoBehaviour
             updateAmount();
         }
 
+        /// <summary>
+        /// Updates the amount/stack text in the item slot
+        /// </summary>
         public void updateAmount()
         {
             GameObject amountObj = this.itemObj.transform.GetChild(0).gameObject;
@@ -73,6 +90,11 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
+        /// <summary>
+        /// <para>Add the amounts of the item slots together and keep them in the secondItemSlot</para>
+        /// If the amount is higher than the stackLimit, the amount of the secondItemSlot will be the stackLimit and the amount of the first/original itemslot will get the rest
+        /// </summary>
+        /// <param name="secondItemSlot">The slot where the item has been dropped in</param>
         public void sumItems(ItemSlot secondItemSlot)
         {
             secondItemSlot.amount += this.amount;
@@ -90,6 +112,11 @@ public class InventoryManager : MonoBehaviour
             secondItemSlot.updateAmount();
         }
 
+
+        /// <summary>
+        /// Switch the items in the item slots
+        /// </summary>
+        /// <param name="secondItemSlot">The slot where the item has been dropped in</param>
         public void switchItems(ItemSlot secondItemSlot)
         {
             ItemDatabase.Item itemTemp = this.item;
@@ -100,6 +127,9 @@ public class InventoryManager : MonoBehaviour
             secondItemSlot.initiateItem(itemTemp, amountTemp);
         }
 
+        /// <summary>
+        /// Refresh the item slot with the item "Empty"
+        /// </summary>
         public void emptyItemSlot()
         {
             initiateItem(ItemDatabase.fetchItemByID(0), 0);
@@ -107,7 +137,9 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Fills the database, updates the UI size, adds the item slots to the inventory and keep them in a list and receive the hotbar slots
+    /// </summary>
     private void Start()
     {
 
@@ -132,7 +164,9 @@ public class InventoryManager : MonoBehaviour
      */
 
 
-
+    /// <summary>
+    /// Updates the UI size (inventory and hotbar dimensions) if the screen dimensions change
+    /// </summary>
     public void updateUISize()
     {
         Vector2 canvasSize = canvas.transform.GetComponent<RectTransform>().sizeDelta;
@@ -180,6 +214,9 @@ public class InventoryManager : MonoBehaviour
         offsetHotbar = new Vector3(inventoryLeftRight + 20, hotbarHeight / 20 + 10, 0);
     }
 
+    /// <summary>
+    /// Adds a new row in the inventory
+    /// </summary>
     public void addRow()
     {
 
@@ -214,17 +251,29 @@ public class InventoryManager : MonoBehaviour
         slotRow += 1;
     }
 
-
+    /// <summary>
+    /// Returns an item Slot from inventoryList with the id
+    /// </summary>
+    /// <param name="id">The id of the item Slot</param>
+    /// <returns>The specified item Slot from the list</returns>
     public static ItemSlot fetchItemSlotByID(int id)
     {
         return inventoryList[id];
     }
 
+    /// <summary>
+    /// Gets called if the player picks up an item off the ground (WIP)
+    /// </summary>
+    /// <param name="item">The item the player picked up off the ground</param>
     public static void pickUpItem(ItemDatabase.Item item)
     {
         //Do stuff
     }
 
+    /// <summary>
+    /// Remove the item from the inventory and drop it on the ground (The item gets destroyed/removed for now)
+    /// </summary>
+    /// <param name="itemSlot">The item slot where the item is contained</param>
     public static void dropItem(ItemSlot itemSlot)
     {
         //Remove item for now
@@ -232,6 +281,9 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Update is called once per frame
+    /// <summary>
+    /// Open and close the inventory by pressing I
+    /// </summary>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
@@ -243,7 +295,9 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Check for any screensize changes
+    /// </summary>
     private void OnRectTransformDimensionsChange()
     {
         updateUISize();
