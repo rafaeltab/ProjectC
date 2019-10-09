@@ -40,7 +40,6 @@ public class MeshGenerator : MonoBehaviour
     private Vector3Int oldLoadChunk;
 
     private Stopwatch watch = new Stopwatch();
-
     public double time { get
         {
             return watch.Elapsed.TotalSeconds;
