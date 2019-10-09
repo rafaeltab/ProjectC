@@ -2,50 +2,90 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Grappling_Hook
+public class GrapplingHook : MonoBehaviour
 {
-    public class GrapplingHook : MonoBehaviour
+    public GameObject hook;
+    public GameObject hookHolder;
+
+    public float hookTravelSpeed;
+    public float playerTravelSpeed;
+
+    public static bool fired;
+    public bool hooked;
+    public GameObject hookedObj;
+
+    public float maxDistance;
+    private float currentDistance;
+
+    private bool grounded;
+
+    void Update()
     {
-        public float maxGrappleDist = 1;
-        public Camera mainCam;
-        private bool grappled = false;
-        private Vector3 grappleLocation;
-        public float force = 5;
-        public Rigidbody body;
+        //Firing the hook
+        if (Input.GetMouseButtonDown(0) && fired == false)
+            fired = true;
 
-        private void Update()
+        if (fired)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Grapple();
-            }
+            LineRenderer rope = hook.GetComponent<LineRenderer>();
+            rope.SetVertexCount(2);
+            rope.SetPosition(0, hookHolder.transform.position);
+            rope.SetPosition(1, hook.transform.position);
+        }
+        
+        if (fired == true && hooked == false)
+        {
+            hook.transform.Translate(Vector3.forward * Time.deltaTime * hookTravelSpeed);
+            currentDistance = Vector3.Distance(transform.position, hook.transform.position);
 
-            else if (Input.GetMouseButtonUp(0))
-            {
-                grappled = false;
-            }
-
-            if (grappled)
-            {
-                body.AddForce(LookAt(transform.position, grappleLocation) * force, ForceMode.Force);
-            }
+            if (currentDistance >= maxDistance)
+                ReturnHook();
         }
 
-        private Vector3 LookAt(Vector3 current, Vector3 target)
+        if (hooked == true && fired == true)
         {
-            Vector3 direction = (target - current) / Vector3.Distance(current, target);
-            return direction;
-        }
+            hook.transform.parent = hookedObj.transform;
+            transform.position = Vector3.MoveTowards(transform.position, hook.transform.position, Time.deltaTime * playerTravelSpeed);
+            float distanceToHook = Vector3.Distance(transform.position, hook.transform.position);
 
-        private void Grapple()
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, maxGrappleDist))
+            this.GetComponent<Rigidbody>().useGravity = false;
+
+            if (distanceToHook < 1.5)
             {
-                grappled = true;
-                Debug.Log(hit.transform.name);
-                grappleLocation = hit.point;
+                ReturnHook();
             }
+        }
+        else {
+            hook.transform.parent = hookHolder.transform;
+            hook.transform.localScale = Vector3.one;
+            this.GetComponent<Rigidbody>().useGravity = true;
         }
     }
+
+    void ReturnHook()
+    {
+        hook.transform.rotation = hookHolder.transform.rotation;
+        hook.transform.position = hookHolder.transform.position;
+        fired = false;
+        hooked = false;
+
+        LineRenderer rope = hook.GetComponent<LineRenderer>();
+        rope.SetVertexCount(0);
+    }
+
+    void CheckGrounded()
+    {
+        RaycastHit hit;
+        float distance = 1f;
+        Vector3 dir = new Vector3(0, -1);
+
+        if (Physics.Raycast(transform.position, dir, out hit, distance))
+        {
+            grounded = true;
+        }
+        else {
+            grounded = false;
+        }
+    }
+
 }
