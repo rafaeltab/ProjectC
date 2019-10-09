@@ -34,5 +34,7 @@ namespace Assets.Scripts
         public Transform loadPoint;
         public Vector3 loadPointPos;
         public float wPosUpdateRate = 1f;//in seconds
+        public enum Visualizer { VOXEL, MARCHING, GPU_MARCHING}
+        public Visualizer visualizer;
     }
 }

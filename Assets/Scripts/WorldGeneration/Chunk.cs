@@ -20,7 +20,6 @@ namespace Assets.Scripts
         private readonly float threshold;
         private float[,,] vals;
         private IMeshVisualiser mv;
-
         private bool generated = false;
 
         /// <summary>
@@ -29,10 +28,27 @@ namespace Assets.Scripts
         /// <param name="pos">The Chunks position</param>
         /// <param name="trength">The chunks 4th dimension position</param>
         /// <param name="size">The size of the chunk</param>
-        public Chunk(Vector3Int pos,float trength,long seed,float threshold, int size = 16, float noiseScale = 1f)
+        /// <param name="compute">ComputeShader used by the gpu visualizor</param>
+        /// <param name="generator">The monobehaviour that called this function</param>
+        /// <param name="visualizer">What visualizor to use</param>
+        public Chunk(Vector3Int pos,float trength,long seed,float threshold, ComputeShader compute, MonoBehaviour generator,MeshGenModel.Visualizer visualizer, int size = 16, float noiseScale = 1f)
         {
-            mv = new MarchingVisualiser(threshold);
-            this.seed = seed+mv.sizeOffset();
+            switch (visualizer)
+            {
+                case MeshGenModel.Visualizer.VOXEL:
+                    mv = new VoxelVisualisor(threshold);
+                    break;
+                case MeshGenModel.Visualizer.MARCHING:
+                    mv = new MarchingVisualiser(threshold);
+                    break;
+                case MeshGenModel.Visualizer.GPU_MARCHING:
+                    mv = new MarchingComputeVisualiser(threshold, compute, generator);
+                    break;
+                default:
+                    break;
+            }
+
+            this.seed = seed;
             position = pos;
             this.trength = trength;
             this.size = size;
@@ -80,7 +96,14 @@ namespace Assets.Scripts
             }
             MeshCollider coll = go.GetComponent<MeshCollider>();
             if(coll != null){
-                coll.sharedMesh = mesh;
+                try
+                {
+                    coll.sharedMesh = mesh;
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(position);
+                }
             }
             filter.mesh = mesh;
             go.SetActive(true);

@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.05
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.12749197, g: 0.13169721, b: 0.14150941, a: 1}
+  m_AmbientSkyColor: {r: 0.49261305, g: 0.49822003, b: 0.509434, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 1317572471}
   - component: {fileID: 1317572470}
   - component: {fileID: 1317572474}
+  - component: {fileID: 1317572475}
   m_Layer: 0
   m_Name: TheMainCamera
   m_TagString: Untagged
@@ -350,6 +351,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1317572475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317572469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd5e29c4c3b0c3645a702e1b2a61a4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1795773823802247831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -422,5 +435,15 @@ PrefabInstance:
       propertyPath: model.loadPoint
       value: 
       objectReference: {fileID: 1317572473}
+    - target: {fileID: 1795773823328542374, guid: 788d186d45ab10e4ea54c7ed29fd43f7,
+        type: 3}
+      propertyPath: model.renderDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795773823328542374, guid: 788d186d45ab10e4ea54c7ed29fd43f7,
+        type: 3}
+      propertyPath: model.visualizer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 788d186d45ab10e4ea54c7ed29fd43f7, type: 3}

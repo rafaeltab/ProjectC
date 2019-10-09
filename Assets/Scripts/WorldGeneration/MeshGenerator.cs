@@ -14,9 +14,26 @@ using System.Linq;
 
 public class MeshGenerator : MonoBehaviour
 {
-    [Header("Press I to go up in wPos")]
-    [Header("Press J to go down in wPos")]
+    private KeyCode wup;
+    private KeyCode wdown;
+
+    public KeyCode WUp
+    {
+        get
+        {
+            return wup;
+        }
+    }
+    public KeyCode WDown
+    {
+        get
+        {
+            return wdown;
+        }
+    }
+
     public MeshGenModel model;
+    public ComputeShader compute;
     private MeshGenModel previous;
 
     private bool generated = false;
@@ -35,6 +52,8 @@ public class MeshGenerator : MonoBehaviour
     /// </summary>
     void Start()
     {
+        ListenToSettings();
+
         watch.Start();
         if (!generated)
         {
@@ -46,8 +65,28 @@ public class MeshGenerator : MonoBehaviour
                 previous = model;
                 generated = true;
             }
-        }
-        
+        }        
+    }
+
+    /// <summary>
+    /// make sure we are listening to the SettingsManager for updates in our controls
+    /// </summary>
+    private void ListenToSettings()
+    {
+        Setting wu = SettingsManager.GetInstance().Settings[0].GetSetting("wup");
+        Setting wd = SettingsManager.GetInstance().Settings[0].GetSetting("wdown");
+        wu.changeEvent += (sender, value) =>
+        {
+            wup = (KeyCode)value;
+        };
+
+        wd.changeEvent += (sender, value) =>
+        {
+            wup = (KeyCode)value;
+        };
+
+        wup = (KeyCode)wu.Value;
+        wdown = (KeyCode)wd.Value;
     }
 
     /// <summary>
@@ -81,14 +120,14 @@ public class MeshGenerator : MonoBehaviour
 
     public bool gen = true;
     private Coroutine currentGen;
-    private bool genFull = false;
+    private bool genFull = false;    
 
     /// <summary>
     /// Alter the wPos based on the current inputs
     /// </summary>
     private void DoInputs()
     {
-        if (Input.GetKey(KeyCode.J))
+        if (Input.GetKey(wup))
         {
             if (watch.Elapsed.TotalSeconds > model.wPosUpdateRate)
             {
@@ -97,10 +136,10 @@ public class MeshGenerator : MonoBehaviour
             }
             model.wPos += 0.05f;
             generated = false;
-            genFull = true;           
+            genFull = true;
             
         }
-        if (Input.GetKey(KeyCode.I))
+        if (Input.GetKey(wdown))
         {
             if (watch.Elapsed.TotalSeconds > model.wPosUpdateRate)
             {
@@ -132,6 +171,7 @@ public class MeshGenerator : MonoBehaviour
                 GameObject go = Instantiate(model.template,transform);
                 chunks.Add(go);
                 chunkLocs.Add(null);
+                wPosses.Add(float.MaxValue);
             }
         }
     }
@@ -157,7 +197,7 @@ public class MeshGenerator : MonoBehaviour
     /// </summary>
     public void StopCurrentGen()
     {
-        if (currentGen != null)
+        if (currentGen != null && !genFull)
         {
             StopCoroutine(currentGen);
             gen = true;
@@ -166,6 +206,7 @@ public class MeshGenerator : MonoBehaviour
 
     private List<GameObject> chunks = new List<GameObject>();
     private List<Vector3Int?> chunkLocs = new List<Vector3Int?>();
+    private List<float> wPosses = new List<float>();
 
     /// <summary>
     /// Generate all chunks
@@ -199,9 +240,10 @@ public class MeshGenerator : MonoBehaviour
 
         for (int i = 0; i < gos.Count; i++)
         {
-            Chunk c = new Chunk(locs[i], model.wPos, 1, model.threshold, model.size, model.noiseScale);
+            Chunk c = new Chunk(locs[i], model.wPos, 1, model.threshold,compute,this,model.visualizer, model.size, model.noiseScale);
             c.Display(gos[i]);
             chunkLocs[linxeses[i]] = locs[i];
+            wPosses[linxeses[i]] = model.wPos;
             yield return null;
         }
 
@@ -225,7 +267,13 @@ public class MeshGenerator : MonoBehaviour
             if (!cl.Contains(tbs) || fullRegen)
             {
                 ToBeGenned.Add(tbs);
-
+            }
+            else
+            {
+                if (wPosses[chunkLocs.IndexOf(tbs)] != model.wPos)
+                {
+                    ToBeGenned.Add(tbs);
+                }
             }
             ind++;
         }
@@ -237,7 +285,7 @@ public class MeshGenerator : MonoBehaviour
         
         foreach (var c in chunkLocs)
         {
-            if (!c.HasValue || fullRegen)
+            if (!c.HasValue || fullRegen || wPosses[ind] != model.wPos)
             {
                 gos.Add(chunks[ind]);
                 indexes.Add(ind);
