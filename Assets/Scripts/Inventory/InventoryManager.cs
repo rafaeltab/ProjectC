@@ -56,8 +56,6 @@ public class InventoryManager : MonoBehaviour
         {
             this.item = item;
             this.amount = amount;
-
-            this.itemObj.GetComponent<ItemDrag>().itemSlot = this;
             
             this.itemObj.GetComponent<Image>().sprite = this.item.sprite;
             this.itemObj.name = this.item.title;
@@ -91,40 +89,52 @@ public class InventoryManager : MonoBehaviour
         }
 
         /// <summary>
-        /// <para>Add the amounts of the item slots together and keep them in the secondItemSlot</para>
-        /// If the amount is higher than the stackLimit, the amount of the secondItemSlot will be the stackLimit and the amount of the first/original itemslot will get the rest
+        /// <para>Add the amount of the grabbed item to itemSlot</para>
+        /// If the amount is higher than the stackLimit, the amount of the itemSlot will be the stackLimit and the amount of the grabbed item will get the rest
         /// </summary>
-        /// <param name="secondItemSlot">The slot where the item has been dropped in</param>
-        public void sumItems(ItemSlot secondItemSlot)
+        /// <param name="amount">The item amount of the grabbedItem</param>
+        public void sumItems(int amount)
         {
-            secondItemSlot.amount += this.amount;
-            if (secondItemSlot.amount > secondItemSlot.item.stackLimit) //If more than stacklimit
+            this.amount += amount;
+
+            int rest = 0;
+            if (this.amount > Slot.grabbedItem.stackLimit) //If more than stacklimit
             {
-                this.amount = secondItemSlot.amount - secondItemSlot.item.stackLimit;
-                secondItemSlot.amount = secondItemSlot.item.stackLimit;
-                updateAmount();
-            }
-            else
-            {
-                emptyItemSlot();
+                rest = this.amount - Slot.grabbedItem.stackLimit;
+                this.amount = Slot.grabbedItem.stackLimit;
             }
 
-            secondItemSlot.updateAmount();
+            initiateItem(Slot.grabbedItem, this.amount);
+            Slot.updateGrabbedItemObj(Slot.grabbedItem, rest);
+        }
+
+        /// <summary>
+        /// Adds 1 to the amount of itemSlot and remove 1 to the amount of the grabbed item
+        /// </summary>
+        public void addOne()
+        {
+            if (this.amount != Slot.grabbedItem.stackLimit)
+            {
+                this.amount += 1;
+                initiateItem(Slot.grabbedItem, this.amount);
+                Slot.updateGrabbedItemObj(Slot.grabbedItem, Slot.grabbedAmount - 1);
+            }
         }
 
 
         /// <summary>
-        /// Switch the items in the item slots
+        /// Switch the items and amount in itemSlot and grabbed item
         /// </summary>
-        /// <param name="secondItemSlot">The slot where the item has been dropped in</param>
-        public void switchItems(ItemSlot secondItemSlot)
+        /// <param name="item">The grabbedItem</param>
+        /// <param name="amount">The amount of the grabbed item</param>
+        public void switchItems(ItemDatabase.Item item, int amount)
         {
             ItemDatabase.Item itemTemp = this.item;
             int amountTemp = this.amount;
 
-            initiateItem(secondItemSlot.item, secondItemSlot.amount);
+            initiateItem(item, amount);
 
-            secondItemSlot.initiateItem(itemTemp, amountTemp);
+            Slot.updateGrabbedItemObj(itemTemp, amountTemp);
         }
 
         /// <summary>
@@ -228,13 +238,13 @@ public class InventoryManager : MonoBehaviour
                 extraDistance = 5;
             }
 
-            GameObject slotObj = Instantiate(itemSlotPrefab, new Vector3(25 + 60*i, 25 + 60*slotRow + extraDistance, 0) + offsetInventory, new Quaternion(0, 0, 0, 0), inventoryPanel.transform.GetChild(0));
+            GameObject slotObj = Instantiate(itemSlotPrefab, new Vector3(265 + -60*i, 25 + 60*slotRow + extraDistance, 0) + offsetInventory, new Quaternion(0, 0, 0, 0), inventoryPanel.transform.GetChild(0));
             slotObj.name = "Item Slot " + inventoryList.Count;
 
             GameObject hotbarObj = null;
             if (slotRow == 0)       //If hotbar (first 5 item slots)
             {
-                hotbarObj = Instantiate(itemSlotPrefab, new Vector3(25 + 60 * i, 25, 0) + offsetHotbar, new Quaternion(0, 0, 0, 0), hotbarPanel.transform.GetChild(0));
+                hotbarObj = Instantiate(itemSlotPrefab, new Vector3(265 + -60*i, 25, 0) + offsetHotbar, new Quaternion(0, 0, 0, 0), hotbarPanel.transform.GetChild(0));
                 Destroy(hotbarObj.GetComponent<Slot>());
                 Destroy(hotbarObj.transform.Find("Hover").gameObject);
                 hotbarObj.name = "Hotbar Slot " + inventoryList.Count;
@@ -261,14 +271,24 @@ public class InventoryManager : MonoBehaviour
         return inventoryList[id];
     }
 
+
+//WIP WIP WIP WIP WIP WIP WIP
     /// <summary>
     /// Gets called if the player picks up an item off the ground (WIP)
     /// </summary>
     /// <param name="item">The item the player picked up off the ground</param>
-    public static void pickUpItem(ItemDatabase.Item item)
+    /// <param name="amount">How much of the item there is</param>
+    public static void pickUpItem(ItemDatabase.Item item, int amount)
     {
         //Do stuff
+        // if item already in inventory, add
+        // if item not in inventory or item in inventory but all full stacks, then put in new item slot (from last to first)
+        // if inventory full, don't pick up item
+
+        //This could be a method in a separate class (item entity class)
     }
+//WIP WIP WIP WIP WIP WIP WIP
+
 
     /// <summary>
     /// Remove the item from the inventory and drop it on the ground (The item gets destroyed/removed for now)

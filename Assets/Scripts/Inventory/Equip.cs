@@ -7,7 +7,7 @@ public class Equip : MonoBehaviour
     public static List<InventoryManager.ItemSlot> hotbarList = new List<InventoryManager.ItemSlot>();
 
     public GameObject selectHighlight;
-    public int selectPos = 0;
+    public int selectPos = 4;
     public static InventoryManager.ItemSlot selectedItemSlot;
 
     public static GameObject obj;

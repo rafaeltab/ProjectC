@@ -171,7 +171,6 @@
     <Compile Include="Assets\Scripts\Inventory\Equip.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\ItemDatabase.cs" />
-    <Compile Include="Assets\Scripts\Inventory\ItemDrag.cs" />
     <Compile Include="Assets\Scripts\Inventory\Slot.cs" />
     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\Scripts\WorldGeneration\Chunk.cs" />
