@@ -440,5 +440,10 @@ PrefabInstance:
       propertyPath: model.renderDistance
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1795773823328542374, guid: 788d186d45ab10e4ea54c7ed29fd43f7,
+        type: 3}
+      propertyPath: model.visualizer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 788d186d45ab10e4ea54c7ed29fd43f7, type: 3}

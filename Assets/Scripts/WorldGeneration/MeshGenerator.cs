@@ -33,6 +33,7 @@ public class MeshGenerator : MonoBehaviour
     }
 
     public MeshGenModel model;
+    public ComputeShader compute;
     private MeshGenModel previous;
 
     private bool generated = false;
@@ -239,7 +240,7 @@ public class MeshGenerator : MonoBehaviour
 
         for (int i = 0; i < gos.Count; i++)
         {
-            Chunk c = new Chunk(locs[i], model.wPos, 1, model.threshold, model.size, model.noiseScale);
+            Chunk c = new Chunk(locs[i], model.wPos, 1, model.threshold,compute,this,model.visualizer, model.size, model.noiseScale);
             c.Display(gos[i]);
             chunkLocs[linxeses[i]] = locs[i];
             wPosses[linxeses[i]] = model.wPos;

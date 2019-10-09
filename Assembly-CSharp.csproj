@@ -172,6 +172,7 @@
      <Compile Include="Assets\Scripts\WorldGeneration\MeshGenModel.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\SimplexNoise.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Visualisers\IMeshVisualiser.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\Visualisers\MarchingComputeVisualiser.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Visualisers\MarchingVisualiser.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Visualisers\VoxelVisualisor.cs" />
      <None Include="Assets\AssetStoreImports\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
@@ -180,6 +181,7 @@
      <None Include="Assets\AssetStoreImports\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\AssetStoreImports\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
      <None Include="Assets\AssetStoreImports\Standard Assets\Environment\Water (Basic)\DO_NOT_WORK_IN_VR.txt" />
+     <None Include="Assets\Scripts\WorldGeneration\Compute Shaders\Marching Cubes.compute" />
      <None Include="Assets\AssetStoreImports\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularSmooth.shader" />
      <None Include="Assets\AssetStoreImports\Standard Assets\Effects\Projectors\Guidelines.txt" />
      <None Include="Assets\AssetStoreImports\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
@@ -224,6 +226,7 @@
      <None Include="Assets\AssetStoreImports\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
      <None Include="Assets\AssetStoreImports\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\AssetStoreImports\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularDisplacement.shader" />
+     <None Include="Assets\Scripts\WorldGeneration\Compute Shaders\MarchingTable.compute" />
      <None Include="Assets\AssetStoreImports\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\AssetStoreImports\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\AssetStoreImports\SampleScenes\Shaders\Skybox-Procedural.shader" />

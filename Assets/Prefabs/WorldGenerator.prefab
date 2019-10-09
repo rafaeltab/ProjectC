@@ -57,6 +57,7 @@ MonoBehaviour:
     loadPoint: {fileID: 0}
     loadPointPos: {x: 0, y: 0, z: 0}
     wPosUpdateRate: 1
+  compute: {fileID: 7200000, guid: 36954aa2b161c664a8b7e58a88421e0b, type: 3}
   gen: 1
 --- !u!33 &1795773823328542371
 MeshFilter:

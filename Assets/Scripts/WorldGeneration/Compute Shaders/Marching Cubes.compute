@@ -1,0 +1,76 @@
+﻿#pragma kernel MarchingCubes
+#include "/MarchingTable.compute"
+
+static const int nrThreads = 8;
+struct Tri {
+	float3 a;
+	float3 b;
+	float3 c;
+};
+
+AppendStructuredBuffer<Tri> triangles;
+
+//the float points xyz = xyz position w is the value
+RWStructuredBuffer<float4> floatMap;
+
+float surfaceLevel;
+int size;
+
+ 
+//get the flaotMap index from a coordinate
+int indexFromCoordinate(int x, int y, int z){
+	return z * size * size + y * size + x;
+}
+
+float3 inter(float4 v1, float4 v2){
+	float t = ( surfaceLevel - v1.w ) / ( v2.w - v1.w );
+    return v1.xyz + t * ( v2.xyz - v1.xyz );
+}
+
+[numthreads(nrThreads,nrThreads,nrThreads)]
+void MarchingCubes (uint3 id : SV_DispatchThreadID)
+{
+    if(id.x >= size-1 || id.y >= size-1 || id.z >= size-1 || id.x < 0 || id.y < 0 || id.z < 0){
+    	return;	
+    }
+		
+    float4 cube[8] = {
+		floatMap[indexFromCoordinate(id.x,id.y,id.z)],
+		floatMap[indexFromCoordinate(id.x + 1,id.y,id.z)],
+		floatMap[indexFromCoordinate(id.x + 1,id.y,id.z + 1)],
+		floatMap[indexFromCoordinate(id.x,id.y,id.z + 1)],
+		floatMap[indexFromCoordinate(id.x,id.y + 1,id.z)],
+		floatMap[indexFromCoordinate(id.x + 1,id.y + 1,id.z)],
+		floatMap[indexFromCoordinate(id.x + 1,id.y + 1,id.z + 1)],
+		floatMap[indexFromCoordinate(id.x,id.y + 1,id.z + 1)],
+	};
+
+	int cubeInd = 0;
+	if (cube[0].w < surfaceLevel) cubeInd |= 1;
+    if (cube[1].w < surfaceLevel) cubeInd |= 2;
+    if (cube[2].w < surfaceLevel) cubeInd |= 4;
+    if (cube[3].w < surfaceLevel) cubeInd |= 8;
+    if (cube[4].w < surfaceLevel) cubeInd |= 16;
+    if (cube[5].w < surfaceLevel) cubeInd |= 32;
+    if (cube[6].w < surfaceLevel) cubeInd |= 64;
+    if (cube[7].w < surfaceLevel) cubeInd |= 128;
+
+	for (int i = 0; triangulation[cubeInd][i] != -1; i += 3 ) {
+		int A0 = cornerIndexAFromEdge[triangulation[cubeInd][i]];
+		int B0 = cornerIndexBFromEdge[triangulation[cubeInd][i]];
+
+		int A1 = cornerIndexAFromEdge[triangulation[cubeInd][i + 1]];
+		int B1 = cornerIndexBFromEdge[triangulation[cubeInd][i + 1]];
+
+		int A2 = cornerIndexAFromEdge[triangulation[cubeInd][i + 2]];
+		int B2 = cornerIndexBFromEdge[triangulation[cubeInd][i + 2]];
+
+		Tri tri;
+		tri.a = inter(cube[A0], cube[B0]);
+		tri.b = inter(cube[A1], cube[B1]);
+		tri.c = inter(cube[A2], cube[B2]);
+		triangles.Append(tri);
+	}	
+}
+
+
