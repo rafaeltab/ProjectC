@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/destroy.unity
+- path: Assets/Scenes/Grappling Hook test.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class destroy : MonoBehaviour
 {
-    public GameObject other;
+    private Material highlightMaterial;
+
 
     // Start is called before the first frame update
     void Start()
@@ -15,9 +16,21 @@ public class destroy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+
+      if (Input.GetMouseButtonDown(0))
         {
-            Destroy(other);
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                BoxCollider bc = hit.collider as BoxCollider;
+                if (bc != null)
+                {
+                    Destroy(bc.gameObject);
+                }
+            }
         }
+
     }
 }
