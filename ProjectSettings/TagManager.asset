@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Hook
   - Hookable
-  - Fire
   layers:
   - Default
   - TransparentFX
@@ -17,7 +16,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Slot Panel
+  - 
   - 
   - 
   - 
