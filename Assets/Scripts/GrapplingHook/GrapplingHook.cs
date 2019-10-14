@@ -19,12 +19,6 @@ public class GrapplingHook : MonoBehaviour
 
     private bool grounded;
 
-    private Vector3 defaultScale;
-    private void Start()
-    {
-        defaultScale = hook.transform.localScale;
-    }
-
     void Update()
     {
         //Firing the hook
@@ -41,7 +35,6 @@ public class GrapplingHook : MonoBehaviour
         
         if (fired == true && hooked == false)
         {
-
             hook.transform.Translate(Vector3.forward * Time.deltaTime * hookTravelSpeed);
             currentDistance = Vector3.Distance(transform.position, hook.transform.position);
 
@@ -64,7 +57,7 @@ public class GrapplingHook : MonoBehaviour
         }
         else {
             hook.transform.parent = hookHolder.transform;
-            hook.transform.localScale = defaultScale;
+            hook.transform.localScale = Vector3.one;
             this.GetComponent<Rigidbody>().useGravity = true;
         }
     }
