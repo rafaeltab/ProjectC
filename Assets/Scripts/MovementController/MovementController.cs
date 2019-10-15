@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    float MovementSpeed = 1;
+    public float movementSpeed = 2;
+    float startMovementSpeed;
 
     bool isGrounded = true;
     bool isCrouched = false;
@@ -15,13 +16,16 @@ public class MovementController : MonoBehaviour
     private float yaw = 0.0f;
     private float pitch = 0.0f;
 
+    public float viewRange;
+
     public CapsuleCollider sc;
 
     // Start is called before the first frame update
     void Start()
     {
         sc.height = 1;
-         Cursor.lockState = CursorLockMode.Locked;
+        
+        startMovementSpeed = movementSpeed;
     }
 
     // Update is called once per frame
@@ -31,34 +35,34 @@ public class MovementController : MonoBehaviour
         yaw += speedH * Input.GetAxis("Mouse X");
         pitch -= speedV * Input.GetAxis("Mouse Y");
 
-        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        transform.eulerAngles = new Vector3( Mathf.Clamp( pitch, -viewRange, viewRange), yaw, 0);
 
         //code voor het rennen wanneer linkershift wordt ingedrukt
         if(Input.GetKey(KeyCode.LeftShift) && isCrouched == false){
-            MovementSpeed = 3;
+            movementSpeed = startMovementSpeed * 2;
         }else if(Input.GetKey(KeyCode.LeftShift) && isCrouched == true) {
-            MovementSpeed = 0.5f;
+            movementSpeed = startMovementSpeed / 2;
         }else if(isCrouched == true){
-            MovementSpeed = 0.5f;
+            movementSpeed = startMovementSpeed / 2;
         }else{
-            MovementSpeed = 1;
+            movementSpeed = startMovementSpeed;
         }
 
         //code voor het lopen op basis van de ingedrukte letter
         if (Input.GetKey(KeyCode.W)){
-            transform.Translate(Vector3.forward * Time.deltaTime * MovementSpeed);
+            transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
         }
 
         if (Input.GetKey(KeyCode.S)){
-            transform.Translate(Vector3.back * Time.deltaTime * MovementSpeed);
+            transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
         }
 
         if (Input.GetKey(KeyCode.D)){
-            transform.Translate(Vector3.right * Time.deltaTime * MovementSpeed);
+            transform.Translate(Vector3.right * Time.deltaTime * movementSpeed);
         }
 
         if (Input.GetKey(KeyCode.A)){
-            transform.Translate(Vector3.left * Time.deltaTime * MovementSpeed);
+            transform.Translate(Vector3.left * Time.deltaTime * movementSpeed);
         }
 
         if (Input.GetKey(KeyCode.LeftControl)){
