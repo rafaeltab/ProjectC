@@ -33,8 +33,6 @@ public class GrapplingHook : MonoBehaviour
 
         if (fired)
         {
-
-
             LineRenderer rope = hook.GetComponent<LineRenderer>();
             rope.SetVertexCount(2);
             rope.SetPosition(0, hookHolder.transform.position);
