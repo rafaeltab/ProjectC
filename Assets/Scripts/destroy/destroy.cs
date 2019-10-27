@@ -17,20 +17,30 @@ public class destroy : MonoBehaviour
     void Update()
     {
 
-      if (Input.GetMouseButtonDown(0))
+      if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
             {
-                BoxCollider bc = hit.collider as BoxCollider;
-                if (bc != null)
+                Destroyable destroy = hit.transform.gameObject.GetComponent<Destroyable>();
+
+                if (destroy != null)
                 {
-                    Destroy(bc.gameObject);
+                    StartCoroutine(StartDestroy(1,destroy,hit));
                 }
             }
         }
 
+    }
+
+    IEnumerator StartDestroy(float duration,Destroyable destroy,RaycastHit hit)
+    {
+        yield return new WaitForSeconds(duration);
+        if (Input.GetMouseButtonDown(1))
+        {
+            destroy.Destroy(hit);
+        }        
     }
 }
