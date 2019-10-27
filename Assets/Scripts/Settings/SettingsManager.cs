@@ -118,6 +118,7 @@ public class ControlsSettings : Settings {
         SettingsList.Add(new Setting("TestSetting","test","",typeof(string)));
         SettingsList.Add(new Setting("W Up","wup", KeyCode.I,typeof(KeyCode)));
         SettingsList.Add(new Setting("W Down", "wdown", KeyCode.J, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Open Inventory", "oinv", KeyCode.E, typeof(KeyCode)));
     }
 } 
 public class AudioSettings : Settings

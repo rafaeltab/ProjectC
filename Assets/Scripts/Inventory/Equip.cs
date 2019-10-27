@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using static InventoryManager;
+using static ItemDatabase;
 
 public class Equip : MonoBehaviour
 {
     public static List<InventoryManager.ItemSlot> hotbarList = new List<InventoryManager.ItemSlot>();
-
     public GameObject selectHighlight;
     public int selectPos = 4;
     public static InventoryManager.ItemSlot selectedItemSlot;
+    
+    [SerializeField]
+    public List<ItemEquip> itemEquips;
 
     public static GameObject obj;
 
@@ -19,7 +24,7 @@ public class Equip : MonoBehaviour
     public static void getHotbarItemSlots(List<InventoryManager.ItemSlot> inventoryList)
     {
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 4; i >= 0; i--)
         {
             hotbarList.Add(inventoryList[i]);
         }
@@ -46,7 +51,6 @@ public class Equip : MonoBehaviour
     {
         if (Input.mouseScrollDelta.y != 0)
         {
-
             if (Input.mouseScrollDelta.y < 0) //Scroll down
             {
                 if (selectPos == 4)
@@ -73,12 +77,41 @@ public class Equip : MonoBehaviour
             }
             
             selectHighlight.transform.position = new Vector3(selectPos * 60 + 25, 25, 0) + InventoryManager.offsetHotbar;
-            selectedItemSlot = hotbarList[selectPos];
-
+            
+            selectedItemSlot = hotbarList[selectPos];            
         }
+
+        DoItemEquips();
     }
 
+    GameObject oldSelected;
+    Item oldItem;
+    public void DoItemEquips()
+    {
+        if (oldItem != hotbarList[selectPos].item)
+        {
+            foreach (var item in itemEquips)
+            {
+                if (selectedItemSlot.item.id == item.ItemId)
+                {
+                    if (oldSelected != null)
+                    {
+                        oldSelected.SetActive(false);
+                    }
+                    oldSelected = item.go;
+                    oldSelected.SetActive(true);
+                    break;
+                }
+            }
 
+            oldItem = hotbarList[selectPos].item;
+        }
+    }
+}
 
-
+[Serializable]
+public struct ItemEquip
+{
+    public int ItemId;
+    public GameObject go;
 }

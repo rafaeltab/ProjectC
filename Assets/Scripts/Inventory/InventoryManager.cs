@@ -152,7 +152,7 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-
+        ListenToSettings();
         ItemDatabase.fillDatabase();
 
         updateUISize();
@@ -162,8 +162,10 @@ public class InventoryManager : MonoBehaviour
             addRow();
         }
 
-        Equip.getHotbarItemSlots(inventoryList);
+        inventoryList[0].initiateItem(ItemDatabase.fetchItemByID(3), 1);
+        inventoryList[1].initiateItem(ItemDatabase.fetchItemByID(4), 1);
 
+        Equip.getHotbarItemSlots(inventoryList);
     }
 
 
@@ -258,6 +260,8 @@ public class InventoryManager : MonoBehaviour
             inventoryList.Add(itemSlot);
         }
 
+
+
         slotRow += 1;
     }
 
@@ -300,19 +304,35 @@ public class InventoryManager : MonoBehaviour
         itemSlot.emptyItemSlot();
     }
 
+    private KeyCode openInvButton;
+
+    /// <summary>
+    /// Listen to the settings for the right keycode to open the inventory
+    /// </summary>
+    private void ListenToSettings()
+    {
+        Setting oinv = SettingsManager.GetInstance().Settings[0].GetSetting("oinv");
+
+        oinv.changeEvent += (sender, value) =>
+        {
+            openInvButton = (KeyCode)value;
+        };
+
+        openInvButton = (KeyCode)oinv.Value;
+    }
+
     // Update is called once per frame
     /// <summary>
     /// Open and close the inventory by pressing I
     /// </summary>
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(openInvButton))
         {
             inventoryEnabled = !inventoryEnabled;
             inventoryPanel.SetActive(inventoryEnabled);
             hotbarPanel.SetActive(!inventoryEnabled);
         }
-
     }
 
     /// <summary>
