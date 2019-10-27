@@ -20,6 +20,8 @@ public class MovementController : MonoBehaviour
 
     public CapsuleCollider sc;
 
+    int hasCollision;
+
     Rigidbody rb;
 
     // Start is called before the first frame update
@@ -28,6 +30,7 @@ public class MovementController : MonoBehaviour
         sc.height = 1;
         
         startMovementSpeed = movementSpeed;
+        hasCollision = 0;
 
         rb = GetComponent<Rigidbody>();
     }
@@ -80,24 +83,14 @@ public class MovementController : MonoBehaviour
 
         //code voor springen als spatie is ingedrukt
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true){
-            GetComponent<Rigidbody>().AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+            GetComponent<Rigidbody>().AddForce(new Vector3(0, 4, 0), ForceMode.Impulse);
+            isGrounded = false;
         }
          
     }
 
     void OnCollisionEnter(Collision theCollision)
     {
-        if (theCollision.gameObject.tag == "floor")
-        {
-             isGrounded = true;
-        }    
-    }
-
-    void OnCollisionExit(Collision theCollision)
-    {
-         if (theCollision.gameObject.tag == "floor")
-        {
-             isGrounded = false;
-        }
+        isGrounded = true;
     }
 }
