@@ -141,7 +141,7 @@ public class GeneralSettings : Settings
     public GeneralSettings()
     {
         ClassName = "General";
-        SettingsList.Add(new Setting("Show fps", "showfps", true, typeof(bool)));
+        SettingsList.Add(new Setting("Show fps", "showfps", false, typeof(bool)));
     }
 }
 

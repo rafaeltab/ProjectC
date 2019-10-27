@@ -28,7 +28,7 @@ namespace Assets.Scripts.Visualisers
             int nrVox = nrVoxPAxis * nrVoxPAxis * nrVoxPAxis;
             int maxTriCount = nrVox * 5;
 
-            if (floatMapBuff == null)
+            if (floatMapBuff == null || released)
             {
                 goto Run;
             }
@@ -43,16 +43,20 @@ namespace Assets.Scripts.Visualisers
 
         Run:
             triangleBuff = new ComputeBuffer(maxTriCount, sizeof(float) * 9, ComputeBufferType.Append);
-            floatMapBuff = new ComputeBuffer(fullSize, sizeof(float) * 4);            
+            floatMapBuff = new ComputeBuffer(fullSize, sizeof(float) * 4);
+            released = false;
         }
+        private static bool released = false;
 
         /// <summary>
         /// release all the buffers
         /// </summary>
         private static void ReleaseBuffers()
         {
-            triangleBuff.Release();
+            
             floatMapBuff.Release();
+            //triangleBuff.Dispose();
+            released = true;
         }
 
         /// <summary>
@@ -131,6 +135,9 @@ namespace Assets.Scripts.Visualisers
             //triangleBuff.Release(); //TODO release this some where where it dont break it
             //generator.StartCoroutine(Release(floatMapBuff));
             //generator.StartCoroutine(Release(triangleBuff));
+            //triangleBuff.Release();
+
+            ReleaseBuffers();
 
             return template;
         }

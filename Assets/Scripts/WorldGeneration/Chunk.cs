@@ -14,11 +14,13 @@ namespace Assets.Scripts
         public readonly Vector3Int position;
         public readonly float trength;
         private Mesh mesh = new Mesh();
-        private int size;
+        public readonly int size;
         private readonly float noiseScale;
         private readonly long seed;
         private readonly float threshold;
-        private float[,,] vals;
+        public float[,,] vals;
+
+
         private IMeshVisualiser mv;
         private bool generated = false;
 
@@ -70,12 +72,25 @@ namespace Assets.Scripts
             //load chunk from saved file
         }
 
+        public string Save()
+        {
+
+
+            return "";
+        }
+
         /// <summary>
         /// Pre-Generate the chunk
         /// </summary>
         public void Generate()
-        { 
-            mesh = mv.Visualize(Gen(size),mesh,size);
+        {
+            vals = Gen(size);
+            mesh = mv.Visualize(vals,mesh,size);
+            generated = true;
+        }
+
+        public void SetGenerated()
+        {
             generated = true;
         }
 
@@ -90,7 +105,7 @@ namespace Assets.Scripts
                 filter = go.AddComponent<MeshFilter>();
             }
 
-            if (!generated)
+            if (!generated && vals == null)
             {
                 Generate();
             }

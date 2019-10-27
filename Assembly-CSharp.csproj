@@ -166,6 +166,7 @@
      <Compile Include="Assets\Scripts\Settings\CustomExceptions.cs" />
      <Compile Include="Assets\Scripts\Settings\SettingsManager.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Chunk.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\ChunkFileFormater.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\GeneratorHelper.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Helper.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\MeshGenerator.cs" />
