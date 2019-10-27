@@ -20,12 +20,16 @@ public class MovementController : MonoBehaviour
 
     public CapsuleCollider sc;
 
+    Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
         sc.height = 1;
         
         startMovementSpeed = movementSpeed;
+
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -86,7 +90,7 @@ public class MovementController : MonoBehaviour
         if (theCollision.gameObject.tag == "floor")
         {
              isGrounded = true;
-        }
+        }    
     }
 
     void OnCollisionExit(Collision theCollision)
@@ -96,5 +100,4 @@ public class MovementController : MonoBehaviour
              isGrounded = false;
         }
     }
-
 }
