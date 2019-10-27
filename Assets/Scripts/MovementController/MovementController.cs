@@ -80,6 +80,13 @@ public class MovementController : MonoBehaviour
              sc.height = 1;
              isCrouched = false;
         }
+        
+         if (Input.anyKey)
+        {
+            rb.isKinematic = false;
+        }else{
+             rb.isKinematic = true;
+        }
 
         //code voor springen als spatie is ingedrukt
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true){
