@@ -49,30 +49,18 @@ public class Equip : MonoBehaviour
     /// </summary>
     public void Update()
     {
-        if (Input.mouseScrollDelta.y != 0)
+        if (Input.mouseScrollDelta.y != 0 && Cursor.lockState == CursorLockMode.Locked)
         {
             if (Input.mouseScrollDelta.y < 0) //Scroll down
             {
-                if (selectPos == 4)
-                {
-                    selectPos = 0;
-                }
-                else
-                {
-                    selectPos += 1;
-                }
-
+                if (selectPos == 4) { selectPos = 0; }
+                else { selectPos += 1; }
             }
+
             else if (Input.mouseScrollDelta.y > 0) //Scroll up
             {
-                if (selectPos == 0)
-                {
-                    selectPos = 4;
-                }
-                else
-                {
-                    selectPos -= 1;
-                }
+                if (selectPos == 0) { selectPos = 4; }
+                else { selectPos -= 1; }
                 
             }
             
@@ -84,11 +72,11 @@ public class Equip : MonoBehaviour
         DoItemEquips();
     }
 
-    GameObject oldSelected;
+    public static GameObject oldSelected;
     Item oldItem;
     public void DoItemEquips()
     {
-        if (oldItem != hotbarList[selectPos].item)
+        if (oldItem != selectedItemSlot.item)
         {
             foreach (var item in itemEquips)
             {
@@ -104,7 +92,7 @@ public class Equip : MonoBehaviour
                 }
             }
 
-            oldItem = hotbarList[selectPos].item;
+            oldItem = selectedItemSlot.item;
         }
     }
 }

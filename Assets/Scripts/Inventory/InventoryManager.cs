@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    private bool inventoryEnabled = false;
+    public static bool inventoryEnabled = false;
     public GameObject inventoryPanel;
     public GameObject hotbarPanel;
     public GameObject itemSlotPrefab;
@@ -332,6 +332,8 @@ public class InventoryManager : MonoBehaviour
             inventoryEnabled = !inventoryEnabled;
             inventoryPanel.SetActive(inventoryEnabled);
             hotbarPanel.SetActive(!inventoryEnabled);
+            if (inventoryEnabled) { Cursor.lockState = CursorLockMode.None; }
+            else { Cursor.lockState = CursorLockMode.Locked; }
         }
     }
 

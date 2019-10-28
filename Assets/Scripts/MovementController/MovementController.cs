@@ -21,20 +21,21 @@ public class MovementController : MonoBehaviour
     void Start()
     {
         sc.height = 1;
-         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        yaw += speedH * Input.GetAxis("Mouse X");
-        pitch -= speedV * Input.GetAxis("Mouse Y");
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            yaw += speedH * Input.GetAxis("Mouse X");
+            pitch -= speedV * Input.GetAxis("Mouse Y");
+        }
 
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
-
         //code voor het rennen wanneer linkershift wordt ingedrukt
-        if(Input.GetKey(KeyCode.LeftShift) && isCrouched == false){
+        if (Input.GetKey(KeyCode.LeftShift) && isCrouched == false){
             MovementSpeed = 3;
         }else if(Input.GetKey(KeyCode.LeftShift) && isCrouched == true) {
             MovementSpeed = 0.5f;
