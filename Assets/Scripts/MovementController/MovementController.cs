@@ -81,12 +81,7 @@ public class MovementController : MonoBehaviour
              isCrouched = false;
         }
         
-         if (Input.anyKey)
-        {
-            rb.isKinematic = false;
-        }else{
-             rb.isKinematic = true;
-        }
+         
 
         //code voor springen als spatie is ingedrukt
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true){
@@ -99,5 +94,15 @@ public class MovementController : MonoBehaviour
     void OnCollisionEnter(Collision theCollision)
     {
         isGrounded = true;
+    }
+
+    void OnCollision(Collision theCollision)
+    {
+        if (Input.anyKey)
+        {
+            rb.isKinematic = false;
+        }else{
+             rb.isKinematic = true;
+        }
     }
 }
