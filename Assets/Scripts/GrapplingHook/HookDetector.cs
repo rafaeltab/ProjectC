@@ -8,6 +8,10 @@ public class HookDetector : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        /// <summary>
+        /// Checks for the tag "Hookable", if there is no tag it won't hook
+        /// </summary>
+        /// <param name="other"></param>
         if (other.tag == "Hookable")
         {
             player.GetComponent<GrapplingHook>().hooked = true;
