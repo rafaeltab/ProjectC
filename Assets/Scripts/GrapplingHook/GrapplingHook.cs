@@ -35,7 +35,7 @@ public class GrapplingHook : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && fired == false && Cursor.lockState == CursorLockMode.Locked)
             fired = true;
 
-        //Draws rope from player to hooking point
+        //Draws rope from player to hook
         if (fired)
         {
             LineRenderer rope = hook.GetComponent<LineRenderer>();
@@ -54,7 +54,7 @@ public class GrapplingHook : MonoBehaviour
                 ReturnHook();
         }
 
-        //If the hook is connected to an object the player moves towards the hookpoint
+        //If the hook is fired and connected to an object the player moves towards the hookpoint
         if (hooked == true && fired == true)
         {
             hook.transform.parent = hookedObj.transform;
