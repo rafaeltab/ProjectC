@@ -27,6 +27,7 @@ public class MovementController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ///initializes the settings and components
         sc.height = 1;
 
         startMovementSpeed = movementSpeed;
@@ -34,10 +35,10 @@ public class MovementController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        //uses the mouse to rotate camera
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             yaw += speedH * Input.GetAxis("Mouse X");
@@ -46,7 +47,8 @@ public class MovementController : MonoBehaviour
 
         transform.eulerAngles = new Vector3( Mathf.Clamp( pitch, -viewRange, viewRange), yaw, 0);
 
-        //code voor het rennen wanneer linkershift wordt ingedrukt
+
+        //increases speed when Left Shift is pressed
         if(Input.GetKey(KeyCode.LeftShift) && isCrouched == false){
             movementSpeed = startMovementSpeed * 2;
         }else if(Input.GetKey(KeyCode.LeftShift) && isCrouched == true) {
@@ -57,7 +59,7 @@ public class MovementController : MonoBehaviour
             movementSpeed = startMovementSpeed;
         }
 
-        //code voor het lopen op basis van de ingedrukte letter
+        //cwalk when the appropiate key is pressed
         if (Input.GetKey(KeyCode.W)){
             transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
         }
@@ -74,6 +76,7 @@ public class MovementController : MonoBehaviour
             transform.Translate(Vector3.left * Time.deltaTime * movementSpeed);
         }
 
+        //adds crouching function which makes the collider smaller when Left control is pressed and makes it larger when released
         if (Input.GetKey(KeyCode.LeftControl)){
              sc.height = 0.5f;
              isCrouched = true;
@@ -85,7 +88,7 @@ public class MovementController : MonoBehaviour
 
 
 
-        //code voor springen als spatie is ingedrukt
+        //Jump when space is pressed
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true){
             GetComponent<Rigidbody>().AddForce(new Vector3(0, 4, 0), ForceMode.Impulse);
             isGrounded = false;
@@ -100,6 +103,7 @@ public class MovementController : MonoBehaviour
 
     void OnCollision(Collision theCollision)
     {
+        //if no key is pressed, the rigidbody becomes kinematic (no movement at all)
         if (Input.anyKey)
         {
             rb.isKinematic = false;
