@@ -34,7 +34,13 @@ public class destroy : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// destroys an object on a timer basis, duration is how long it takes before something is destroyed, destroy is our custom destroy script
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <param name="destroy"></param>
+    /// <param name="hit"></param>
+    /// <returns></returns>
     IEnumerator StartDestroy(float duration,Destroyable destroy,RaycastHit hit)
     {
         yield return new WaitForSeconds(duration);

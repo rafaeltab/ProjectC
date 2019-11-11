@@ -11,7 +11,10 @@ public class Destroyable : MonoBehaviour
     }
 
     public DestroyType destroyFunc;
-    
+    /// <summary>
+    /// test if a raycast hits a gameobject and tries to destroy or scale it up, depending on the set behavior. parameter is the raycast
+    /// </summary>
+    /// <param name="hit"></param>
     public void Destroy(RaycastHit hit)
     {
         switch (destroyFunc)
