@@ -54,7 +54,7 @@ public class ItemDatabase : MonoBehaviour
         database.Add(new Item(1, "Dirt", "Some dirt", "dirt", 64));
         database.Add(new Item(2, "Stone", "Some stone", "stone", 64));
         database.Add(new Item(3, "Grappling Hook", "A grappling hook.\n use it to get up", "grapplinghook", 1));
-        database.Add(new Item(4, "Destruction gun", "A destruction gun.\n use it to destroy stuff", "stone", 1));
+        database.Add(new Item(4, "Destruction Gun", "A destruction gun.\n use it to destroy stuff", "stone", 1));
         Debug.Log("Items added to the database");
     }
     

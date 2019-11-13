@@ -157,13 +157,18 @@ public class InventoryManager : MonoBehaviour
 
         updateUISize();
 
+        Equip.SetupItemEquips();
+
         while (slotRow < startSlotRows)
         {
             addRow();
         }
 
-        inventoryList[0].initiateItem(ItemDatabase.fetchItemByID(3), 1);
-        inventoryList[1].initiateItem(ItemDatabase.fetchItemByID(4), 1);
+        inventoryList[4].initiateItem(ItemDatabase.fetchItemByID(3), 1);  //Grappling Hook
+
+        //inventoryList[0].initiateItem(ItemDatabase.fetchItemByID(3), 1);  //Grappling Hook
+        //inventoryList[1].initiateItem(ItemDatabase.fetchItemByID(4), 1);  //Destruction Gun
+
 
         Equip.getHotbarItemSlots(inventoryList);
     }
@@ -252,10 +257,11 @@ public class InventoryManager : MonoBehaviour
                 hotbarObj.name = "Hotbar Slot " + inventoryList.Count;
             }
 
-            //ItemSlot itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(0), 0, hotbarObj); //Default
-            ItemSlot itemSlot;
-            if (i % 2 == 0) { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(1), 32, hotbarObj); }
-            else { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(2), 50, hotbarObj); }
+            ItemSlot itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(0), 0, hotbarObj); //Default
+            
+            //ItemSlot itemSlot; //Test
+            //if (i % 2 == 0) { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(1), 32, hotbarObj); }
+            //else { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(2), 50, hotbarObj); }
 
             inventoryList.Add(itemSlot);
         }

@@ -11,11 +11,10 @@ public class Equip : MonoBehaviour
     public GameObject selectHighlight;
     public int selectPos = 4;
     public static InventoryManager.ItemSlot selectedItemSlot;
-    
-    [SerializeField]
-    public List<ItemEquip> itemEquips;
 
-    public static GameObject obj;
+    public static GameObject ItemGameObjects;
+    
+    public static List<ItemEquip> itemEquips = new List<ItemEquip>();
 
     /// <summary>
     /// Get the hotbar slots from inventoryList
@@ -34,12 +33,16 @@ public class Equip : MonoBehaviour
     }
 
     /// <summary>
-    /// Set up an empty GameObject
+    /// 
     /// </summary>
-    public void Start()
+    public static void SetupItemEquips()
     {
-        obj = new GameObject();
-        obj.SetActive(false);
+        ItemGameObjects = GameObject.Find("ItemGameObjects");
+
+        foreach (var item in ItemDatabase.database)
+        {
+            itemEquips.Add(new ItemEquip(item.id, ItemGameObjects.transform.Find(item.title).gameObject));
+        }
     }
 
 
@@ -80,7 +83,7 @@ public class Equip : MonoBehaviour
         {
             foreach (var item in itemEquips)
             {
-                if (selectedItemSlot.item.id == item.ItemId)
+                if (selectedItemSlot.item.id == item.itemId)
                 {
                     if (oldSelected != null)
                     {
@@ -97,9 +100,14 @@ public class Equip : MonoBehaviour
     }
 }
 
-[Serializable]
-public struct ItemEquip
+public class ItemEquip
 {
-    public int ItemId;
+    public int itemId;
     public GameObject go;
+
+    public ItemEquip(int itemId, GameObject go)
+    {
+        this.itemId = itemId;
+        this.go = go;
+    }
 }

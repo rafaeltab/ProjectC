@@ -22,9 +22,14 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        yaw += speedH * Input.GetAxis("Mouse X");
-        pitch -= speedV * Input.GetAxis("Mouse Y");
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            yaw += speedH * Input.GetAxis("Mouse X");
+            pitch -= speedV * Input.GetAxis("Mouse Y");
 
-        transform.eulerAngles = new Vector3( Mathf.Clamp( pitch, -viewRange, viewRange), yaw, 0);
+            transform.eulerAngles = new Vector3(Mathf.Clamp(pitch, -viewRange, viewRange), yaw, 0);
+        }
+
+        
     }
 }

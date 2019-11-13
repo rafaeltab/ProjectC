@@ -101,7 +101,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3942436560288300378}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &7039827043898563884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3942436560288300378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058d68b99c00d5e4d92e2686c2503fa5, type: 3}
   m_Name: 
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 5993069287178642376}
   - component: {fileID: 4460291813875570377}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -330,7 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5993069287595903976}
   m_Layer: 5
-  m_Name: Destructor3000
+  m_Name: Destruction Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,7 +360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5993069288084908309}
   m_Layer: 5
-  m_Name: GrapplingHook
+  m_Name: Grappling Hook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
