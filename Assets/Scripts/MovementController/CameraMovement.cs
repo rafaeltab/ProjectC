@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Cursor.lockState == CursorLockMode.Locked)
+        if (Cursor.lockState == CursorLockMode.Locked && !TutorialManager.cutsceneLock)
         {
             //uses the mouse to rotate camera
             yaw += speedH * Input.GetAxis("Mouse X");

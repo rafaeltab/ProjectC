@@ -25,7 +25,7 @@ public class MovementController : MonoBehaviour
     void Start()
     {
         ///initializes the settings and components
-        sc.height = 1;
+        sc.height = 1.7f;
 
         startMovementSpeed = movementSpeed;
         hasCollision = 0;
@@ -36,7 +36,7 @@ public class MovementController : MonoBehaviour
     void Update()
     {
         
-        if (Cursor.lockState == CursorLockMode.Locked)
+        if (Cursor.lockState == CursorLockMode.Locked && !TutorialManager.cutsceneLock)
         {
             //uses the mouse to rotate the player GameObject
             transform.eulerAngles = new Vector3(Mathf.Clamp(CameraMovement.pitch, -viewRange, viewRange), CameraMovement.yaw, 0);
@@ -83,12 +83,12 @@ public class MovementController : MonoBehaviour
             //adds crouching function which makes the collider smaller when Left control is pressed and makes it larger when released
             if (Input.GetKey(KeyCode.LeftControl))
             {
-                sc.height = 0.5f;
+                sc.height = 1;
                 isCrouched = true;
             }
             if (Input.GetKeyUp(KeyCode.LeftControl))
             {
-                sc.height = 1;
+                sc.height = 1.7f;
                 isCrouched = false;
             }
 

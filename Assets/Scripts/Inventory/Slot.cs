@@ -64,9 +64,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 if (grabbedAmount == 0 && itemSlot.item.id != 0) //If there is no grabbed item and the clicked item slot is not empty
                 {
-                    updateGrabbedItemObj(itemSlot.item, itemSlot.amount);
+                    UpdateGrabbedItemObj(itemSlot.item, itemSlot.amount);
 
-                    itemSlot.emptyItemSlot();
+                    itemSlot.EmptyItemSlot();
 
                     grabbedItemObj.SetActive(true);
                     grabbedItemObj.GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -76,13 +76,15 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     if (itemSlot.item != grabbedItem && itemSlot.item.id != 0)
                     {
                         //Switch items
-                        itemSlot.switchItems(grabbedItem, grabbedAmount);
+                        itemSlot.SwitchItems(grabbedItem, grabbedAmount);
                     }
 
                     else if (grabbedAmount != 0)
                     {
                         //Sum items
-                        itemSlot.sumItems(grabbedAmount);
+                        int rest = itemSlot.SumItems(grabbedItem, grabbedAmount);
+
+                        UpdateGrabbedItemObj(grabbedItem, rest);
                     }
 
                 }
@@ -102,10 +104,10 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                         amount = itemSlot.amount / 2 + 1;
                     }
 
-                    updateGrabbedItemObj(itemSlot.item, amount);
+                    UpdateGrabbedItemObj(itemSlot.item, amount);
 
                     itemSlot.amount = itemSlot.amount - amount;
-                    itemSlot.updateAmount();
+                    itemSlot.UpdateAmount();
 
                     addOneDisabled = true;
 
@@ -117,7 +119,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 else if (grabbedAmount != 0 && itemSlot.item == grabbedItem || itemSlot.item.id == 0)
                 {
                     addOneDisabled = true;
-                    itemSlot.addOne();
+                    itemSlot.AddOne();
                 }
 
             }
@@ -128,7 +130,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 if (grabbedAmount != 0 && !addOneDisabled && itemSlot.item == grabbedItem || itemSlot.item.id == 0)
                 {
                     addOneDisabled = true;
-                    itemSlot.addOne();
+                    itemSlot.AddOne();
                 }
 
             }
@@ -139,8 +141,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 grabbedItemObj.SetActive(false);
                 grabbedItemObj.GetComponent<CanvasGroup>().blocksRaycasts = true;
             }
-
-
         }
 
         // Move the grabbed item to the mouse position
@@ -149,16 +149,16 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             grabbedItemObj.transform.position = Input.mousePosition;
         }
 
-        //Check if mouse is outside inventory (For dropping items)
-        if (!CheckInventoryHover.hoverInventory)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                updateGrabbedItemObj(ItemDatabase.fetchItemByID(0), 0);
-                grabbedItemObj.SetActive(false);
-                grabbedItemObj.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            }
-        }
+        //Check if mouse is outside inventory (For dropping items) ## Disabled for now ##
+        //if (!CheckInventoryHover.hoverInventory)
+        //{
+        //    if (Input.GetMouseButtonDown(0))
+        //    {
+        //        UpdateGrabbedItemObj(ItemDatabase.FetchItemByID(0), 0);
+        //        grabbedItemObj.SetActive(false);
+        //        grabbedItemObj.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        //    }
+        //}
     }
 
     /// <summary>
@@ -166,7 +166,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     /// <param name="item">The grabbedItem</param>
     /// <param name="amount">The amount of the grabbed item</param>
-    public static void updateGrabbedItemObj(ItemDatabase.Item item, int amount)
+    public static void UpdateGrabbedItemObj(ItemDatabase.Item item, int amount)
     {
         grabbedItem = item;
         grabbedAmount = amount;
@@ -187,7 +187,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
 
     /// <summary>
-    /// If the mouse stops hovering, disable Hover and the item info
+    /// If the inventory is disabled, disable Hover and the item info
     /// </summary>
     public void OnDisable()
     {

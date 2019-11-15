@@ -38,7 +38,7 @@ public class ItemDatabase : MonoBehaviour
     /// </summary>
     /// <param name="id">the ID of the item</param>
     /// <returns>The specified Item from the database</returns>
-    public static Item fetchItemByID(int id)
+    public static Item FetchItemByID(int id)
     {
         return database[id];
     }
@@ -48,7 +48,7 @@ public class ItemDatabase : MonoBehaviour
     /// Add a new item to the database by adding this:
     /// database.Add(new Item(id, title, description, imageLocation, stackLimit))
     /// </summary>
-    public static void fillDatabase()
+    public static void FillDatabase()
     {
         database.Add(new Item(0, "Empty", "", "empty", 0));
         database.Add(new Item(1, "Dirt", "Some dirt", "dirt", 64));

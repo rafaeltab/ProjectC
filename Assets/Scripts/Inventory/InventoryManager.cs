@@ -43,7 +43,7 @@ public class InventoryManager : MonoBehaviour
 
             this.itemObj = this.slotObj.transform.GetChild(0).gameObject;
 
-            initiateItem(item, amount);
+            InitiateItem(item, amount);
         }
 
 
@@ -52,7 +52,7 @@ public class InventoryManager : MonoBehaviour
         /// </summary>
         /// <param name="item">The new item in the item slot</param>
         /// <param name="amount">How much of the item there is</param>
-        public void initiateItem(ItemDatabase.Item item, int amount)
+        public void InitiateItem(ItemDatabase.Item item, int amount)
         {
             this.item = item;
             this.amount = amount;
@@ -67,13 +67,13 @@ public class InventoryManager : MonoBehaviour
                 this.hotbarObj.transform.GetChild(0).name = this.item.title;
             }
 
-            updateAmount();
+            UpdateAmount();
         }
 
         /// <summary>
         /// Updates the amount/stack text in the item slot
         /// </summary>
-        public void updateAmount()
+        public void UpdateAmount()
         {
             GameObject amountObj = this.itemObj.transform.GetChild(0).gameObject;
             string amountText;
@@ -90,34 +90,34 @@ public class InventoryManager : MonoBehaviour
 
         /// <summary>
         /// <para>Add the amount of the grabbed item to itemSlot</para>
-        /// If the amount is higher than the stackLimit, the amount of the itemSlot will be the stackLimit and the amount of the grabbed item will get the rest
+        /// If the amount is higher than the stackLimit, the amount of the itemSlot will be the stackLimit, returns the rest
         /// </summary>
         /// <param name="amount">The item amount of the grabbedItem</param>
-        public void sumItems(int amount)
+        public int SumItems(ItemDatabase.Item itemAdd, int amount)
         {
             this.amount += amount;
 
             int rest = 0;
-            if (this.amount > Slot.grabbedItem.stackLimit) //If more than stacklimit
+            if (this.amount > itemAdd.stackLimit) //If more than stacklimit
             {
-                rest = this.amount - Slot.grabbedItem.stackLimit;
-                this.amount = Slot.grabbedItem.stackLimit;
+                rest = this.amount - itemAdd.stackLimit;
+                this.amount = itemAdd.stackLimit;
             }
 
-            initiateItem(Slot.grabbedItem, this.amount);
-            Slot.updateGrabbedItemObj(Slot.grabbedItem, rest);
+            InitiateItem(itemAdd, this.amount);
+            return rest;
         }
 
         /// <summary>
         /// Adds 1 to the amount of itemSlot and remove 1 to the amount of the grabbed item
         /// </summary>
-        public void addOne()
+        public void AddOne()
         {
             if (this.amount != Slot.grabbedItem.stackLimit)
             {
                 this.amount += 1;
-                initiateItem(Slot.grabbedItem, this.amount);
-                Slot.updateGrabbedItemObj(Slot.grabbedItem, Slot.grabbedAmount - 1);
+                InitiateItem(Slot.grabbedItem, this.amount);
+                Slot.UpdateGrabbedItemObj(Slot.grabbedItem, Slot.grabbedAmount - 1);
             }
         }
 
@@ -127,22 +127,22 @@ public class InventoryManager : MonoBehaviour
         /// </summary>
         /// <param name="item">The grabbedItem</param>
         /// <param name="amount">The amount of the grabbed item</param>
-        public void switchItems(ItemDatabase.Item item, int amount)
+        public void SwitchItems(ItemDatabase.Item item, int amount)
         {
             ItemDatabase.Item itemTemp = this.item;
             int amountTemp = this.amount;
 
-            initiateItem(item, amount);
+            InitiateItem(item, amount);
 
-            Slot.updateGrabbedItemObj(itemTemp, amountTemp);
+            Slot.UpdateGrabbedItemObj(itemTemp, amountTemp);
         }
 
         /// <summary>
         /// Refresh the item slot with the item "Empty"
         /// </summary>
-        public void emptyItemSlot()
+        public void EmptyItemSlot()
         {
-            initiateItem(ItemDatabase.fetchItemByID(0), 0);
+            InitiateItem(ItemDatabase.FetchItemByID(0), 0);
         }
 
     }
@@ -153,24 +153,22 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         ListenToSettings();
-        ItemDatabase.fillDatabase();
+        ItemDatabase.FillDatabase();
 
-        updateUISize();
+        UpdateUISize();
 
         Equip.SetupItemEquips();
 
         while (slotRow < startSlotRows)
         {
-            addRow();
+            AddRow();
         }
 
-        inventoryList[4].initiateItem(ItemDatabase.fetchItemByID(3), 1);  //Grappling Hook
-
-        //inventoryList[0].initiateItem(ItemDatabase.fetchItemByID(3), 1);  //Grappling Hook
-        //inventoryList[1].initiateItem(ItemDatabase.fetchItemByID(4), 1);  //Destruction Gun
+        //inventoryList[4].initiateItem(ItemDatabase.fetchItemByID(3), 1);  //Grappling Hook
+        //inventoryList[3].initiateItem(ItemDatabase.fetchItemByID(4), 1);  //Destruction Gun
 
 
-        Equip.getHotbarItemSlots(inventoryList);
+        Equip.GetHotbarItemSlots(inventoryList);
     }
 
 
@@ -184,7 +182,7 @@ public class InventoryManager : MonoBehaviour
     /// <summary>
     /// Updates the UI size (inventory and hotbar dimensions) if the screen dimensions change
     /// </summary>
-    public void updateUISize()
+    public void UpdateUISize()
     {
         Vector2 canvasSize = canvas.transform.GetComponent<RectTransform>().sizeDelta;
 
@@ -234,7 +232,7 @@ public class InventoryManager : MonoBehaviour
     /// <summary>
     /// Adds a new row in the inventory
     /// </summary>
-    public void addRow()
+    public void AddRow()
     {
 
         for (int i = 0; i < 5; i++)
@@ -257,8 +255,8 @@ public class InventoryManager : MonoBehaviour
                 hotbarObj.name = "Hotbar Slot " + inventoryList.Count;
             }
 
-            ItemSlot itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(0), 0, hotbarObj); //Default
-            
+            ItemSlot itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.FetchItemByID(0), 0, hotbarObj); //Default
+
             //ItemSlot itemSlot; //Test
             //if (i % 2 == 0) { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(1), 32, hotbarObj); }
             //else { itemSlot = new ItemSlot(slotObj, inventoryList.Count, ItemDatabase.fetchItemByID(2), 50, hotbarObj); }
@@ -276,38 +274,87 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     /// <param name="id">The id of the item Slot</param>
     /// <returns>The specified item Slot from the list</returns>
-    public static ItemSlot fetchItemSlotByID(int id)
+    public static ItemSlot FetchItemSlotByID(int id)
     {
         return inventoryList[id];
     }
 
 
-//WIP WIP WIP WIP WIP WIP WIP
     /// <summary>
-    /// Gets called if the player picks up an item off the ground (WIP)
+    /// Gets called if the player picks up an item off the ground or if the game gives the player an item
     /// </summary>
-    /// <param name="item">The item the player picked up off the ground</param>
-    /// <param name="amount">How much of the item there is</param>
-    public static void pickUpItem(ItemDatabase.Item item, int amount)
+    /// <param name="itemAdd">The item the player picked up off the ground</param>
+    /// <param name="amountAdd">How much of the item there is</param>
+    public static int PickUpItem(ItemDatabase.Item itemAdd, int amountAdd)
     {
-        //Do stuff
-        // if item already in inventory, add
-        // if item not in inventory or item in inventory but all full stacks, then put in new item slot (from last to first)
-        // if inventory full, don't pick up item
+        int count = 0;
+        ItemSlot itemSlotDrop = null;
+        foreach (ItemSlot itemSlot in inventoryList) //Search for itemslot that's not fully stacked and with the same item
+        {
+            if (itemSlot.item == itemAdd && itemSlot.item.stackLimit > itemSlot.amount)
+            {
+                itemSlotDrop = itemSlot;
+            }
 
-        //This could be a method in a separate class (item entity class)
+            if (count == 4 && itemSlotDrop != null) //If found hotbarslot that's not fully stacked and with the same item, break out of loop
+            {
+                break;
+            }
+
+            count += 1;
+        }
+
+        if (itemSlotDrop != null) //If found itemslot, sumItems
+        {
+            int rest = itemSlotDrop.SumItems(itemAdd, amountAdd);
+
+            if (rest > 0) //If there are items left, call same method again, else return 0
+            {
+                return PickUpItem(itemAdd, rest);
+            }
+            return 0;
+        }
+
+        else //If not found itemslot
+        {
+            int count2 = 0;
+            foreach (ItemSlot itemSlot in inventoryList) //Search for empty itemslot
+            {
+                if (itemSlot.amount == 0)
+                {
+                    itemSlotDrop = itemSlot;
+                }
+
+                if (count2 == 4 && itemSlotDrop != null) //If found empty hotbarslot, break out of loop
+                {
+                    break;
+                }
+
+                count2 += 1;
+            }
+
+            if (itemSlotDrop != null) //If found empty itemslot, move item and amount to that itemslot and return 0
+            {
+                itemSlotDrop.InitiateItem(itemAdd, amountAdd);
+                return 0;
+            }
+            else //If inventory full, return the amount
+            {
+                Debug.Log("Inventory Full");
+                return amountAdd;
+            }
+        }
     }
-//WIP WIP WIP WIP WIP WIP WIP
 
 
     /// <summary>
     /// Remove the item from the inventory and drop it on the ground (The item gets destroyed/removed for now)
     /// </summary>
     /// <param name="itemSlot">The item slot where the item is contained</param>
-    public static void dropItem(ItemSlot itemSlot)
+    public static void DropItem(ItemSlot itemSlot)
     {
         //Remove item for now
-        itemSlot.emptyItemSlot();
+        itemSlot.EmptyItemSlot();
     }
 
     private KeyCode openInvButton;
@@ -333,7 +380,7 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetKeyDown(openInvButton))
+        if (Input.GetKeyDown(openInvButton) && !TutorialManager.cutsceneLock)
         {
             inventoryEnabled = !inventoryEnabled;
             inventoryPanel.SetActive(inventoryEnabled);
@@ -348,7 +395,7 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     private void OnRectTransformDimensionsChange()
     {
-        updateUISize();
+        UpdateUISize();
     }
 
 }
