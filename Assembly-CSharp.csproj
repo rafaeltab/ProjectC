@@ -181,6 +181,10 @@
     <Compile Include="Assets\Scripts\MovementController\MovementController.cs" />
     <Compile Include="Assets\Scripts\Settings\CustomExceptions.cs" />
     <Compile Include="Assets\Scripts\Settings\SettingsManager.cs" />
+    <Compile Include="Assets\Scripts\Tutorial\ControlsTutGiver.cs" />
+    <Compile Include="Assets\Scripts\Tutorial\ItemGiver.cs" />
+    <Compile Include="Assets\Scripts\Tutorial\SetInactiveTrigger.cs" />
+    <Compile Include="Assets\Scripts\Tutorial\Teleporter.cs" />
     <Compile Include="Assets\Scripts\Tutorial\TutorialManager.cs" />
     <Compile Include="Assets\Scripts\WorldGeneration\Chunk.cs" />
     <Compile Include="Assets\Scripts\WorldGeneration\GeneratorHelper.cs" />

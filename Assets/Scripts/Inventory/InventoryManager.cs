@@ -279,7 +279,6 @@ public class InventoryManager : MonoBehaviour
         return inventoryList[id];
     }
 
-
     /// <summary>
     /// Gets called if the player picks up an item off the ground or if the game gives the player an item
     /// </summary>

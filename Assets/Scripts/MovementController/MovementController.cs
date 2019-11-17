@@ -21,6 +21,8 @@ public class MovementController : MonoBehaviour
 
     Rigidbody rb;
 
+    public static GameObject playerObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,8 @@ public class MovementController : MonoBehaviour
         hasCollision = 0;
 
         rb = GetComponent<Rigidbody>();
+
+        playerObject = GameObject.Find("Player");
     }
     
     void Update()
@@ -83,7 +87,7 @@ public class MovementController : MonoBehaviour
             //adds crouching function which makes the collider smaller when Left control is pressed and makes it larger when released
             if (Input.GetKey(KeyCode.LeftControl))
             {
-                sc.height = 1;
+                sc.height = 0.9f;
                 isCrouched = true;
             }
             if (Input.GetKeyUp(KeyCode.LeftControl))
@@ -117,5 +121,10 @@ public class MovementController : MonoBehaviour
         }else{
              rb.isKinematic = true;
         }
+    }
+
+    public static void TeleportPlayer(float x, float y, float z)
+    {
+        playerObject.GetComponent<Transform>().position = new Vector3(x, y, z);
     }
 }

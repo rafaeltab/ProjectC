@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class GrapplingHook : MonoBehaviour
 {
-    public GameObject hook;
-    public GameObject hookHolder;
+    public static GameObject hook;
+    public static GameObject hookHolder;
+
+    public GameObject grapplingHookObj;
 
     public float hookTravelSpeed;
     public float playerTravelSpeed;
 
     public static bool fired;
-    public bool hooked;
+    public static bool hooked;
     public GameObject hookedObj;
 
     public float maxDistance;
@@ -22,6 +24,11 @@ public class GrapplingHook : MonoBehaviour
     private Vector3 defaultScale;
     private void Start()
     {
+        grapplingHookObj.SetActive(true);
+        hook = GameObject.Find("grapplinghook");
+        hookHolder = GameObject.Find("Hook Holder");
+        grapplingHookObj.SetActive(false);
+
         defaultScale = hook.transform.localScale;
     }
 
@@ -80,7 +87,7 @@ public class GrapplingHook : MonoBehaviour
     /// <summary>
     /// Returns hook to the hook holder and resets the rope
     /// </summary>
-    void ReturnHook()
+    public static void ReturnHook()
     {
         hook.transform.rotation = hookHolder.transform.rotation;
         hook.transform.position = hookHolder.transform.position;
