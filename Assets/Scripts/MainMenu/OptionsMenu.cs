@@ -74,7 +74,7 @@ public class OptionsPage
         }
         else
         {
-            pos.x = ((1-sizePercentage.x)/2)*Screen.width;
+            pos.x = (1-sizePercentage.x)*Screen.width;
         }
 
         pageButton.transform.position = pos;
