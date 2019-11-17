@@ -18,7 +18,6 @@ public class OptionsMenu : MonoBehaviour
         {
             OptionsPage op = new OptionsPage(buttonTemplate, settingsPage, GetComponent<Canvas>(), this, sizePercentage);
             OptionsPages.Add(op);
-            Debug.Log(op);
         }
     }
 
@@ -34,9 +33,9 @@ public class OptionsMenu : MonoBehaviour
     }
 }
 
-public class OptionsPage : MonoBehaviour
+public class OptionsPage
 {
-    Button pageButton;
+    public Button pageButton;
     Settings settings;
     Canvas parentCanvas;
     OptionsMenu optionsMenu;
@@ -44,20 +43,20 @@ public class OptionsPage : MonoBehaviour
 
     public OptionsPage(Button pageButton, Settings settings, Canvas parentCanvas, OptionsMenu optionsMenu, Vector2 sizePercentage)
     {
-        this.pageButton = Instantiate(pageButton, parentCanvas.transform);
+        this.pageButton = GameObject.Instantiate(pageButton, parentCanvas.transform);
         
         this.settings = settings;
         this.parentCanvas = parentCanvas;
         this.optionsMenu = optionsMenu;
         this.sizePercentage = sizePercentage;
-
-        this.pageButton.onClick.AddListener(HandleClick);
+        
         HandleButton();
     }
 
     public void HandleClick()
     {
-        optionsMenu.Enable(this);
+        Debug.Log(settings.ClassName);
+        optionsMenu.Enable(this);        
     }
 
     public void Disable()
@@ -67,18 +66,20 @@ public class OptionsPage : MonoBehaviour
 
     public void HandleButton()
     {
-        Vector3 pos = new Vector3(0, Screen.height / sizePercentage.y, 0);
+        Vector3 pos = new Vector3(0, Screen.height * (sizePercentage.y), 0);
         if (optionsMenu.OptionsPages.Count > 0)
         {
             OptionsPage last = optionsMenu.OptionsPages[optionsMenu.OptionsPages.Count - 1];
-            Debug.Log($"{optionsMenu.OptionsPages[0]}");
-            pos.x = last.transform.position.x + last.GetComponent<RectTransform>().rect.width;
+            pos.x = last.pageButton.transform.position.x + last.pageButton.GetComponent<RectTransform>().rect.width;
         }
         else
         {
-            pos.x = Screen.width / sizePercentage.x;
+            pos.x = ((1-sizePercentage.x)/2)*Screen.width;
         }
 
-        this.pageButton.transform.position = pos;
+        pageButton.transform.position = pos;
+        pageButton.onClick.AddListener(()=> { Debug.Log("Click"); });
+        pageButton.onClick.Invoke();
+        Debug.Log("added Listener");
     }
 }
