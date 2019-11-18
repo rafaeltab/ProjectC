@@ -1,24 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Canvas))]
-
 public class OptionsMenu : MonoBehaviour
 {
     public List<OptionsPage> OptionsPages { get; set; } = new List<OptionsPage>();
-
+    public List<SettingsPrefab> SettingPrefabs;
+    
+    [Space]
+    public Rect displayField;
     public Button buttonTemplate;
-    public Vector2 sizePercentage = new Vector2(0.75f, 0.75f);
+    public Vector2 buttonLocations = new Vector2(0.125f, 0.5f);
 
     public void Start()
     {
+        int ind = 0;
         foreach(var settingsPage in SettingsManager.GetInstance().Settings)
         {
-            OptionsPage op = new OptionsPage(buttonTemplate, settingsPage, GetComponent<Canvas>(), this, sizePercentage);
+            OptionsPage op = new OptionsPage(buttonTemplate, settingsPage, GetComponent<Canvas>(), this, buttonLocations,ind);
             OptionsPages.Add(op);
+            ind++;
         }
+    }
+
+    public void Update()
+    {
+
     }
 
     public void Enable(OptionsPage optionsPage)
@@ -31,55 +41,26 @@ public class OptionsMenu : MonoBehaviour
             }
         }
     }
+
+    public void OnRectTransformDimensionsChange()
+    {
+        Rescale();
+    }
+
+    public void Rescale()
+    {
+        int ind = 0;
+        foreach (var optPage in OptionsPages)
+        {
+            optPage.Rescale(buttonTemplate,ind);
+            ind++;
+        }
+    }
 }
 
-public class OptionsPage
+[System.Serializable]
+public struct SettingsPrefab
 {
-    public Button pageButton;
-    Settings settings;
-    Canvas parentCanvas;
-    OptionsMenu optionsMenu;
-    Vector2 sizePercentage;
-
-    public OptionsPage(Button pageButton, Settings settings, Canvas parentCanvas, OptionsMenu optionsMenu, Vector2 sizePercentage)
-    {
-        this.pageButton = GameObject.Instantiate(pageButton, parentCanvas.transform);
-        
-        this.settings = settings;
-        this.parentCanvas = parentCanvas;
-        this.optionsMenu = optionsMenu;
-        this.sizePercentage = sizePercentage;
-        
-        HandleButton();
-    }
-
-    public void HandleClick()
-    {
-        Debug.Log(settings.ClassName);
-        optionsMenu.Enable(this);        
-    }
-
-    public void Disable()
-    {
-        
-    }
-
-    public void HandleButton()
-    {
-        Vector3 pos = new Vector3(0, Screen.height * (sizePercentage.y), 0);
-        if (optionsMenu.OptionsPages.Count > 0)
-        {
-            OptionsPage last = optionsMenu.OptionsPages[optionsMenu.OptionsPages.Count - 1];
-            pos.x = last.pageButton.transform.position.x + last.pageButton.GetComponent<RectTransform>().rect.width;
-        }
-        else
-        {
-            pos.x = ((1-sizePercentage.x)/2)*Screen.width;
-        }
-
-        pageButton.transform.position = pos;
-        pageButton.onClick.AddListener(()=> { Debug.Log("Click"); });
-        pageButton.onClick.Invoke();
-        Debug.Log("added Listener");
-    }
+    public string name;
+    public GameObject prefab;
 }

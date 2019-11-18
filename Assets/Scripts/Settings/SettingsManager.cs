@@ -121,16 +121,20 @@ public class ControlsSettings : Settings {
         SettingsList.Add(new Setting("Open Inventory", "oinv", KeyCode.E, typeof(KeyCode)));
     }
 } 
+
 public class AudioSettings : Settings
 {
     public AudioSettings()
     {
         ClassName = "Audio";
         SettingsList.Add(new Setting("TestSetting","test","",typeof(string)));
+        SettingsList.Add(new Setting("T2estSetting", "t2est", "", typeof(float)));
     }
 }
+
 public class VideoSettings : Settings
-{    public VideoSettings()
+{
+    public VideoSettings()
     {
         ClassName = "Video";
         SettingsList.Add(new Setting("TestSetting","test","",typeof(string)));
@@ -142,7 +146,7 @@ public class GeneralSettings : Settings
     public GeneralSettings()
     {
         ClassName = "General";
-        SettingsList.Add(new Setting("Show fps", "showfps", true, typeof(bool)));
+        SettingsList.Add(new Setting("Show fps", "showfps", false, typeof(bool)));
     }
 }
 
