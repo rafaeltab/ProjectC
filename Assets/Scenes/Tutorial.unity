@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 107393119}
   m_Layer: 0
   m_Name: ControlsTutGive Stop E
-  m_TagString: Hookable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 128253868}
   m_Layer: 0
   m_Name: ControlsTutGive Stop I&J
-  m_TagString: Hookable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 140454948}
   m_Layer: 0
   m_Name: ControlsTutGive Shift
-  m_TagString: Hookable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3210,7 +3210,7 @@ GameObject:
   - component: {fileID: 1005682337}
   m_Layer: 0
   m_Name: ControlsTutGive I&J
-  m_TagString: Hookable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3450,7 +3450,7 @@ GameObject:
   - component: {fileID: 1033035992}
   m_Layer: 0
   m_Name: TeleportToScene Maze
-  m_TagString: Hookable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5900,7 +5900,7 @@ GameObject:
   - component: {fileID: 1756373380}
   m_Layer: 0
   m_Name: ControlsTutGive Ctrl
-  m_TagString: Hookable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
