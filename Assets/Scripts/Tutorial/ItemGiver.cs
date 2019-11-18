@@ -15,11 +15,11 @@ public class ItemGiver : MonoBehaviour
     {
         if (!done && other.gameObject.name == "Player")
         {
-            if (specificItemSlot)
+            if (specificItemSlot) //Moves item to the given itemslot (Overwrites current item in the itemslot)
             {
                 InventoryManager.FetchItemSlotByID(itemSlotIndex).InitiateItem(ItemDatabase.FetchItemByID(itemId), amount);
             }
-            else
+            else //Gives the player the item
             {
                 InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(itemId), amount);
                 done = true;

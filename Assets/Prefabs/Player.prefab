@@ -278,11 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e3a6e2f416b254bac7ba7698f87672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hook: {fileID: 7876923017973543786}
-  hookHolder: {fileID: 2193709136134317070}
+  grapplingHookObj: {fileID: 5993069288084908310}
   hookTravelSpeed: 40
   playerTravelSpeed: 20
-  hooked: 0
   hookedObj: {fileID: 0}
   maxDistance: 20
 --- !u!1 &5993069287476048369
@@ -581,21 +579,9 @@ PrefabInstance:
       objectReference: {fileID: 5993069287178642374}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f5f00c3bc5deea4d8b5dee8fe60539a, type: 3}
---- !u!1 &2193709136134317070 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 517192988913884962, guid: 8f5f00c3bc5deea4d8b5dee8fe60539a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1827597913985415980}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2193709136134317064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 517192988913884964, guid: 8f5f00c3bc5deea4d8b5dee8fe60539a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1827597913985415980}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7876923017973543786 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8362231639168862278, guid: 8f5f00c3bc5deea4d8b5dee8fe60539a,
     type: 3}
   m_PrefabInstance: {fileID: 1827597913985415980}
   m_PrefabAsset: {fileID: 0}

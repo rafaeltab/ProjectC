@@ -7,7 +7,7 @@ public class SetInactiveTrigger : MonoBehaviour
     private bool done = false;
     public GameObject obj;
 
-    //Set the given GameObject to inactive
+    //Set the given GameObject to inactive if player touches collider
     private void OnTriggerEnter(Collider other)
     {
         if (!done && other.gameObject.name == "Player")

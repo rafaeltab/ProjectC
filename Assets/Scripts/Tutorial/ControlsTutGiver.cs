@@ -7,7 +7,7 @@ public class ControlsTutGiver : MonoBehaviour
     private bool done = false;
     public int amountTasks;
 
-    //Give player control tutorial if touching collider
+    //Give player controls tutorial if touching collider
     private void OnTriggerEnter(Collider other)
     {
         if (!done && other.gameObject.name == "Player")

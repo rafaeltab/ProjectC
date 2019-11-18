@@ -11,16 +11,20 @@ public class TutorialManager : MonoBehaviour
     public static int currentControlsTutId = 1;
     public bool notComplete = true;
 
+    //The 2 dimensions (switchable with the i and j keys)
+    public GameObject dimension1;
+    public GameObject dimension2;
+
     public static List<bool> taskList;
 
     public GameObject inventoryCanvas;
     public GameObject player;
     public float lightRotY = 0;
-    public static bool cutsceneLock = true;
+    public static bool cutsceneLock = false;
 
     void Start()
     {
-        Debug.Log("start");
+        cutsceneLock = true;
 
         currentControlsTutObj = controlsTutorial.transform.Find("Controls Tutorial 1").gameObject;
         taskList = new List<bool>() { false, false, false, false , false};
@@ -29,27 +33,21 @@ public class TutorialManager : MonoBehaviour
         StartCoroutine(ScreenFade());
     }
 
+    /// <summary>
+    /// Controls tutorials
+    /// </summary>
     void Update()
     {
-        int rest = 0;
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.J))
         {
-            rest = InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(3), 1);
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            rest = InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(2), 5);
-        }
-        
-        if (rest > 0)
-        {
-            Debug.Log("Rest " + rest);
+            dimension1.SetActive(!dimension1.activeSelf);
+            dimension2.SetActive(!dimension2.activeSelf);
         }
 
 
-        if (!cutsceneLock && currentControlsTutId == 1 && notComplete)
+        if (!cutsceneLock && currentControlsTutId == 1 && notComplete) //WASD Move and Space Jump
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
                 currentControlsTutObj.transform.Find("W").GetComponent<Image>().color = new Color32(150, 150, 150, 255);
                 taskList[0] = true;
@@ -58,7 +56,7 @@ public class TutorialManager : MonoBehaviour
             {
                 currentControlsTutObj.transform.Find("W").GetComponent<Image>().color = new Color32(200, 200, 200, 255);
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
             {
                 currentControlsTutObj.transform.Find("A").GetComponent<Image>().color = new Color32(150, 150, 150, 255);
                 taskList[1] = true;
@@ -67,7 +65,7 @@ public class TutorialManager : MonoBehaviour
             {
                 currentControlsTutObj.transform.Find("A").GetComponent<Image>().color = new Color32(200, 200, 200, 255);
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKey(KeyCode.S))
             {
                 currentControlsTutObj.transform.Find("S").GetComponent<Image>().color = new Color32(150, 150, 150, 255);
                 taskList[2] = true;
@@ -76,7 +74,7 @@ public class TutorialManager : MonoBehaviour
             {
                 currentControlsTutObj.transform.Find("S").GetComponent<Image>().color = new Color32(200, 200, 200, 255);
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
             {
                 currentControlsTutObj.transform.Find("D").GetComponent<Image>().color = new Color32(150, 150, 150, 255);
                 taskList[3] = true;
@@ -85,7 +83,7 @@ public class TutorialManager : MonoBehaviour
             {
                 currentControlsTutObj.transform.Find("D").GetComponent<Image>().color = new Color32(200, 200, 200, 255);
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 currentControlsTutObj.transform.Find("Space").GetComponent<Image>().color = new Color32(150, 150, 150, 255);
                 taskList[4] = true;
@@ -96,7 +94,7 @@ public class TutorialManager : MonoBehaviour
             }
 
             notComplete = false;
-            foreach (bool task in taskList)
+            foreach (bool task in taskList) //Check if all tasks are done
             {
                 if (!task)
                 {
@@ -105,16 +103,16 @@ public class TutorialManager : MonoBehaviour
                 }
             }
 
-            if (!notComplete) //Check if completed
+            if (!notComplete) //If all tasks are done
             {
                 currentControlsTutObj.SetActive(false);
                 MovementController.TeleportPlayer(300, 1, 180); //Move to Area 2
             }
         }
 
-        if (currentControlsTutId == 2)
+        if (currentControlsTutId == 2) //Shift Sprint
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift))
             {
                 currentControlsTutObj.transform.Find("Shift").GetComponent<Image>().color = new Color32(170, 170, 170, 255);
                 taskList[0] = true;
@@ -125,9 +123,9 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if (currentControlsTutId == 3)
+        if (currentControlsTutId == 3) //Crouch Ctrl
         {
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKey(KeyCode.LeftControl))
             {
                 currentControlsTutObj.transform.Find("Control").GetComponent<Image>().color = new Color32(170, 170, 170, 255);
                 taskList[0] = true;
@@ -138,9 +136,9 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if (currentControlsTutId == 4)
+        if (currentControlsTutId == 4) //Inventory E
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKey(KeyCode.E))
             {
                 currentControlsTutObj.transform.Find("E").GetComponent<Image>().color = new Color32(170, 170, 170, 255);
                 taskList[0] = true;
@@ -151,9 +149,9 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if (currentControlsTutId == 5)
+        if (currentControlsTutId == 5) //Change Dimensions I and J
         {
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKey(KeyCode.I))
             {
                 currentControlsTutObj.transform.Find("I").GetComponent<Image>().color = new Color32(170, 170, 170, 255);
                 taskList[0] = true;
@@ -162,7 +160,7 @@ public class TutorialManager : MonoBehaviour
             {
                 currentControlsTutObj.transform.Find("I").GetComponent<Image>().color = new Color32(200, 200, 200, 255);
             }
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKey(KeyCode.J))
             {
                 currentControlsTutObj.transform.Find("J").GetComponent<Image>().color = new Color32(170, 170, 170, 255);
                 taskList[1] = true;
@@ -174,6 +172,9 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gives the screen a black fade in
+    /// </summary>
     IEnumerator ScreenFade()
     {
         byte opacity = 255;
@@ -189,6 +190,10 @@ public class TutorialManager : MonoBehaviour
         currentControlsTutObj.SetActive(true);
     }
 
+    /// <summary>
+    /// Used to continue to the next controls tutorial
+    /// </summary>
+    /// <param name="amountTasks">The amount of tasks the controls tutorial has</param>
     public static void NextTutorial(int amountTasks)
     {
         currentControlsTutObj.SetActive(false);

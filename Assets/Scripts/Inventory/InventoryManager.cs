@@ -387,6 +387,21 @@ public class InventoryManager : MonoBehaviour
             if (inventoryEnabled) { Cursor.lockState = CursorLockMode.None; }
             else { Cursor.lockState = CursorLockMode.Locked; }
         }
+
+        int rest = 0;
+        if (Input.GetKeyDown(KeyCode.B)) //Get Grappling Hook by pressing B
+        {
+            rest = InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(3), 1);
+        }
+        if (Input.GetKeyDown(KeyCode.V)) //Get 5 Stone by pressing V
+        {
+            rest = InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(2), 5);
+        }
+
+        if (rest > 0) //Shows rest in console
+        {
+            Debug.Log("Rest " + rest);
+        }
     }
 
     /// <summary>
