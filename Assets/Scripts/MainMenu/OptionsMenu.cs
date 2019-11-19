@@ -52,8 +52,12 @@ public class OptionsMenu : MonoBehaviour
         int ind = 0;
         foreach (var optPage in OptionsPages)
         {
+<<<<<<< HEAD
             optPage.Rescale(buttonTemplate,ind);
             ind++;
+=======
+            pos.x = (1-sizePercentage.x)*Screen.width;
+>>>>>>> 524d5e73905cf65e0a1234563ff087bf2ce1f4dd
         }
     }
 }
