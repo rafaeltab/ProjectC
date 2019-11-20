@@ -24,19 +24,19 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     private void Start()
     {
-        itemInfoBox = itemSlot.slotObj.transform.parent.parent.GetChild(2).gameObject;
-        grabbedItemObj = itemSlot.slotObj.transform.parent.parent.GetChild(1).gameObject;
+        itemInfoBox = itemSlot.slotObj.transform.parent.parent.Find("Item Info Box").gameObject;
+        grabbedItemObj = itemSlot.slotObj.transform.parent.parent.Find("Grabbed Item").gameObject;
     }
 
 
     /// <summary>
-    /// If the mouse hovers over the item slot, activate Hover and show item info
+    /// If the mouse hovers over the item slot, activate Hover, and if not grabbing anything also show item info
     /// </summary>
     public void OnPointerEnter(PointerEventData eventData)
     {
         itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(true);
         hovering = true;
-        if (itemSlot.amount != 0)
+        if (itemSlot.amount != 0 && grabbedAmount == 0)
         {
             itemInfoBox.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = itemSlot.item.title;
             itemInfoBox.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = itemSlot.item.description;
@@ -55,11 +55,11 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     public void Update()
     {
+        offset = new Vector3(itemInfoBox.GetComponent<RectTransform>().rect.width / 2 + 10, itemInfoBox.GetComponent<RectTransform>().rect.height / -2 + 10, 0);
+        itemInfoBox.transform.position = Input.mousePosition + offset;
+
         if (hovering)
         {
-            offset = new Vector3(itemInfoBox.GetComponent<RectTransform>().rect.width / 2 + 10, itemInfoBox.GetComponent<RectTransform>().rect.height / -2 + 10, 0);
-            itemInfoBox.transform.position = Input.mousePosition + offset;
-
             if (Input.GetMouseButtonDown(0)) //If left mouse button is down
             {
                 if (grabbedAmount == 0 && itemSlot.item.id != 0) //If there is no grabbed item and the clicked item slot is not empty
@@ -116,7 +116,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 }
 
                 //For adding 1 to itemSlot by clicking right mouse button
-                else if (grabbedAmount != 0 && itemSlot.item == grabbedItem || itemSlot.item.id == 0)
+                else if (grabbedAmount != 0 && (itemSlot.item == grabbedItem || itemSlot.item.id == 0))
                 {
                     addOneDisabled = true;
                     itemSlot.AddOne();
@@ -127,7 +127,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             if (Input.GetMouseButton(1)) //While right mouse button is down
             {
                 //For adding 1 to itemSlot by hovering with right mouse button
-                if (grabbedAmount != 0 && !addOneDisabled && itemSlot.item == grabbedItem || itemSlot.item.id == 0)
+                if (grabbedAmount != 0 && !addOneDisabled && (itemSlot.item == grabbedItem || itemSlot.item.id == 0))
                 {
                     addOneDisabled = true;
                     itemSlot.AddOne();
@@ -176,18 +176,19 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 
     /// <summary>
-    /// If the mouse stops hovering, disable Hover and the item info
+    /// If the mouse stops hovering, disable Hover, and if not grabbing anything, disable item info
     /// </summary>
     public void OnPointerExit(PointerEventData eventData)
     {
         hovering = false;
         addOneDisabled = false;
         itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(false);
-        itemInfoBox.SetActive(false);
+
+        if (grabbedAmount == 0) { itemInfoBox.SetActive(false); }
     }
 
     /// <summary>
-    /// If the inventory is disabled, disable Hover and the item info
+    /// If the inventory is disabled, disable Hover
     /// </summary>
     public void OnDisable()
     {
@@ -196,7 +197,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (itemSlot != null)
         {
             itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(false);
-            itemInfoBox.SetActive(false);
         }
         
     }

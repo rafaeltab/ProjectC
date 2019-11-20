@@ -120,6 +120,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &67505042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 692511428, guid: ad385e5102f611240823192345ff8918,
+    type: 3}
+  m_PrefabInstance: {fileID: 5264201196646539653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &67505046
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67505042}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1886818638
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +404,54 @@ PrefabInstance:
     - target: {fileID: 5264201196678454894, guid: ad385e5102f611240823192345ff8918,
         type: 3}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692511428, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692511430, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307958092, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307958092, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307958092, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307958092, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307958092, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319243013, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319243013, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319243013, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319243013, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319243013, guid: ad385e5102f611240823192345ff8918, type: 3}
+      propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
