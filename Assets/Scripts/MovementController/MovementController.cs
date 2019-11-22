@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
+    public static Sound scriptInstance;
+    public static GameObject Hamster;
     public float movementSpeed = 2;
     float startMovementSpeed;
 
@@ -35,6 +37,7 @@ public class MovementController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         playerObject = GameObject.Find("Player");
+        Hamster = GameObject.Find("jesus");
     }
     
     void Update()
@@ -126,5 +129,8 @@ public class MovementController : MonoBehaviour
     public static void TeleportPlayer(float x, float y, float z)
     {
         playerObject.GetComponent<Transform>().position = new Vector3(x, y, z);
+        scriptInstance = Hamster.GetComponent<Sound>();
+        scriptInstance.switchAudio();
+        Hamster.transform.position = new Vector3(298, 1.91f, 183.86f);
     }
 }

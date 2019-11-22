@@ -22,6 +22,9 @@ public class TutorialManager : MonoBehaviour
     public float lightRotY = 0;
     public static bool cutsceneLock = false;
 
+    public static Sound scriptInstance;
+    public static GameObject Hamster;
+
     void Start()
     {
         cutsceneLock = true;
@@ -31,6 +34,10 @@ public class TutorialManager : MonoBehaviour
 
         inventoryCanvas.SetActive(false);
         StartCoroutine(ScreenFade());
+        
+        Hamster = GameObject.Find("jesus");
+        scriptInstance = Hamster.GetComponent<Sound>();
+        
     }
 
     /// <summary>
@@ -198,6 +205,7 @@ public class TutorialManager : MonoBehaviour
     {
         currentControlsTutObj.SetActive(false);
         currentControlsTutId += 1;
+        scriptInstance.switchAudio();
 
         if (currentControlsTutId < 6) //If no more control tutorials
         {
