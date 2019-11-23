@@ -7,16 +7,19 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Canvas))]
 public class OptionsMenu : MonoBehaviour
 {
-    public List<OptionsPage> OptionsPages { get; set; } = new List<OptionsPage>();
+    public List<IOptionsButton> OptionsPages { get; set; } = new List<IOptionsButton>();
     public List<SettingsPrefab> SettingPrefabs;
     
     [Space]
     public Rect displayField;
     public Button buttonTemplate;
     public Vector2 buttonLocations = new Vector2(0.125f, 0.5f);
+    public float OptionsPadding = 10f;
+    public GameObject eventSystem;
 
     public void Start()
     {
+        OptionsPages.Add(new BackButton(buttonTemplate, GetComponent<Canvas>(),this,buttonLocations));
         int ind = 0;
         foreach(var settingsPage in SettingsManager.GetInstance().Settings)
         {
@@ -49,15 +52,11 @@ public class OptionsMenu : MonoBehaviour
 
     public void Rescale()
     {
-        int ind = 0;
+        int ind = -1;
         foreach (var optPage in OptionsPages)
         {
-<<<<<<< HEAD
             optPage.Rescale(buttonTemplate,ind);
             ind++;
-=======
-            pos.x = (1-sizePercentage.x)*Screen.width;
->>>>>>> 524d5e73905cf65e0a1234563ff087bf2ce1f4dd
         }
     }
 }

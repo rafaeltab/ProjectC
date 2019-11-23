@@ -6,15 +6,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionsPage
+public class OptionsPage : IOptionsButton
 {
     public Button pageButton;
     public Settings settings;
     Canvas parentCanvas;
-    OptionsMenu optionsMenu;
+    public OptionsMenu optionsMenu;
     Vector2 buttonLocations;
     public List<SingleOption> options = new List<SingleOption>();
     public int btnIndex;
+
+    public bool IsBackButton()
+    {
+        return false;
+    }
 
     public OptionsPage(Button pageButton, Settings settings, Canvas parentCanvas, OptionsMenu optionsMenu, Vector2 buttonLocations, int btnIndex)
     {
@@ -28,13 +33,16 @@ public class OptionsPage
 
     public void Rescale(Button pageButton, int ind, float oldWidth = 1920, float oldHeight = 1080)
     {
+        bool wasNull = false;
         if (this.pageButton == null)
         {
+            wasNull = true;
             this.pageButton = Object.Instantiate(pageButton, parentCanvas.transform);
         }
         else
         {
             this.pageButton.transform.localScale = pageButton.transform.localScale;
+            this.pageButton.transform.position = pageButton.transform.position;
         }
 
         float widthPerc = oldWidth / Screen.width;
@@ -46,7 +54,7 @@ public class OptionsPage
 
         this.pageButton.transform.localScale = newScale;
 
-        HandleButton(settings.ClassName, ind);
+        HandleButton(settings.ClassName, ind, !wasNull);
 
         if (options.Count == 0)
         {
@@ -66,49 +74,75 @@ public class OptionsPage
                 opt.Resize(parentCanvas.transform);
             }
         }
-        
+
+        if (ind == SettingsManager.GetInstance().Settings.Count - 1 && wasNull)
+        {
+            Enable();
+        }
+        else if (!wasNull)
+        {
+
+        }
+        else
+        {
+            Disable();
+        }
     }
 
     public void HandleClick()
     {
         optionsMenu.Enable(this);
-        //display every setting in this.settings
+        Enable();
+    }
+
+    public void Enable()
+    {
+        foreach (var option in options)
+        {
+            option.settingObject.SetActive(true);
+        }
     }
 
     public void Disable()
     {
         //remove the display of all the settings for this page
+        foreach (var option in options)
+        {
+            option.settingObject.SetActive(false);
+        }
     }
 
-    public void HandleButton(string name, int ind)
+    public void HandleButton(string name, int ind, bool firstRun)
     {
         Vector3 pos = new Vector3(Screen.width * (buttonLocations.x), 0, 0);
-        if (ind > 0)
-        {
-            OptionsPage last = optionsMenu.OptionsPages[ind - 1];
-            pos.y = last.pageButton.transform.position.y + GetButtonHeight(last.pageButton);
 
-            for (int i = 0; i < ind; i++)
-            {
-                Vector3 lastpos = optionsMenu.OptionsPages[i].pageButton.transform.position;
-                lastpos.y -= GetButtonHeight(pageButton) / 2;
-                optionsMenu.OptionsPages[i].pageButton.transform.position = lastpos;
-            }
+        IOptionsButton last = optionsMenu.OptionsPages[ind];
+        pos.y = last.GetButton().transform.position.y + GetButtonHeight(last.GetButton());
 
-        }
-        else
+        for (int i = 0; i <= ind; i++)
         {
-            pos.y = (((1 - buttonLocations.y)) * Screen.height);
+            Vector3 lastpos = optionsMenu.OptionsPages[i].GetButton().transform.position;
+            lastpos.y -= GetButtonHeight(pageButton) / 2;
+            optionsMenu.OptionsPages[i].GetButton().transform.position = lastpos;
         }
+
         pageButton.transform.position = pos;
 
-        pageButton.GetComponentInChildren<TextMeshProUGUI>().text = name;
+        if (!firstRun)
+        {
+            pageButton.GetComponentInChildren<TextMeshProUGUI>().text = name;
 
-        pageButton.onClick.AddListener(HandleClick);
+            pageButton.onClick.AddListener(HandleClick);
+        }
     }
 
     public static float GetButtonHeight(Button btn)
     {
         return btn.GetComponent<RectTransform>().rect.height * btn.transform.localScale.y;
+    }
+
+    public Button GetButton()
+    {
+        return pageButton;
     }
 }
