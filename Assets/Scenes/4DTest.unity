@@ -339,9 +339,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4486b72aeed0ad43901ce9e0c7d5665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wPos: -0.84
+  wPos: -0.01
   rotation:
-    A: 0
+    A: 0.25
     B: 0
     C: 0
     D: 0

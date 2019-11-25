@@ -29,6 +29,7 @@ class Displayer4D : MonoBehaviour
     {
         if (animateRotation)
         {
+
             rotation.A = Count.Sin() / 2 + 0.5f;
             rotation.B = (Count/10).Sin() / 2 + 0.5f;
             rotation.C = (Count / 100).Sin() / 2 + 0.5f;
@@ -42,6 +43,7 @@ class Displayer4D : MonoBehaviour
         mesh.SetPos(new MyMath.float4(0, 0, 0, wPos));
         mesh.SetRotation(rotation);
         UpdateMesh();
+
     }
 
     /// <summary>

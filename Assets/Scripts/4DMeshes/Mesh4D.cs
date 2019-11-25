@@ -113,72 +113,126 @@ public class Mesh4D
 
         for (int cell = 0; cell < cells.Length; cell++)
         {
-            float4 vertA = vertices[cells[cell].a];
-            float4 vertB = vertices[cells[cell].b];
-            float4 vertC = vertices[cells[cell].c];
-            float4 vertD = vertices[cells[cell].d];
-
-            vertA = FullRotateSingle(vertA);
-            vertB = FullRotateSingle(vertB);
-            vertC = FullRotateSingle(vertC);
-            vertD = FullRotateSingle(vertD);
-
-            vertA += position;
-            vertB += position;
-            vertC += position;
-            vertD += position;
-
-            float minW = float.MaxValue;
-            float maxW = float.MinValue;
-
-            minW = vertA.w.Min(vertB.w, vertC.w, vertD.w);
-            maxW = vertA.w.Max(vertB.w, vertC.w, vertD.w);
-
-            if (minW < 0 && 0 < maxW)
-            {
-
-                int count = SingleSide(vertA, vertB, resultVerts);
-                count += SingleSide(vertA, vertC, resultVerts);
-                count += SingleSide(vertA, vertD, resultVerts);
-                count += SingleSide(vertB, vertC, resultVerts);
-                count += SingleSide(vertB, vertD, resultVerts);
-                count += SingleSide(vertC, vertD, resultVerts);
-
-                if (count == 3)
-                {
-                    resultTris.Add(new int3() { a = resultVerts.Count - 3, b = resultVerts.Count - 2, c = resultVerts.Count - 1 });
-                }
-                else if(count == 4)
-                {
-                    var a = resultVerts.Count - 4;
-                    var b = resultVerts.Count - 3;
-                    var c = resultVerts.Count - 2;
-                    var d = resultVerts.Count - 1;
-
-                    resultTris.Add(new int3() { a = a, b = b, c = c });
-                    resultTris.Add(new int3() { a = c, b = d, c = b });
-                    resultVerts.RemoveAt(resultVerts.Count - 1);
-
-                    //TODO: Fix this. Causes weird triangles 
-                }
-                else
-                {
-                    for (int i = 0; i < count; i++)
-                    {
-                        resultVerts.RemoveAt(resultVerts.Count - 1);
-                    }
-                }
-            }
-            else
-            {
-                //not cuttung through so skip
-                continue;
-            }
+            DoCell(cell, resultVerts, resultTris);
         }
         return new Mesh3D(resultTris.ToArray(),resultVerts.ToArray());
     }
 
-    int count = 0;
+    /// <summary>
+    /// Get a slice of a single cell
+    /// </summary>
+    /// <param name="cell">cell id</param>
+    /// <param name="resultVerts">vertices list</param>
+    /// <param name="resultTris">triangles list</param>
+    public void DoCell(int cell, List<float3> resultVerts, List<int3> resultTris)
+    {
+        float4 vertA = vertices[cells[cell].a];
+        float4 vertB = vertices[cells[cell].b];
+        float4 vertC = vertices[cells[cell].c];
+        float4 vertD = vertices[cells[cell].d];
+
+        vertA = FullRotateSingle(vertA);
+        vertB = FullRotateSingle(vertB);
+        vertC = FullRotateSingle(vertC);
+        vertD = FullRotateSingle(vertD);
+
+        vertA += position;
+        vertB += position;
+        vertC += position;
+        vertD += position;
+
+        float minW = float.MaxValue;
+        float maxW = float.MinValue;
+
+        minW = vertA.w.Min(vertB.w, vertC.w, vertD.w);
+        maxW = vertA.w.Max(vertB.w, vertC.w, vertD.w);
+
+        if (minW <= 0 && 0 <= maxW)
+        {
+            DoIntersection(vertA, vertB, vertC, vertD, resultVerts, resultTris);           
+        }
+    }
+
+    /// <summary>
+    /// Do the intersection for a single cell
+    /// </summary>
+    /// <param name="vertA">vertice a of the cell</param>
+    /// <param name="vertB">vertice b of the cell</param>
+    /// <param name="vertC">vertice c of the cell</param>
+    /// <param name="vertD">vertice d of the cell</param>
+    /// <param name="resultVerts">vertices list</param>
+    /// <param name="resultTris">triangles list</param>
+    public void DoIntersection(float4 vertA, float4 vertB, float4 vertC, float4 vertD, List<float3> resultVerts, List<int3> resultTris)
+    {
+        int verticeA = SingleSide(vertA, vertB, resultVerts);
+        int verticeB = SingleSide(vertA, vertC, resultVerts);
+        int verticeC = SingleSide(vertA, vertD, resultVerts);
+        int verticeD = SingleSide(vertB, vertC, resultVerts);
+        int verticeE = SingleSide(vertB, vertD, resultVerts);
+        int verticeF = SingleSide(vertC, vertD, resultVerts);
+
+        List<int> vertices = new List<int>();
+        DoVertice(vertices, verticeA);
+        DoVertice(vertices, verticeB);
+        DoVertice(vertices, verticeC);
+        DoVertice(vertices, verticeD);
+        DoVertice(vertices, verticeE);
+        DoVertice(vertices, verticeF);
+
+        if (vertices.Count == 3)
+        {
+            resultTris.Add(new int3() { a = vertices[0], b = vertices[1], c = vertices[2] });
+        }
+        else if (vertices.Count == 4)
+        {
+            var a = vertices[0];
+            var b = vertices[1];
+            var c = vertices[2];
+            var d = vertices[3];
+            Debug.Log("we had a fourer boios");
+            resultTris.Add(new int3() { a = a, b = b, c = c });
+            resultTris.Add(new int3() { a = c, b = d, c = b });
+
+            //TODO: Fix this. Causes weird triangles 
+        }else if (vertices.Count == 6)
+        {
+            Debug.Log("we had a sixer boios");
+            vertices = DeleteDupes(vertices);
+
+            resultTris.Add(new int3() { a = vertices[0], b = vertices[1], c = vertices[2] });
+        }
+    }
+
+    /// <summary>
+    /// Do a single vertice, checks whether it is -1 or not
+    /// </summary>
+    /// <param name="vertices">vertices list to add to</param>
+    /// <param name="vertice">vertice to add</param>
+    public void DoVertice(List<int> vertices, int vertice)
+    {
+        if (vertice != -1)
+        {
+            vertices.Add(vertice);
+        }
+    }
+
+    /// <summary>
+    /// Delete duplicate entries in an int list
+    /// </summary>
+    /// <param name="ints">integer list</param>
+    /// <returns>integer list with no duplicates</returns>
+    public List<int> DeleteDupes(List<int> ints)
+    {
+        List<int> vertices = new List<int>();
+        for (int i = 0; i < ints.Count; i++)
+        {
+            if (!vertices.Contains(ints[i]))
+            {
+                vertices.Add(ints[i]);
+            }
+        }
+        return vertices;
+    }
 
     /// <summary>
     /// Check whether an edge cuts through the W=0 plane
@@ -192,12 +246,11 @@ public class Mesh4D
         //check wheter or not one is lower then 0 in w
         if (a.w * b.w <= 0)
         {
-            count++;
             float3 result = a.LerpByW(b);
             verts.Add(result);
-            return 1;
+            return verts.Count-1;
         }
-        return 0;
+        return -1;
     }
 
     /// <summary>
