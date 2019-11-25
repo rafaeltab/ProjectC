@@ -158,6 +158,7 @@ public class SingleOption
     {
         settingObject.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = setting.Value.ToString();
         settingObject.GetComponentInChildren<Button>().onClick.AddListener(()=> {
+            settingObject.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = "?";
             page.optionsMenu.eventSystem.SetActive(false);
             settingObject.AddComponent<keyPressedListener>().Run(setting,page.optionsMenu.eventSystem);
         });
