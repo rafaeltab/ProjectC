@@ -8,7 +8,7 @@ public class TutorialManager : MonoBehaviour
     public Image blackScreen;
     public GameObject controlsTutorial;
     public static GameObject currentControlsTutObj;
-    public static int currentControlsTutId = 1;
+    public static int currentControlsTutId;
     public bool notComplete = true;
 
     //The 2 dimensions (switchable with the i and j keys)
@@ -34,7 +34,7 @@ public class TutorialManager : MonoBehaviour
 
         inventoryCanvas.SetActive(false);
         StartCoroutine(ScreenFade());
-        
+
         Hamster = GameObject.Find("jesus");
         scriptInstance = Hamster.GetComponent<Sound>();
         
@@ -130,7 +130,29 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if (currentControlsTutId == 3) //Crouch Ctrl
+        if (currentControlsTutId == 3) //Shift Sprint Jump
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                currentControlsTutObj.transform.Find("Shift").GetComponent<Image>().color = new Color32(170, 170, 170, 255);
+                taskList[0] = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                currentControlsTutObj.transform.Find("Shift").GetComponent<Image>().color = new Color32(200, 200, 200, 255);
+            }
+            if (Input.GetKey(KeyCode.Space))
+            {
+                currentControlsTutObj.transform.Find("Space").GetComponent<Image>().color = new Color32(170, 170, 170, 255);
+                taskList[1] = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                currentControlsTutObj.transform.Find("Space").GetComponent<Image>().color = new Color32(200, 200, 200, 255);
+            }
+        }
+
+        if (currentControlsTutId == 4) //Crouch Ctrl
         {
             if (Input.GetKey(KeyCode.LeftControl))
             {
@@ -143,7 +165,7 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if (currentControlsTutId == 4) //Inventory E
+        if (currentControlsTutId == 5) //Inventory E
         {
             if (Input.GetKey(KeyCode.E))
             {
@@ -156,7 +178,7 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if (currentControlsTutId == 5) //Change Dimensions I and J
+        if (currentControlsTutId == 6) //Change Dimensions I and J
         {
             if (Input.GetKey(KeyCode.I))
             {
@@ -194,6 +216,9 @@ public class TutorialManager : MonoBehaviour
         }
         inventoryCanvas.SetActive(true);
         cutsceneLock = false;
+
+        yield return new WaitForSeconds(16); //Wait for HJ to mention controls
+        currentControlsTutId = 1;
         currentControlsTutObj.SetActive(true);
     }
 
@@ -207,7 +232,7 @@ public class TutorialManager : MonoBehaviour
         currentControlsTutId += 1;
         scriptInstance.switchAudio();
 
-        if (currentControlsTutId < 6) //If no more control tutorials
+        if (currentControlsTutId < 7) //If no more control tutorials
         {
             taskList = new List<bool>();
             for (int i = 0; i < amountTasks; i++)

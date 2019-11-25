@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Sound : MonoBehaviour
@@ -7,6 +8,7 @@ public class Sound : MonoBehaviour
     public AudioSource myAudio;
     public GameObject player;
     public Transform playerTransform;
+    public TextMeshProUGUI textBoxText;
     string currentClip;
 
     public AudioClip fransisco3;
@@ -39,12 +41,15 @@ public class Sound : MonoBehaviour
     }
     public void switchAudio()
     {
+        Debug.Log("Next Audio");
+        Debug.Log(TutorialManager.currentControlsTutId);
         currentClip = myAudio.clip.name;
         switch (currentClip)
         {
             case "fransisco1":
                 myAudio.clip = fransisco3;
                 myAudio.Play();
+                textBoxText.text = "";
                 break;
             case "fransisco3":
                 myAudio.clip = fransisco4;
@@ -72,6 +77,9 @@ public class Sound : MonoBehaviour
         currentClip = myAudio.clip.name;
         switch (currentClip)
         {
+            case "fransisco3":
+                transform.position = new Vector3(298, 1.91f, 183.86f);
+                break;
             case "fransisco4":
                 targetPosition = new Vector3(294.45f, 3.12f, 193.72f);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);

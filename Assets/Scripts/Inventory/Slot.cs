@@ -197,6 +197,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (itemSlot != null)
         {
             itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(false);
+            if (grabbedAmount == 0) { itemInfoBox.SetActive(false); }
         }
         
     }

@@ -170,17 +170,20 @@
     <Compile Include="Assets\Scripts\General\SimpleCameraController.cs" />
     <Compile Include="Assets\Scripts\GrapplingHook\GrapplingHook.cs" />
     <Compile Include="Assets\Scripts\GrapplingHook\HookDetector.cs" />
+    <Compile Include="Assets\Scripts\HamsterJesus\Sound.cs" />
     <Compile Include="Assets\Scripts\Inventory\CheckInventoryHover.cs" />
     <Compile Include="Assets\Scripts\Inventory\Equip.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\ItemDatabase.cs" />
     <Compile Include="Assets\Scripts\Inventory\Slot.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\MazeTest\Maze.cs" />
     <Compile Include="Assets\Scripts\MovementController\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\MovementController\HeadBob.cs" />
     <Compile Include="Assets\Scripts\MovementController\MovementController.cs" />
     <Compile Include="Assets\Scripts\Settings\CustomExceptions.cs" />
     <Compile Include="Assets\Scripts\Settings\SettingsManager.cs" />
+    <Compile Include="Assets\Scripts\Shaders\Primitives.cs" />
     <Compile Include="Assets\Scripts\Tutorial\ControlsTutGiver.cs" />
     <Compile Include="Assets\Scripts\Tutorial\ItemGiver.cs" />
     <Compile Include="Assets\Scripts\Tutorial\SetInactiveTrigger.cs" />
@@ -281,6 +284,9 @@
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.VisualEffectGraph.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -316,6 +322,9 @@
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.VisualEffectGraph.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
