@@ -7,6 +7,7 @@ public class TutorialManager : MonoBehaviour
 {
     public Image blackScreen;
     public GameObject controlsTutorial;
+    public GameObject subtitles;
     public static GameObject currentControlsTutObj;
     public static int currentControlsTutId;
     public bool notComplete = true;
@@ -17,7 +18,7 @@ public class TutorialManager : MonoBehaviour
 
     public static List<bool> taskList;
 
-    public GameObject inventoryCanvas;
+    public GameObject inventoryAndHotbar;
     public GameObject player;
     public float lightRotY = 0;
     public static bool cutsceneLock = false;
@@ -32,7 +33,8 @@ public class TutorialManager : MonoBehaviour
         currentControlsTutObj = controlsTutorial.transform.Find("Controls Tutorial 1").gameObject;
         taskList = new List<bool>() { false, false, false, false , false};
 
-        inventoryCanvas.SetActive(false);
+        inventoryAndHotbar.SetActive(false);
+        subtitles.SetActive(true);
         StartCoroutine(ScreenFade());
 
         Hamster = GameObject.Find("jesus");
@@ -214,10 +216,10 @@ public class TutorialManager : MonoBehaviour
             blackScreen.color = new Color32(0, 0, 0, opacity);
             yield return new WaitForSeconds(0.01f);
         }
-        inventoryCanvas.SetActive(true);
+        inventoryAndHotbar.SetActive(true);
         cutsceneLock = false;
 
-        yield return new WaitForSeconds(16); //Wait for HJ to mention controls
+        yield return new WaitForSeconds(15); //Wait for HJ to mention controls
         currentControlsTutId = 1;
         currentControlsTutObj.SetActive(true);
     }
