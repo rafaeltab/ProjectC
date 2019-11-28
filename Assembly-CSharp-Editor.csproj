@@ -71,6 +71,9 @@
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/unityFiles/projects/4DGame/ProjectC/ProjectC/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.ProGrids">
+ <HintPath>D:/unityFiles/projects/4DGame/ProjectC/ProjectC/Library/ScriptAssemblies/Unity.ProGrids.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.VSCode.Editor">
  <HintPath>D:/unityFiles/projects/4DGame/ProjectC/ProjectC/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
@@ -82,6 +85,9 @@
  </Reference>
  <Reference Include="Unity.RenderPipelines.Core.Runtime">
  <HintPath>D:/unityFiles/projects/4DGame/ProjectC/ProjectC/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.ProGrids.Editor">
+ <HintPath>D:/unityFiles/projects/4DGame/ProjectC/ProjectC/Library/ScriptAssemblies/Unity.ProGrids.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/unityFiles/projects/4DGame/ProjectC/ProjectC/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -136,12 +142,6 @@
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/unityFiles/projects/4DGame/ProjectC/ProjectC/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.ProGrids">
- <HintPath>D:/unityFiles/projects/4DGame/ProjectC/ProjectC/Library/ScriptAssemblies/Unity.ProGrids.dll</HintPath>
- </Reference>
- <Reference Include="Unity.ProGrids.Editor">
- <HintPath>D:/unityFiles/projects/4DGame/ProjectC/ProjectC/Library/ScriptAssemblies/Unity.ProGrids.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>D:/unityInstalls/2019.2.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

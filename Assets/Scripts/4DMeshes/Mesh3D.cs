@@ -48,6 +48,7 @@ public class Mesh3D
         }
         m.vertices = vert3s;
         m.triangles = tris;
+
         m.RecalculateNormals();
         return m;
 

@@ -55,8 +55,8 @@ public class Mesh4D
         vertices[6] = new float4(1, 1, 0, 0);//6
         vertices[7] = new float4(1, 1, 1, 0);//7
 
-        vertices[8] = new float4(0.5f, 0.5f, 0.5f, 1);
-        vertices[9] = new float4(0.5f, 0.5f, 0.5f, -1f);
+        vertices[8] = new float4(0.5f, 0.5f, 0.5f, -1);
+        vertices[9] = new float4(0.5f, 0.5f, 0.5f, 1);
 
         //front
         cells[0] = new int4(2, 6, 0, 8);
@@ -115,6 +115,7 @@ public class Mesh4D
         {
             DoCell(cell, resultVerts, resultTris);
         }
+
         return new Mesh3D(resultTris.ToArray(),resultVerts.ToArray());
     }
 
@@ -191,10 +192,13 @@ public class Mesh4D
             var d = vertices[3];
             Debug.Log("we had a fourer boios");
             resultTris.Add(new int3() { a = a, b = b, c = c });
+
             resultTris.Add(new int3() { a = c, b = d, c = b });
 
+
             //TODO: Fix this. Causes weird triangles 
-        }else if (vertices.Count == 6)
+        }
+        else if (vertices.Count == 6)
         {
             Debug.Log("we had a sixer boios");
             vertices = DeleteDupes(vertices);
