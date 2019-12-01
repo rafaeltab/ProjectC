@@ -57,7 +57,7 @@ public class BackButton : IOptionsButton
 
     public void Enable()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+        OptionsLoader._instance.Close();
     }
 
     public Button GetButton()

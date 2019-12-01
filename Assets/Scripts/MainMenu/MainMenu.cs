@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public void Start()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2, LoadSceneMode.Additive);
+    }
+
     //Moves the scene up one level to the game scene
     public void StartGame()
     {
@@ -14,7 +19,7 @@ public class MainMenu : MonoBehaviour
     //Opens Options menu
     public void OptionsMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        OptionsLoader._instance.Open();
     }
 
     //Quits game
