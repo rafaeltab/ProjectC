@@ -11,7 +11,7 @@ public class Maze : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.I) | Input.GetKeyDown(KeyCode.J))
         {
             activeNr++;
             if (activeNr == 2)
