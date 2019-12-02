@@ -6,7 +6,7 @@ public class Maze : MonoBehaviour
 {
     public GameObject red;
     public GameObject blue;
-    int activeNr = 0;
+    int activeNr = 1;
     // Update is called once per frame
     void Update()
     {

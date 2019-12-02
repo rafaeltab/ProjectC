@@ -35,6 +35,7 @@ public class Sound : MonoBehaviour
     {
         Invoke("audioFinished", myAudio.clip.length);
 
+        StopText();
         string sceneName = SceneManager.GetActiveScene().name;
 
         if (sceneName == "Tutorial")
