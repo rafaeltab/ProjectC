@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OptionsLoader : MonoBehaviour
 {
-    public static OptionsLoader _instance;
+    private static OptionsLoader _instance;
+    public static bool loaded = false;
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
         _instance = this;
+        loaded = true;
         gameObject.SetActive(false);
     }
 
@@ -22,5 +25,15 @@ public class OptionsLoader : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
+    }
+
+    public static OptionsLoader GetInstance()
+    {
+        if(_instance == null)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2, LoadSceneMode.Additive);
+        }
+
+        return _instance;
     }
 }

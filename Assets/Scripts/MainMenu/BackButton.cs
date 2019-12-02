@@ -57,7 +57,7 @@ public class BackButton : IOptionsButton
 
     public void Enable()
     {
-        OptionsLoader._instance.Close();
+        OptionsLoader.GetInstance().Close();
     }
 
     public Button GetButton()

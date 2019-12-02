@@ -55,7 +55,7 @@ public class PauseMenu2 : MonoBehaviour
 
     public void LoadOptions()
     {
-        OptionsLoader._instance.Open();
+        OptionsLoader.GetInstance().Open();
         Debug.Log("Loading options");
     }
 

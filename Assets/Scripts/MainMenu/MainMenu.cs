@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
     //Opens Options menu
     public void OptionsMenu()
     {
-        OptionsLoader._instance.Open();
+        OptionsLoader.GetInstance().Open();
     }
 
     //Quits game
