@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Sound : MonoBehaviour
 {
@@ -34,26 +35,55 @@ public class Sound : MonoBehaviour
     {
         Invoke("audioFinished", myAudio.clip.length);
 
-        textList.Add("Welcome to the game my child, I am Hamster Jesus the one and only.");
-        waitTimeList.Add(0);
+        string sceneName = SceneManager.GetActiveScene().name;
 
-        textList.Add("I died for all hamsters sins, but that isn't what we're going to talk about today.");
-        waitTimeList.Add(5);
+        if (sceneName == "Tutorial")
+        {
+            textList.Add("Welcome to the game my child, I am Hamster Jesus the one and only.");
+            waitTimeList.Add(0);
 
-        textList.Add("We're here, because you wanted to learn about this epic 4 dimensional game.");
-        waitTimeList.Add(6);
+            textList.Add("I died for all hamsters sins, but that isn't what we're going to talk about today.");
+            waitTimeList.Add(5);
 
-        textList.Add("First, let's go over the controls.");
-        waitTimeList.Add(5);
+            textList.Add("We are here, because you wanted to learn about this epic 4-dimensional game!");
+            waitTimeList.Add(6);
 
-        textList.Add("Press W to walk forward,\nA to walk to the left,\nS to walk backwards\nand D to walk to the right.");
-        waitTimeList.Add(2.5f);
+            textList.Add("First, let's go over the controls.");
+            waitTimeList.Add(5);
 
-        textList.Add("Don't forget you can jump with the spacebar.");
-        waitTimeList.Add(6);
+            textList.Add("Press W to walk forward,\nA to walk to the left,\nS to walk backwards\nand D to walk to the right.");
+            waitTimeList.Add(2.5f);
 
-        textList.Add("When you've pressed all the buttons, you will start your first challenge.");
-        waitTimeList.Add(2.5f);
+            textList.Add("Don't forget you can jump with the spacebar.");
+            waitTimeList.Add(6);
+
+            textList.Add("When you've pressed all the buttons, you will start your first challenge!");
+            waitTimeList.Add(2.5f);
+        }
+        else if (sceneName == "Maze")
+        {
+            textList.Add("Hello my child, today we will learn how to move in the 4th dimension.");
+            waitTimeList.Add(0);
+
+            textList.Add("As you can see, we are surrounded by walls.");
+            waitTimeList.Add(4);
+
+            textList.Add("This is perfect to test out your 4th dimension jumping ability.");
+            waitTimeList.Add(2.5f);
+
+            textList.Add("To jump to another slice of this 4-dimensional world, we simply press the \"I\" or the \"J\" button.");
+            waitTimeList.Add(4.5f);
+
+            textList.Add("In this particular world, the black walls are 'constant' that exist on all slices of this 4-dimensional space.");
+            waitTimeList.Add(5.5f);
+
+            textList.Add("The colored walls do not and only exist in one of them.");
+            waitTimeList.Add(6.5f);
+
+            textList.Add("Try jumping back and forth between slices while moving around, and reach the goal. See you there!");
+            waitTimeList.Add(4);
+        }
+
 
         StartCoroutine(TextGiver());
     }
@@ -119,7 +149,7 @@ public class Sound : MonoBehaviour
                 textList.Add("In your inventory you'll find a grappling hook.");
                 waitTimeList.Add(2.5f);
 
-                textList.Add("You can move this to your hotbar, by clicking and dragging it to your hotbar.");
+                textList.Add("You can move this to your hotbar by clicking and dragging it to your hotbar.");
                 waitTimeList.Add(3);
 
                 textList.Add("Equip your hookshot by using the mouse wheel to get to the appropriate hotbar slot.");

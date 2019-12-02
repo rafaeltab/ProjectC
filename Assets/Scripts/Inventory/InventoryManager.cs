@@ -10,7 +10,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryPanel;
     public GameObject hotbarPanel;
     public GameObject itemSlotPrefab;
-    public int startSlotRows = 4;
+    public int startSlotRows;
     private int slotRow;
     public static List<ItemSlot> inventoryList = new List<ItemSlot>();
     public GameObject canvas;
@@ -234,7 +234,6 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     public void AddRow()
     {
-
         for (int i = 0; i < 5; i++)
         {
             int extraDistance = 0; //Extra distance for hotbar
