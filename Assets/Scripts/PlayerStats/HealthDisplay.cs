@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthDisplay : MonoBehaviour
@@ -19,9 +20,12 @@ public class HealthDisplay : MonoBehaviour
 
     public void SetHealth(float health)
     {
-        var percentage = Mathf.InverseLerp(minHealth, maxHealth, health);
-        HealthBar.color = barColor.Evaluate(percentage);
-        HealthBar.transform.localScale = new Vector3(percentage,1,1);
-        textBar.text = ((int)health).ToString();
+        if (!(HealthBar == null || textBar == null))
+        {
+            var percentage = Mathf.InverseLerp(minHealth, maxHealth, health);
+            HealthBar.color = barColor.Evaluate(percentage);
+            HealthBar.transform.localScale = new Vector3(percentage, 1, 1);
+            textBar.text = ((int)health).ToString();
+        }        
     }
 }

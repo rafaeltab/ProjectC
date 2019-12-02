@@ -16,6 +16,7 @@ namespace Assets.Scripts.Visualisers
 
         private static ComputeBuffer triangleBuff;
         private static ComputeBuffer floatMapBuff;
+        private static ComputeBuffer triCountBuffer;
 
         /// <summary>
         /// Create all the buffers for the visualize function
@@ -36,23 +37,34 @@ namespace Assets.Scripts.Visualisers
             {
                 if (fullSize != floatMapBuff.count)
                 {
-                    ReleaseBuffers();
+                    DisposeBuffers();
                     goto Run;
                 }
             }
 
         Run:
             triangleBuff = new ComputeBuffer(maxTriCount, sizeof(float) * 9, ComputeBufferType.Append);
-            floatMapBuff = new ComputeBuffer(fullSize, sizeof(float) * 4);            
+            triangleBuff.SetCounterValue(0);
+            floatMapBuff = new ComputeBuffer(fullSize, sizeof(float) * 4);
+            triCountBuffer = new ComputeBuffer(1, sizeof(int), ComputeBufferType.Raw);
         }
 
         /// <summary>
         /// release all the buffers
         /// </summary>
-        private static void ReleaseBuffers()
+        private static void DisposeBuffers()
         {
-            triangleBuff.Release();
             floatMapBuff.Release();
+            floatMapBuff.Dispose();
+            floatMapBuff = null;
+
+            triangleBuff.Release();
+            triangleBuff.Dispose();
+            triangleBuff = null;
+
+            triCountBuffer.Release();
+            triCountBuffer.Dispose();
+            triCountBuffer = null;
         }
 
         /// <summary>
@@ -61,7 +73,7 @@ namespace Assets.Scripts.Visualisers
         /// <param name="thres">threshold for the surface level</param>
         /// <param name="generator">The monobehaviour that called this function (indirectly)</param>
         /// <param name="marchingCompute">The compute shader used for generating the mesh</param>
-        public MarchingComputeVisualiser(float thres,ComputeShader marchingCompute,MonoBehaviour generator)
+        public MarchingComputeVisualiser(float thres, ComputeShader marchingCompute, MonoBehaviour generator)
         {
             threshold = thres;
             compute = marchingCompute;
@@ -74,10 +86,9 @@ namespace Assets.Scripts.Visualisers
         /// <param name="values">the input values</param>
         /// <param name="template">mesh themplate</param>
         /// <returns>generated mesh</returns>
-        public Mesh Visualize(float[,,]values, Mesh template, int size)
+        public Mesh Visualize(float[,,] values, Mesh template, int size)
         {
             size += 1;
-
             CreateBuffers(size);
 
             List<Float4> vals = new List<Float4>();
@@ -92,24 +103,69 @@ namespace Assets.Scripts.Visualisers
                 }
             }
 
+            SetValues(vals, size);
+            Dispatch(size);
+
+            int nrTris = GetCount();
+            Tri[] tris = GetTris(nrTris);            
+
+            template = CreateMesh(tris,template);
+
+            DisposeBuffers();
+
+            return template;
+        }
+
+        /// <summary>
+        /// Put the values into the ComputeShader
+        /// </summary>
+        /// <param name="vals">float map values</param>
+        /// <param name="size">the size</param>
+        private void SetValues(List<Float4> vals, int size)
+        {
             floatMapBuff.SetData(vals);
-            compute.SetBuffer(0, "floatMap", floatMapBuff);            
-            
+            compute.SetBuffer(0, "floatMap", floatMapBuff);
+
             compute.SetBuffer(0, "triangles", triangleBuff);
 
             compute.SetInt("size", size);
             compute.SetFloat("surfaceLevel", threshold);
-
+        }
+        
+        /// <summary>
+        /// Start the Compute Shader
+        /// </summary>
+        /// <param name="size">the size</param>
+        private void Dispatch(int size)
+        {
             int threadsPAxis = Mathf.CeilToInt((size - 1) / 8f);
+            compute.Dispatch(0, threadsPAxis, threadsPAxis, threadsPAxis);
+        }
 
-            compute.Dispatch(0, threadsPAxis, threadsPAxis, threadsPAxis);           
+        /// <summary>
+        /// Get the count of items inside a Compute Buffer
+        /// </summary>
+        /// <returns>Count of elements</returns>
+        private int GetCount()
+        {
+            ComputeBuffer.CopyCount(triangleBuff, triCountBuffer, 0);
 
-            int nrTris = triangleBuff.count;
+            int[] triCountArray = { 0 };
+            triCountBuffer.GetData(triCountArray);
 
-            Tri[] tris = new Tri[nrTris];
+            return triCountArray[0];
+        }
 
-            triangleBuff.GetData(tris);
-            
+        /// <summary>
+        /// Create the mesh object from the triangle array and a template
+        /// </summary>
+        /// <param name="tris">The triangles</param>
+        /// <param name="template">the template</param>
+        /// <returns>a unityengine mesh</returns>
+        private Mesh CreateMesh(Tri[] tris, Mesh template)
+        {
+            int nrTris = tris.Length;
+
             Vector3[] vertices = new Vector3[nrTris * 3];
             int[] triangles = new int[nrTris * 3];
 
@@ -126,13 +182,19 @@ namespace Assets.Scripts.Visualisers
 
             template.vertices = vertices;
             template.triangles = triangles;
-            template.RecalculateNormals(); // Fix distance between them
-
-            //triangleBuff.Release(); //TODO release this some where where it dont break it
-            //generator.StartCoroutine(Release(floatMapBuff));
-            //generator.StartCoroutine(Release(triangleBuff));
+            template.RecalculateNormals();
 
             return template;
+        }
+
+        private Tri[] GetTris(int nrTris)
+        {
+            Tri[] tris = new Tri[nrTris];
+
+            triangleBuff.GetData(tris);
+            triangleBuff.SetCounterValue(0);
+
+            return tris;
         }
 
         /// <summary>
@@ -150,7 +212,7 @@ namespace Assets.Scripts.Visualisers
     /// </summary>
     struct Tri
     {
-        #pragma warning disable 649 // disable unassigned variable warning
+#pragma warning disable 649 // disable unassigned variable warning
         public Vector3 a;
         public Vector3 b;
         public Vector3 c;

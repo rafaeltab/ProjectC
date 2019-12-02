@@ -246,7 +246,7 @@ public class MeshGenerator : MonoBehaviour
             wPosses[linxeses[i]] = model.wPos;
             yield return null;
         }
-
+        
         gen = true;
     }
 

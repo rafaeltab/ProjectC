@@ -15,19 +15,28 @@ public class PlayerStats : MonoBehaviour
     
     public void Start()
     {
-        GetComponentInChildren<HealthDisplay>().minHealth = minHealth;
-        GetComponentInChildren<HealthDisplay>().maxHealth = maxHealth;
+        if (GetComponentInChildren<HealthDisplay>())
+        {
+            GetComponentInChildren<HealthDisplay>().minHealth = minHealth;
+            GetComponentInChildren<HealthDisplay>().maxHealth = maxHealth;
+        }        
     }
 
     public void Damage(float damage)
     {
         Health -= damage;
-        GetComponentInChildren<HealthDisplay>().SetHealth(Health);
+        if (GetComponentInChildren<HealthDisplay>())
+        {
+            GetComponentInChildren<HealthDisplay>().SetHealth(Health);
+        }
     }
 
     public void Update()
     {
         Health = Mathf.Clamp(Health, minHealth, maxHealth);
-        GetComponentInChildren<HealthDisplay>().SetHealth(Health);
+        if (GetComponentInChildren<HealthDisplay>())
+        {
+            GetComponentInChildren<HealthDisplay>().SetHealth(Health);
+        }        
     }
 }
