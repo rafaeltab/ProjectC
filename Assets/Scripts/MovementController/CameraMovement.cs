@@ -8,10 +8,10 @@ public class CameraMovement : MonoBehaviour
     public float speedH = 2.0f;
     public float speedV = 2.0f;
 
-    private float yaw = 0.0f;
-    private float pitch = 0.0f;
+    public static float yaw = 0.0f;
+    public static float pitch = 0.0f;
 
-     public float viewRange;
+    public float viewRange;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +22,15 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        yaw += speedH * Input.GetAxis("Mouse X");
-        pitch -= speedV * Input.GetAxis("Mouse Y");
+        if (Cursor.lockState == CursorLockMode.Locked && !TutorialManager.cutsceneLock)
+        {
+            //uses the mouse to rotate camera
+            yaw += speedH * Input.GetAxis("Mouse X");
+            pitch -= speedV * Input.GetAxis("Mouse Y");
 
-        transform.eulerAngles = new Vector3( Mathf.Clamp( pitch, -viewRange, viewRange), yaw, 0);
+            transform.eulerAngles = new Vector3(Mathf.Clamp(pitch, -viewRange, viewRange), yaw, 0);
+        }
+
+        
     }
 }

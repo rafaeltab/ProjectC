@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class GrapplingHook : MonoBehaviour
 {
-    public GameObject hook;
-    public GameObject hookHolder;
+    public static GameObject hook;
+    public static GameObject hookHolder;
+
+    public GameObject grapplingHookObj;
 
     public float hookTravelSpeed;
     public float playerTravelSpeed;
 
     public static bool fired;
-    public bool hooked;
+    public static bool hooked;
     public GameObject hookedObj;
 
     public float maxDistance;
@@ -22,15 +24,25 @@ public class GrapplingHook : MonoBehaviour
     private Vector3 defaultScale;
     private void Start()
     {
+        grapplingHookObj.SetActive(true);
+        hook = GameObject.Find("grapplinghook");
+        hookHolder = GameObject.Find("Hook Holder");
+        grapplingHookObj.SetActive(false);
+
         defaultScale = hook.transform.localScale;
     }
 
+    /// <summary>
+    /// Update function for firing the hook, checking if the hook is connected to an object and moving the player if hooked
+    /// </summary>
     void Update()
     {
+        
         //Firing the hook
         if (Input.GetMouseButtonDown(0) && fired == false && Cursor.lockState == CursorLockMode.Locked)
             fired = true;
 
+        //Draws rope from player to hook
         if (fired)
         {
             LineRenderer rope = hook.GetComponent<LineRenderer>();
@@ -39,6 +51,7 @@ public class GrapplingHook : MonoBehaviour
             rope.SetPosition(1, hook.transform.position);
         }
         
+        //Fires hook forward until it hits max distance
         if (fired == true && hooked == false)
         {
             hook.transform.Translate(Vector3.forward * Time.deltaTime * hookTravelSpeed);
@@ -48,6 +61,7 @@ public class GrapplingHook : MonoBehaviour
                 ReturnHook();
         }
 
+        //If the hook is fired and connected to an object the player moves towards the hookpoint
         if (hooked == true && fired == true)
         {
             hook.transform.parent = hookedObj.transform;
@@ -61,6 +75,8 @@ public class GrapplingHook : MonoBehaviour
                 ReturnHook();
             }
         }
+
+        //While not fired
         else {
             hook.transform.parent = hookHolder.transform;
             hook.transform.localScale = defaultScale;
@@ -68,7 +84,10 @@ public class GrapplingHook : MonoBehaviour
         }
     }
 
-    void ReturnHook()
+    /// <summary>
+    /// Returns hook to the hook holder and resets the rope
+    /// </summary>
+    public static void ReturnHook()
     {
         hook.transform.rotation = hookHolder.transform.rotation;
         hook.transform.position = hookHolder.transform.position;
@@ -79,6 +98,9 @@ public class GrapplingHook : MonoBehaviour
         rope.SetVertexCount(0);
     }
 
+    /// <summary>
+    /// Check if grounded
+    /// </summary>
     void CheckGrounded()
     {
         RaycastHit hit;
