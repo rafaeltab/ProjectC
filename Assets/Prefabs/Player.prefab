@@ -246,11 +246,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e3a6e2f416b254bac7ba7698f87672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hook: {fileID: 1675618221082384700}
-  hookHolder: {fileID: 7233081110256684632}
+  grapplingHookObj: {fileID: 2971011154525684544}
   hookTravelSpeed: 40
   playerTravelSpeed: 20
-  hooked: 0
   hookedObj: {fileID: 0}
   maxDistance: 20
 --- !u!114 &6906619978344278152
@@ -2204,7 +2202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectHighlight: {fileID: 8795686360734646846}
   selectPos: 0
-  itemEquips: []
+  oldSelectPos: 0
 --- !u!1 &8795686360098772398
 GameObject:
   m_ObjectHideFlags: 0
@@ -6968,18 +6966,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f5f00c3bc5deea4d8b5dee8fe60539a, type: 3}
---- !u!1 &1675618221082384700 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8362231639168862278, guid: 8f5f00c3bc5deea4d8b5dee8fe60539a,
-    type: 3}
-  m_PrefabInstance: {fileID: 7155200259981365626}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7233081110256684632 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 517192988913884962, guid: 8f5f00c3bc5deea4d8b5dee8fe60539a,
-    type: 3}
-  m_PrefabInstance: {fileID: 7155200259981365626}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7233081110256684638 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 517192988913884964, guid: 8f5f00c3bc5deea4d8b5dee8fe60539a,
