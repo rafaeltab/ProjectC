@@ -29,21 +29,34 @@ class Displayer4D : MonoBehaviour
     {
         if (animateRotation)
         {
-
-            rotation.A = Count.Sin() / 2 + 0.5f;
-            rotation.B = (Count/10).Sin() / 2 + 0.5f;
-            rotation.C = (Count / 100).Sin() / 2 + 0.5f;
-            rotation.D = (Count / 1000).Sin() / 2 + 0.5f;
-            rotation.E = (Count / 10000).Sin() / 2 + 0.5f;
-            rotation.F = (Count / 100000).Sin() / 2 + 0.5f;
-
-            Count += 0.1f;
+            Animate();
         }
 
         mesh.SetPos(new MyMath.float4(0, 0, 0, wPos));
         mesh.SetRotation(rotation);
         UpdateMesh();
 
+    }
+
+    public void Animate()
+    {
+        if (wPos == 0)
+        {
+            wPos = 0.1f;
+        }
+
+        rotation.A = Count.Sin() / 4 + 0.25f;
+        rotation.B = (Count / 10).Sin() / 4 + 0.25f;
+        rotation.D = (Count / 100).Sin() / 4 + 0.25f;
+
+        if (wPos < 0)
+        {
+            rotation.A *= -1;
+            rotation.B *= -1;
+            rotation.D *= -1;
+        }
+
+        Count += 0.1f;
     }
 
     /// <summary>

@@ -339,15 +339,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4486b72aeed0ad43901ce9e0c7d5665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wPos: -0.01
+  wPos: 0.01
   rotation:
-    A: 0.576
+    A: 0.007
     B: 0
     C: 0
     D: 0
     E: 0
     F: 0
-  animateRotation: 0
+  animateRotation: 1
 --- !u!23 &2056034682
 MeshRenderer:
   m_ObjectHideFlags: 0
