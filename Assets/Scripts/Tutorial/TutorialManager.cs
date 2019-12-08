@@ -219,7 +219,7 @@ public class TutorialManager : MonoBehaviour
         inventoryAndHotbar.SetActive(true);
         cutsceneLock = false;
 
-        yield return new WaitForSeconds(15); //Wait for HJ to mention controls
+        //yield return new WaitForSeconds(15); //Wait for HJ to mention controls    (Disabled for now)
         currentControlsTutId = 1;
         currentControlsTutObj.SetActive(true);
     }
