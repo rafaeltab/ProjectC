@@ -16,7 +16,7 @@ class Displayer4D : MonoBehaviour
     public bool animateRotation = true;
     private float Count = 0;
 
-    Mesh4D mesh = new Mesh4D(Primitives.HYPERCUBE);
+    Mesh4D mesh = new Mesh4D(Primitive.HYPERCUBE);
     public void Start()
     {
         UpdateMesh();

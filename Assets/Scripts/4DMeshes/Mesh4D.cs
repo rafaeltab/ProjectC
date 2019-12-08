@@ -25,11 +25,11 @@ public class Mesh4D
     /// Create a primitive mesh
     /// </summary>
     /// <param name="primitive"></param>
-    public Mesh4D(Primitives primitive)
+    public Mesh4D(Primitive primitive)
     {
         switch (primitive)
         {
-            case Primitives.HYPERCUBE:
+            case Primitive.HYPERCUBE:
                 PrimitiveHyper();
                 break;
         }
@@ -363,7 +363,7 @@ public class Mesh4D
 
 
 
-public enum Primitives
+public enum Primitive
 {
     HYPERCUBE
 }
