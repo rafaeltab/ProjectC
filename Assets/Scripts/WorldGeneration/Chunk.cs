@@ -2,6 +2,7 @@
 using NoiseTest;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,13 @@ namespace Assets.Scripts
         public readonly Vector3Int position;
         public readonly float trength;
         private Mesh mesh = new Mesh();
-        private int size;
-        private readonly float noiseScale;
-        private readonly long seed;
-        private readonly float threshold;
-        private float[,,] vals;
-        private IMeshVisualiser mv;
-        private bool generated = false;
+        public int size;
+        public readonly float noiseScale;
+        public readonly long seed;
+        public readonly float threshold;
+        public float[,,] vals;
+        public IMeshVisualiser mv;
+        public bool generated = false;
 
         /// <summary>
         /// Create a non existing chunk
@@ -59,24 +60,53 @@ namespace Assets.Scripts
             this.noiseScale = noiseScale;
             
             this.threshold = threshold;
-        }
-
-        /// <summary>
-        /// Create a chunk from a saved file. Not implemented
-        /// </summary>
-        /// <param name="path">The path to the file</param>
-        public Chunk(string path)
-        {
-            //load chunk from saved file
-        }
+        }        
 
         /// <summary>
         /// Pre-Generate the chunk
         /// </summary>
         public void Generate()
-        { 
-            mesh = mv.Visualize(Gen(size),mesh,size);
+        {
+            if (!generated) {
+                vals = Gen(size);
+            }
+            if(mesh.vertices.Count() <= 1){
+                mesh = mv.Visualize(vals, mesh, size);
+            }
+            
             generated = true;
+            
+        }
+
+        private static string InfoToFileName(Vector3Int pos, float trength, long seed, float threshold, int size = 16, float noiseScale = 1f)
+        {
+            return $"{pos.x} {pos.y} {pos.z} {trength} {seed} {threshold} {size} {noiseScale}.chunk";
+        }
+
+        public void Save()
+        {
+            string filename = InfoToFileName(position, trength, seed, threshold, size, noiseScale);
+
+            byte[] serialized = ChunkSerializer.Serialize(this);
+            File.WriteAllBytes(@"save\" + filename,serialized);
+        }
+
+        public static Chunk TryLoadFromFile(Vector3Int pos, float trength, long seed, float threshold, ComputeShader compute, MonoBehaviour generator, MeshGenModel.Visualizer visualizer, int size = 16, float noiseScale = 1f)
+        {
+            if(!Directory.Exists(@"save\")){
+                Directory.CreateDirectory(@"save\");
+            }
+
+            string filename = InfoToFileName(pos, trength, seed, threshold, size, noiseScale);
+
+            if(File.Exists(@"save\" + filename)){
+                Debug.Log("Loaded from file!");
+                return ChunkSerializer.Deserialize(File.ReadAllBytes(@"save\" + filename),compute,generator,visualizer);
+            }
+            else
+            {
+                return new Chunk(pos,trength,seed,threshold,compute,generator,visualizer,size,noiseScale);
+            }
         }
 
         /// <summary>
@@ -90,10 +120,9 @@ namespace Assets.Scripts
                 filter = go.AddComponent<MeshFilter>();
             }
 
-            if (!generated)
-            {
-                Generate();
-            }
+            
+            Generate();
+            
             MeshCollider coll = go.GetComponent<MeshCollider>();
             if(coll != null){
                 try

@@ -170,6 +170,7 @@ public class MeshGenerator : MonoBehaviour
             {
                 GameObject go = Instantiate(model.template,transform);
                 chunks.Add(go);
+                chunkChunks.Add(null);
                 chunkLocs.Add(null);
                 wPosses.Add(float.MaxValue);
             }
@@ -207,6 +208,7 @@ public class MeshGenerator : MonoBehaviour
     private List<GameObject> chunks = new List<GameObject>();
     private List<Vector3Int?> chunkLocs = new List<Vector3Int?>();
     private List<float> wPosses = new List<float>();
+    private List<Chunk> chunkChunks = new List<Chunk>();
 
     /// <summary>
     /// Generate all chunks
@@ -240,7 +242,12 @@ public class MeshGenerator : MonoBehaviour
 
         for (int i = 0; i < gos.Count; i++)
         {
-            Chunk c = new Chunk(locs[i], model.wPos, 1, model.threshold,compute,this,model.visualizer, model.size, model.noiseScale);
+            Chunk c = Chunk.TryLoadFromFile(locs[i], model.wPos, 1, model.threshold, compute, this, model.visualizer, model.size, model.noiseScale);
+            if(chunkChunks[i] != null){
+                chunkChunks[i].Save();
+            }
+            
+            chunkChunks[i] = c;
             c.Display(gos[i]);
             chunkLocs[linxeses[i]] = locs[i];
             wPosses[linxeses[i]] = model.wPos;

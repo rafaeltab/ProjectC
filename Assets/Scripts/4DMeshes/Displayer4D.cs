@@ -38,6 +38,9 @@ class Displayer4D : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// animate the object
+    /// </summary>
     public void Animate()
     {
         if (wPos == 0)
