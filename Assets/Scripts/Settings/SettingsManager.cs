@@ -115,22 +115,33 @@ public class ControlsSettings : Settings {
     public ControlsSettings()
     {
         ClassName = "Controls";
-        SettingsList.Add(new Setting("TestSetting","test","",typeof(string)));
-        SettingsList.Add(new Setting("W Up","wup", KeyCode.I,typeof(KeyCode)));
-        SettingsList.Add(new Setting("W Down", "wdown", KeyCode.J, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Move Forward", "mforward", KeyCode.W, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Move Left", "mleft", KeyCode.A, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Move Backwards", "mdown", KeyCode.S, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Move Right", "mright", KeyCode.D, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Jump", "jump", KeyCode.Space, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Crouch", "crouch", KeyCode.LeftControl, typeof(KeyCode)));
+        SettingsList.Add(new Setting("W-Dimension Up","wup", KeyCode.I,typeof(KeyCode)));
+        SettingsList.Add(new Setting("W-Dimension Down", "wdown", KeyCode.J, typeof(KeyCode)));
         SettingsList.Add(new Setting("Open Inventory", "oinv", KeyCode.E, typeof(KeyCode)));
     }
 } 
+
 public class AudioSettings : Settings
 {
     public AudioSettings()
     {
         ClassName = "Audio";
-        SettingsList.Add(new Setting("TestSetting","test","",typeof(string)));
+        SettingsList.Add(new Setting("Main Volume", "mainvol", "", typeof(float)));
+        //SettingsList.Add(new Setting("Music Volume", "musicvol", "", typeof(float)));
+        //SettingsList.Add(new Setting("Dialogue Volume", "dialvol", "", typeof(float)));
+        //SettingsList.Add(new Setting("Effects Volume", "efxvol", "", typeof(float)));
     }
 }
+
 public class VideoSettings : Settings
-{    public VideoSettings()
+{
+    public VideoSettings()
     {
         ClassName = "Video";
         SettingsList.Add(new Setting("TestSetting","test","",typeof(string)));
@@ -142,7 +153,7 @@ public class GeneralSettings : Settings
     public GeneralSettings()
     {
         ClassName = "General";
-        SettingsList.Add(new Setting("Show fps", "showfps", true, typeof(bool)));
+        SettingsList.Add(new Setting("Show fps", "showfps", false, typeof(bool)));
     }
 }
 

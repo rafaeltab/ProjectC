@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Scene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 0
+    path: Assets/Scenes/OptionsV2.unity
+    guid: 5b77dc6257f65004e8e5f56488a4b39f
   - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
-    guid: 3a37d1c8f210e40479f16149f093a614
-  - enabled: 1
-    path: Assets/Scenes/Maze.unity
-    guid: 10b20f51bc8bcae4daf47778b20c54e3
+    path: Assets/Scenes/OptionsMenu.unity
+    guid: 6976676d25b33a64494163b0dd59babf
   m_configObjects: {}
