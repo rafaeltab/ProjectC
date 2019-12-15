@@ -18,6 +18,7 @@ public class Sound : MonoBehaviour
     public AudioClip fransisco5;
     public AudioClip fransisco6;
     public AudioClip fransisco7;
+    public AudioClip cube_line;
     public AudioClip kelly1;
 
     public static List<string> textList = new List<string>();
@@ -171,6 +172,19 @@ public class Sound : MonoBehaviour
                 waitTimeList.Add(3.5f);
                 StartCoroutine(TextGiver());
                 break;
+            case "fransisco7":
+                myAudio.clip = cube_line;
+                myAudio.Play();
+                //This here is called a hyper cube, it's a 4 dimensional shape that rotates in place on it's 4th axis. this makes it look all wobbly! don't stare at it too long, as you have another objective to complete.
+                StopText();
+                textList.Add("This here is called a hyper cube, it's a 4-dimensional shape that rotates in place on it's 4th axis.");
+                waitTimeList.Add(0);
+                textList.Add("This makes it look all wobbly!");
+                waitTimeList.Add(7.5f);
+                textList.Add("Don't stare at it too long, as you have another objective to complete.");
+                waitTimeList.Add(3.5f);
+                StartCoroutine(TextGiver());
+                break;
             default:
                 break;
         }
@@ -198,6 +212,10 @@ public class Sound : MonoBehaviour
                 break;
             case "fransisco7":
                 targetPosition = new Vector3(294.45f, 3.12f, 252f);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step * 4);
+                break;
+            case "cube_line":
+                targetPosition = new Vector3(294.45f, -3f, 280f);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, step * 4);
                 break;
             default:

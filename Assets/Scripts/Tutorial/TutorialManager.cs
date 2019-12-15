@@ -234,7 +234,7 @@ public class TutorialManager : MonoBehaviour
         currentControlsTutId += 1;
         scriptInstance.switchAudio();
 
-        if (currentControlsTutId < 7) //If no more control tutorials
+        if (currentControlsTutId < 7) //If there are control tutorials left
         {
             taskList = new List<bool>();
             for (int i = 0; i < amountTasks; i++)
