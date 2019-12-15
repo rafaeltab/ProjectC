@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,8 +14,14 @@ public class OptionsLoader : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         _instance = this;
+        Debug.Log("ran");
         loaded = true;
         gameObject.SetActive(false);
+
+        if (doWhenReady != null)
+        {
+            doWhenReady(this);
+        }
     }
 
     public void Open()
@@ -27,13 +34,19 @@ public class OptionsLoader : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public static OptionsLoader GetInstance()
+    private static Action<OptionsLoader> doWhenReady;
+
+    public static void GetInstance(Action<OptionsLoader> DoWhenReady)
     {
         if(_instance == null)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2, LoadSceneMode.Additive);
+            doWhenReady = DoWhenReady;
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Additive);
         }
-
-        return _instance;
+        else
+        {
+            doWhenReady = null;
+            DoWhenReady(_instance);
+        }
     }
 }
