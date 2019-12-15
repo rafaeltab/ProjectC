@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Newtonsoft.Json;
 
 /// <summary>
 /// SettingsManager (Singleton pattern used)
 /// </summary>
 public class SettingsManager
 {
-    private static SettingsManager _instance;
+    public static SettingsManager _instance;
     private List<Settings> settings = new List<Settings>();
 
     /// <summary>
@@ -24,12 +25,17 @@ public class SettingsManager
     /// <summary>
     /// Create an instance of the SettingsManager
     /// </summary>
-    protected SettingsManager()
+    protected SettingsManager(string a)
     {
         settings.Add(new ControlsSettings());
         settings.Add(new AudioSettings());
         settings.Add(new VideoSettings());
         settings.Add(new GeneralSettings());
+    }
+
+    public SettingsManager()
+    {
+
     }
 
     /// <summary>
@@ -39,7 +45,7 @@ public class SettingsManager
     {
         if (_instance == null)
         {
-            _instance = new SettingsManager();
+            _instance = new SettingsManager("");
         }
 
         return _instance;
@@ -77,6 +83,7 @@ public abstract class Settings
     /// <exception cref="SettingNotFoundException">thrown when the value supplied is not the correct type</exception>
     public void SetSetting(string key, object value)
     {
+
         Setting found = null;
         foreach (Setting s in settings)
         {
@@ -92,12 +99,14 @@ public abstract class Settings
             throw new SettingNotFoundException($"The setting {key} was not found");
         }
 
-        if (value.GetType() != found.Type)
+        if (found.Type.IsEnum)
         {
-            throw new SettingTypeNotCompatibleException($"The type {value.GetType().Name} is not compatible with the type {found.Type}");
+            found.Value = Enum.ToObject(found.Type, value);
         }
-
-        found.Value = value;
+        else
+        {
+            found.Value = Convert.ChangeType(value, found.Type);
+        }
     }
 
     /// <summary>
@@ -132,7 +141,7 @@ public class AudioSettings : Settings
     public AudioSettings()
     {
         ClassName = "Audio";
-        SettingsList.Add(new Setting("Main Volume", "mainvol", "", typeof(float)));
+        SettingsList.Add(new Setting("Main Volume", "mainvol", 0f, typeof(float)));
         //SettingsList.Add(new Setting("Music Volume", "musicvol", "", typeof(float)));
         //SettingsList.Add(new Setting("Dialogue Volume", "dialvol", "", typeof(float)));
         //SettingsList.Add(new Setting("Effects Volume", "efxvol", "", typeof(float)));
@@ -162,6 +171,7 @@ public class Setting
     /// <summary>
     /// Add a function with the right pattern to call it when value is changed
     /// </summary>
+    [JsonIgnore]
     public EventHandler<object> changeEvent; 
     private object _value;
 
