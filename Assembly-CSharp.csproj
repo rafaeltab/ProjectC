@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>C:\Program Files\Unity\Hub\Editor\2019.2.8f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.bat</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,6 +51,9 @@
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2019.2.8f1</UnityVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2019.2.8f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -170,8 +171,10 @@
     <Compile Include="Assets\Scripts\4DMeshes\Mesh4D.cs" />
     <Compile Include="Assets\Scripts\Destruction\destroy.cs" />
     <Compile Include="Assets\Scripts\Destruction\Destroyable.cs" />
+    <Compile Include="Assets\Scripts\General\ChangeDimensionFlash.cs" />
     <Compile Include="Assets\Scripts\General\FPSCounter.cs" />
     <Compile Include="Assets\Scripts\General\PauseMenu2.cs" />
+    <Compile Include="Assets\Scripts\General\PlayerPrefsX.cs" />
     <Compile Include="Assets\Scripts\General\SimpleCameraController.cs" />
     <Compile Include="Assets\Scripts\GrapplingHook\GrapplingHook.cs" />
     <Compile Include="Assets\Scripts\GrapplingHook\HookDetector.cs" />
@@ -195,6 +198,7 @@
     <Compile Include="Assets\Scripts\Math\multiNumbrals.cs" />
     <Compile Include="Assets\Scripts\MazeTest\hamstertime.cs" />
     <Compile Include="Assets\Scripts\MazeTest\Maze.cs" />
+    <Compile Include="Assets\Scripts\MazeTest\TurnOnAudio.cs" />
     <Compile Include="Assets\Scripts\MovementController\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\MovementController\HeadBob.cs" />
     <Compile Include="Assets\Scripts\MovementController\MovementController.cs" />
@@ -296,26 +300,11 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.ProGrids">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ProGrids.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ProGrids.Editor">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ProGrids.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualEffectGraph.Runtime">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.VisualEffectGraph.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -326,9 +315,6 @@
     <Reference Include="Unity.RenderPipelines.Lightweight.Editor">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.RenderPipelines.Lightweight.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
@@ -338,26 +324,11 @@
     <Reference Include="Unity.Postprocessing.Editor">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualEffectGraph.Editor">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.VisualEffectGraph.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ProBuilder.AddOns.Editor">
-      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
@@ -370,6 +341,39 @@
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProGrids">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ProGrids.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProGrids.Editor">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ProGrids.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.VisualEffectGraph.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.VisualEffectGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+      <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/software/Coding/ProjectC/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

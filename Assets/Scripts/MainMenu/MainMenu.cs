@@ -7,7 +7,19 @@ public class MainMenu : MonoBehaviour
 {
     public void Start()
     {
+        //ResetTutorial();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2, LoadSceneMode.Additive);
+
+        if (!PlayerPrefsX.GetBool("tutorialDone", false))
+        {
+            Debug.Log("Not finished tutorial");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+        }
+        else
+        {
+            Debug.Log("Done tutorial");
+        }
     }
 
     //Moves the scene up one level to the game scene
@@ -27,5 +39,10 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("QUIT");
         Application.Quit();
+    }
+
+    public void ResetTutorial()
+    {
+        PlayerPrefsX.SetBool("tutorialDone", false);
     }
 }

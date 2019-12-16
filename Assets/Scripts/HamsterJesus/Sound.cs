@@ -223,6 +223,26 @@ public class Sound : MonoBehaviour
         }
     }
 
+
+    public void MazeFinish()
+    {
+        Debug.Log("MazeFinish");
+        //myAudio.clip = ???;
+        //myAudio.Play();
+
+        StopText();
+        textList.Add("You did it! Congratulations, I would clap, but I can't, cause I'm a hamster!");
+        waitTimeList.Add(0);
+
+        textList.Add("You're now ready to explore this 4 dimensional game all on your own, take care!");
+        waitTimeList.Add(7f);
+
+        StartCoroutine(TextGiver());
+        StartCoroutine(Finish());
+    }
+
+    
+
     /// <summary>
     /// Stops all the corountines and clears the textList and waitTimeList
     /// </summary>
@@ -258,4 +278,11 @@ public class Sound : MonoBehaviour
         }
     }
     
+    IEnumerator Finish()
+    {
+        yield return new WaitForSeconds(14f);
+        PlayerPrefsX.SetBool("tutorialDone", true);
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 4);
+    }
 }

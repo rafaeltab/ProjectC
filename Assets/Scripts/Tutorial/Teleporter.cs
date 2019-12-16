@@ -7,7 +7,7 @@ public class Teleporter : MonoBehaviour
 {
     public bool moveToScene;
 
-    public string sceneName;
+    public int sceneBuildIndex;
 
     public int x;
     public int y;
@@ -20,7 +20,7 @@ public class Teleporter : MonoBehaviour
         {
             if (moveToScene) //Moves player to given scene
             {
-                SceneManager.LoadScene(sceneName);
+                SceneManager.LoadScene(sceneBuildIndex);
             }
             else //Moves player to xyz location
             {
