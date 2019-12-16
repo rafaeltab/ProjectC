@@ -20,6 +20,7 @@ public class Sound : MonoBehaviour
     public AudioClip fransisco7;
     public AudioClip cube_line;
     public AudioClip kelly1;
+    public AudioClip end_maze;
 
     public static List<string> textList = new List<string>();
     public static List<float> waitTimeList = new List<float>();
@@ -62,7 +63,7 @@ public class Sound : MonoBehaviour
             textList.Add("When you've pressed all the buttons, you will start your first challenge!");
             waitTimeList.Add(2.5f);
         }
-        else if (sceneName == "Maze")
+        else if (sceneName == "maze")
         {
             textList.Add("Hello my child, today we will learn how to move in the 4th dimension.");
             waitTimeList.Add(0);
@@ -192,34 +193,36 @@ public class Sound : MonoBehaviour
 
     public void moveTowardsPoint()
     {
-        currentClip = myAudio.clip.name;
-        switch (currentClip)
-        {
-            case "fransisco3":
-                transform.position = new Vector3(298, 1.91f, 183.86f);
-                break;
-            case "fransisco4":
-                targetPosition = new Vector3(294.45f, 3.12f, 193.72f);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-                break;
-            case "fransisco5":
-                targetPosition = new Vector3(294.45f, 3.12f, 199.54f);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-                break;
-            case "fransisco6":
-                targetPosition = new Vector3(296.75f, 3.11f, 203.22f);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-                break;
-            case "fransisco7":
-                targetPosition = new Vector3(294.45f, 3.12f, 252f);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step * 4);
-                break;
-            case "cube_line":
-                targetPosition = new Vector3(294.45f, -3f, 280f);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step * 4);
-                break;
-            default:
-                break;
+        if (myAudio.clip != null) {
+            currentClip = myAudio.clip.name;
+            switch (currentClip)
+            {
+                case "fransisco3":
+                    transform.position = new Vector3(298, 1.91f, 183.86f);
+                    break;
+                case "fransisco4":
+                    targetPosition = new Vector3(294.45f, 3.12f, 193.72f);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                    break;
+                case "fransisco5":
+                    targetPosition = new Vector3(294.45f, 3.12f, 199.54f);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                    break;
+                case "fransisco6":
+                    targetPosition = new Vector3(296.75f, 3.11f, 203.22f);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                    break;
+                case "fransisco7":
+                    targetPosition = new Vector3(294.45f, 3.12f, 252f);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, step * 4);
+                    break;
+                case "cube_line":
+                    targetPosition = new Vector3(294.45f, -3f, 280f);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, step * 4);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -227,8 +230,8 @@ public class Sound : MonoBehaviour
     public void MazeFinish()
     {
         Debug.Log("MazeFinish");
-        //myAudio.clip = ???;
-        //myAudio.Play();
+        myAudio.clip = end_maze;
+        myAudio.Play();
 
         StopText();
         textList.Add("You did it! Congratulations, I would clap, but I can't, cause I'm a hamster!");
