@@ -63,7 +63,7 @@ public class Sound : MonoBehaviour
             textList.Add("When you've pressed all the buttons, you will start your first challenge!");
             waitTimeList.Add(2.5f);
         }
-        else if (sceneName == "maze")
+        else if (sceneName == "maze" || sceneName == "Maze")
         {
             textList.Add("Hello my child, today we will learn how to move in the 4th dimension.");
             waitTimeList.Add(0);
