@@ -209,6 +209,7 @@
      <Compile Include="Assets\Scripts\Tutorial\TutorialManager.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Chunk.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\ChunkSerializer.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\DimensionLeapDisplay.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\GeneratorHelper.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\Helper.cs" />
      <Compile Include="Assets\Scripts\WorldGeneration\MeshGenerator.cs" />
