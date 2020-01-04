@@ -5,13 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [Tooltip("Allow the tutorial to run on startup should be true if in production false if you don't want to run tutorial")]
+    public bool AllowStartTutorial = true;
+
     public void Start()
     {
         //ResetTutorial();
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2, LoadSceneMode.Additive);
 
-        if (!PlayerPrefsX.GetBool("tutorialDone", false))
+        if (!PlayerPrefsX.GetBool("tutorialDone", false) && AllowStartTutorial)
         {
             Debug.Log("Not finished tutorial");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
