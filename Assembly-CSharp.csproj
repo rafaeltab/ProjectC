@@ -194,6 +194,7 @@
      <Compile Include="Assets\Scripts\MovementController\CameraMovement.cs" />
      <Compile Include="Assets\Scripts\MovementController\HeadBob.cs" />
      <Compile Include="Assets\Scripts\MovementController\MovementController.cs" />
+     <Compile Include="Assets\Scripts\PlayerStats\DeathDisplay.cs" />
      <Compile Include="Assets\Scripts\PlayerStats\HealthDisplay.cs" />
      <Compile Include="Assets\Scripts\PlayerStats\PlayerStats.cs" />
      <Compile Include="Assets\Scripts\Settings\CustomExceptions.cs" />
