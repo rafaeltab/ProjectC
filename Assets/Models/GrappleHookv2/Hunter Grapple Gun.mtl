@@ -1,0 +1,35 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 07.02.2015 18:52:53
+
+newmtl Cable
+	Ns 96.0784
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.5000 0.5000 0.5000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka F:\Hunter Grapple Gun\Map\Cable-d.tga
+	map_Kd F:\Hunter Grapple Gun\Map\Cable-d.tga
+	map_bump F:\Hunter Grapple Gun\Map\Cable-n.tga
+	bump F:\Hunter Grapple Gun\Map\Cable-n.tga
+
+newmtl Gun
+	Ns 96.0784
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.5000 0.5000 0.5000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka F:\Hunter Grapple Gun\Map\Gun-d.tga
+	map_Kd F:\Hunter Grapple Gun\Map\Gun-d.tga
+	map_Ks F:\Hunter Grapple Gun\Map\Gun-s.tga
+	map_bump F:\Hunter Grapple Gun\Map\Gun-n.tga
+	bump F:\Hunter Grapple Gun\Map\Gun-n.tga
