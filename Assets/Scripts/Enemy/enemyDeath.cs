@@ -9,7 +9,7 @@ public class enemyDeath : MonoBehaviour
     GameObject player;
     public Animator anim;
     public bool deathVoidUsed = false;
-    public static float enemyHealth;
+    public float enemyHealth;
 
     float dist = 0f;
     bool startTimer = false;
@@ -45,10 +45,22 @@ public class enemyDeath : MonoBehaviour
         }
     }
 
-    void Death(){
+     /// <summary>
+    /// plays kill animation and starts decaytimer
+    /// </summary>
+    void Death()
+    {
         anim.SetBool("dead", true);
         deathVoidUsed = true;
         startTimer = true;
+    }
+
+     /// <summary>
+    /// gives damage
+    /// </summary>
+    void Damaged()
+    {
+        enemyHealth -= 20;
     }
 }
 
