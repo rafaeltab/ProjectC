@@ -105,7 +105,8 @@ public class Sound : MonoBehaviour
     }
 
     /// <summary>
-    /// Goes to the next clip when going to the next tutorial
+    /// plays the correct audio clip, when you reach a new checkpoint in the tutorial
+    /// and also makes it so that the text changes
     /// </summary>
     public void switchAudio()
     {
@@ -191,6 +192,9 @@ public class Sound : MonoBehaviour
         }
     }
 
+/// <summary>
+/// makes the hamster move to the correct point
+/// </summary>
     public void moveTowardsPoint()
     {
         if (myAudio.clip != null) {
