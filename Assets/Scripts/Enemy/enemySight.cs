@@ -11,7 +11,7 @@ public class enemySight : MonoBehaviour
     public SphereCollider col;
     public BoxCollider hitbox;
     public Animator anim;
-    public GameObject player;
+    GameObject player;
 
     bool attackVoidUsed = false;
     bool oORUsed = false;
@@ -27,6 +27,12 @@ public class enemySight : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent agent;
 
     float dist = 0f;
+
+    void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+        bgMusic = player.GetComponent<AudioSource>();
+    }
 
     /// <summary>
     /// this is to make sure the enemy can detect the player each frame
@@ -133,9 +139,13 @@ public class enemySight : MonoBehaviour
     /// </summary>
     void playBattleMusicOn()
     {
-        bgMusic.clip = battleMusic;
-        bgMusic.Play();
-        battleMusicPlaying = true;
+        if(bgMusic.clip != battleMusic && battleMusicPlaying == false)
+        {
+            bgMusic.clip = battleMusic;
+            bgMusic.Play();
+            battleMusicPlaying = true;
+        }
+        
     }
 
 }
