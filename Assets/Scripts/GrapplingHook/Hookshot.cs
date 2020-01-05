@@ -15,7 +15,6 @@ public class Hookshot : MonoBehaviour
     private Vector3 charVelocityMomentum;
     private State state;
     private Vector3 grapplePoint;
-    public GameObject staticPoint;
 
     private enum State
     {
