@@ -58,7 +58,7 @@ public class enemyDeath : MonoBehaviour
      /// <summary>
     /// gives damage
     /// </summary>
-    void Damaged()
+     public void Damaged()
     {
         enemyHealth -= 20;
     }
