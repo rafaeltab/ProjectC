@@ -53,6 +53,8 @@ public class MeshGenerator : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //DimensionLeapDisplay._instance.Flash();
+
         ListenToSettings();
 
         watch.Start();
@@ -134,11 +136,12 @@ public class MeshGenerator : MonoBehaviour
             {
                 StopCurrentGen();
                 watch.Restart();
-            }
-            model.wPos += 0.05f;
-            generated = false;
-            genFull = true;
-            
+                model.wPos += 0.05f;
+                generated = false;
+                genFull = true;
+
+                DimensionLeapDisplay._instance.Flash();
+            }           
         }
         if (Input.GetKey(wdown))
         {
@@ -146,11 +149,12 @@ public class MeshGenerator : MonoBehaviour
             {
                 StopCurrentGen();
                 watch.Restart();
+                model.wPos -= 0.05f;
+                generated = false;
+                genFull = true;
+
+                DimensionLeapDisplay._instance.Flash();
             }
-            model.wPos -= 0.05f;
-            generated = false;
-            genFull = true;
-            
         }
     }
 
@@ -243,6 +247,11 @@ public class MeshGenerator : MonoBehaviour
 
         for (int i = 0; i < gos.Count; i++)
         {
+            if (i > 9)
+            {
+                DimensionLeapDisplay._instance.StopFlash();
+            }
+
             Chunk c = Chunk.TryLoadFromFile(locs[i], model.wPos, 1, model.threshold, compute, this, model.visualizer, model.size, model.noiseScale);
             if(chunkChunks[i] != null){
                 chunkChunks[i].Save();

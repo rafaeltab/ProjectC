@@ -110,10 +110,49 @@ namespace Assets.Scripts.Visualisers
             Tri[] tris = GetTris(nrTris);            
 
             template = CreateMesh(tris,template);
+            
+            template = DoUvs(template);
 
             DisposeBuffers();
 
             return template;
+        }
+
+        private Mesh DoUvs(Mesh mesh)
+        {
+            float scaleFactor = 0.1f;
+
+            int[] tris = mesh.triangles;
+
+            Vector3[] verts = mesh.vertices;
+            Vector2[] uvs = new Vector2[verts.Length];
+
+            // Iterate over each face (here assuming triangles)
+            for (int index = 0; index < tris.Length; index += 3)
+            {
+                // Get the three vertices bounding this triangle.
+                Vector3 v1 = verts[tris[index]];
+                Vector3 v2 = verts[tris[index + 1]];
+                Vector3 v3 = verts[tris[index + 2]];
+
+                // Compute a vector perpendicular to the face.
+                Vector3 normal = Vector3.Cross(v3 - v1, v2 - v1);
+
+
+                // Form a rotation that points the z+ axis in this perpendicular direction.
+                // Multiplying by the inverse will flatten the triangle into an xy plane.
+                Quaternion rotation = Quaternion.Inverse(Quaternion.LookRotation(normal));
+
+
+                // Assign the uvs, applying a scale factor to control the texture tiling.
+                uvs[tris[index]] = (Vector2)(rotation * v1) * scaleFactor;
+                uvs[tris[index + 1]] = (Vector2)(rotation * v2) * scaleFactor;
+                uvs[tris[index + 2]] = (Vector2)(rotation * v3) * scaleFactor;
+            }
+
+            mesh.uv = uvs;
+
+            return mesh;
         }
 
         /// <summary>
@@ -183,7 +222,7 @@ namespace Assets.Scripts.Visualisers
             template.vertices = vertices;
             template.triangles = triangles;
             template.RecalculateNormals();
-
+            template.Optimize();
             return template;
         }
 

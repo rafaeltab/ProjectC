@@ -100,7 +100,6 @@ namespace Assets.Scripts
             string filename = InfoToFileName(pos, trength, seed, threshold, size, noiseScale);
 
             if(File.Exists(@"save\" + filename)){
-                Debug.Log("Loaded from file!");
                 return ChunkSerializer.Deserialize(File.ReadAllBytes(@"save\" + filename),compute,generator,visualizer);
             }
             else

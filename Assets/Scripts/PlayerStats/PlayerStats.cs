@@ -33,10 +33,22 @@ public class PlayerStats : MonoBehaviour
 
     public void Update()
     {
-        Health = Mathf.Clamp(Health, minHealth, maxHealth);
-        if (GetComponentInChildren<HealthDisplay>())
+        if (Health <= 0)
         {
-            GetComponentInChildren<HealthDisplay>().SetHealth(Health);
-        }        
+            Die();
+        }
+        else
+        {
+            Health = Mathf.Clamp(Health, minHealth, maxHealth);
+            if (GetComponentInChildren<HealthDisplay>())
+            {
+                GetComponentInChildren<HealthDisplay>().SetHealth(Health);
+            }
+        }              
+    }
+
+    private void Die()
+    {        
+        GetComponentInChildren<DeathDisplay>(true).Die();
     }
 }

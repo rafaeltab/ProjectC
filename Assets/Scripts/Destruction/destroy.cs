@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class destroy : MonoBehaviour
 {
-    private Material highlightMaterial;
-    public Camera mainCam;
 
     // Update is called once per frame
     void Update()
     {
       if (Input.GetMouseButtonDown(1))
         {
-            
+            Debug.Log("SHOT");
             RaycastHit hit;
-            Ray ray = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2,0));
-            Debug.Log(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.name);
+                
                 Destroyable destroy = hit.transform.gameObject.GetComponent<Destroyable>();
+                enemyDeath damage = hit.transform.gameObject.GetComponent<enemyDeath>();
+
+                
 
                 if (destroy != null)
                 {
+                    Debug.Log("destroys");
                     StartCoroutine(StartDestroy(0,destroy,hit));
+                }
+                if (damage != null)
+                {
+                    Debug.Log("hits");
+                    damage.Damaged();
                 }
             }
         }
