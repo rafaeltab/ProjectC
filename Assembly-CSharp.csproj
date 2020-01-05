@@ -275,6 +275,7 @@
      <None Include="Assets\AssetStoreImports\Standard Assets\Vehicles\Car\CarGuidelines.txt" />
      <None Include="Assets\AssetStoreImports\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
      <None Include="Assets\AssetStoreImports\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
+     <None Include="Assets\AssetStoreImports\PBR Ground Materials #1 [Dirt&amp; Grass]\Documentation.txt" />
      <None Include="Assets\AssetStoreImports\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\AssetStoreImports\Standard Assets\Cameras\CameraGuidelines.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
