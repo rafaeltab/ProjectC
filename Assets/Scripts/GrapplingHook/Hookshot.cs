@@ -15,6 +15,7 @@ public class Hookshot : MonoBehaviour
     private Vector3 charVelocityMomentum;
     private State state;
     private Vector3 grapplePoint;
+    public GameObject grapplingHook;
 
     private enum State
     {
@@ -32,20 +33,22 @@ public class Hookshot : MonoBehaviour
 
     private void Update()
     {
-        switch (state)
+        if (grapplingHook.activeSelf)
         {
-            default:
-            case State.Normal:
-                HandleGrappleStart();
-                break;
-            case State.GrappleShot:
-                HandleGrappleShot();
-                break;
-            case State.GrappleFlying:
-                HandleGrappleMovement();
-                break;
+            switch (state)
+            {
+                default:
+                case State.Normal:
+                    HandleGrappleStart();
+                    break;
+                case State.GrappleShot:
+                    HandleGrappleShot();
+                    break;
+                case State.GrappleFlying:
+                    HandleGrappleMovement();
+                    break;
+            }
         }
-
     }
 
     private void HandleGrappleStart()

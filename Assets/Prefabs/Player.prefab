@@ -307,6 +307,7 @@ MonoBehaviour:
   hookTransform: {fileID: 4253580151644060817}
   gunTransform: {fileID: 5698441672811702760}
   playerCamera: {fileID: 5616267961062581252}
+  grapplingHook: {fileID: 2148643071033155955}
 --- !u!143 &297725278285767310
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6978,17 +6979,17 @@ PrefabInstance:
     - target: {fileID: 5077974455221370618, guid: b7751df574f0f154481592acc28c8835,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1141
+      value: 0.138
       objectReference: {fileID: 0}
     - target: {fileID: 5077974455221370618, guid: b7751df574f0f154481592acc28c8835,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0305
+      value: -0.049
       objectReference: {fileID: 0}
     - target: {fileID: 5077974455221370618, guid: b7751df574f0f154481592acc28c8835,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.19217
+      value: 0.223
       objectReference: {fileID: 0}
     - target: {fileID: 5077974455221370618, guid: b7751df574f0f154481592acc28c8835,
         type: 3}
@@ -7047,6 +7048,12 @@ Transform:
 --- !u!4 &2148643071033155952 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5077974455221370618, guid: b7751df574f0f154481592acc28c8835,
+    type: 3}
+  m_PrefabInstance: {fileID: 6604834113708040074}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2148643071033155955 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5077974455221370617, guid: b7751df574f0f154481592acc28c8835,
     type: 3}
   m_PrefabInstance: {fileID: 6604834113708040074}
   m_PrefabAsset: {fileID: 0}

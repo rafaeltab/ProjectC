@@ -25,7 +25,6 @@ public class Teleporter : MonoBehaviour
             else //Moves player to xyz location
             {
                 MovementController.TeleportPlayer(x, y, z);
-                GrapplingHook.ReturnHook();
             }
         }
     }
