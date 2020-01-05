@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 6274089046769250021}
   - component: {fileID: 6274089046769250020}
   - component: {fileID: 6274089046769250017}
+  - component: {fileID: -8541320714940142212}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -383,8 +384,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!135 &6274089046769250023
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -420,7 +421,7 @@ SphereCollider:
   m_GameObject: {fileID: 2608683322754782682}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -437,7 +438,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dead: 0
-  player: {fileID: 0}
   anim: {fileID: 8998963570692229811}
   deathVoidUsed: 0
 --- !u!114 &6274089046769250020
@@ -457,7 +457,6 @@ MonoBehaviour:
   col: {fileID: 6274089046769250023}
   hitbox: {fileID: 0}
   anim: {fileID: 8998963570692229811}
-  player: {fileID: 0}
   bgMusic: {fileID: 0}
   battleMusic: {fileID: 8300000, guid: 1d4a953ebe4013d4c8cee03ba836b2e0, type: 3}
   agent: {fileID: 6274089046769250017}
@@ -483,6 +482,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &-8541320714940142212
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608683322754782682}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.056475, y: 36.131138, z: 10.64476}
+  m_Center: {x: 0.5519604, y: 17.565567, z: 1.7883354}
 --- !u!1 &3128629895157296123
 GameObject:
   m_ObjectHideFlags: 0
