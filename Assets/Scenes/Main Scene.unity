@@ -38,11 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.4790777, g: 0.4757228, b: 0.39054266, a: 1}
-=======
-  m_IndirectSpecularColor: {r: 0.4790761, g: 0.47572142, b: 0.39054048, a: 1}
->>>>>>> 36cf5a57a4ca034a703157a7c1311fc3168339fd
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -574,7 +570,7 @@ PrefabInstance:
     - target: {fileID: 8154130823768706095, guid: 61556e87f845a2f438037b3b9250838e,
         type: 3}
       propertyPath: m_enableVertexGradient
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8239696047448096679, guid: 61556e87f845a2f438037b3b9250838e,
         type: 3}
