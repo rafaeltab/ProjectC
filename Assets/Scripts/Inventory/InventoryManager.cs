@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -164,11 +165,15 @@ public class InventoryManager : MonoBehaviour
             AddRow();
         }
 
-        //inventoryList[4].initiateItem(ItemDatabase.fetchItemByID(3), 1);  //Grappling Hook
-        //inventoryList[3].initiateItem(ItemDatabase.fetchItemByID(4), 1);  //Destruction Gun
-
-
         Equip.GetHotbarItemSlots(inventoryList);
+
+        //Get start items
+        if (SceneManager.GetActiveScene().name == "Main Scene")
+        {
+            InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(3), 1);
+            InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(4), 2);
+            InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(5), 2);
+        }
     }
 
 
