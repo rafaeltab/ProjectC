@@ -49,11 +49,12 @@ public class Hookshot : MonoBehaviour
                     break;
             }
         }
+        else { ResetStateNormal(); }
     }
 
     private void HandleGrappleStart()
     {
-        if (InputDownGrapple())
+        if (InputDownGrapple() && Cursor.lockState == CursorLockMode.Locked)
         {
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit raycastHit, 200f))
             {

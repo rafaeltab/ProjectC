@@ -171,8 +171,8 @@ public class InventoryManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Main Scene")
         {
             InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(3), 1);
-            InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(4), 2);
-            InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(5), 2);
+            InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(4), 1);
+            InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(5), 1);
         }
     }
 
