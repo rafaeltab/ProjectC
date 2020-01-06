@@ -53,6 +53,7 @@ public class enemyDeath : MonoBehaviour
         anim.SetBool("dead", true);
         deathVoidUsed = true;
         startTimer = true;
+        Destroy(GetComponent<enemySight>());
     }
 
      /// <summary>
