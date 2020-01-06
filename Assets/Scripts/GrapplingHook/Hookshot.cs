@@ -57,11 +57,20 @@ public class Hookshot : MonoBehaviour
         {
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit raycastHit, 200f))
             {
-                //Hit object
-                //hookTransform.position = raycastHit.point;
-                grapplePoint = raycastHit.point;
-                hookTransform.SetParent(null, true);
-                state = State.GrappleShot;
+                if (raycastHit.collider.gameObject.tag == "Hookable")
+                {
+
+                    //Hit object
+                    //hookTransform.position = raycastHit.point;
+                    grapplePoint = raycastHit.point;
+                    hookTransform.SetParent(null, true);
+                    state = State.GrappleShot;
+
+                }
+                else
+                {
+                    Debug.Log(raycastHit.collider.gameObject.tag);
+                }
             }
         }
     }
