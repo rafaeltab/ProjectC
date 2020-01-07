@@ -149,14 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e4bdc252aae6f4eb7a994e22d25a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 5
-  spawnDelay: 3
   enemyCount: []
   enposition: {x: 0, y: 0, z: 0}
   player: {fileID: 1779359786}
   enemyPrefab: {fileID: 2608683322754782682, guid: cf53756b0166dbe47bac3b83348297cc,
     type: 3}
   playerPos: {x: 0, y: 0, z: 0}
+  bgMusic: {fileID: 0}
 --- !u!4 &203251063
 Transform:
   m_ObjectHideFlags: 0
@@ -757,6 +756,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 548273761, guid: 26dd10a6e2c5d244ea302f565fe152ab, type: 3}
+      propertyPath: m_Volume
+      value: 0.861
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26dd10a6e2c5d244ea302f565fe152ab, type: 3}
 --- !u!1 &1127467192
@@ -941,6 +944,7 @@ MonoBehaviour:
     type: 3}
   maxDistanceToObject: 30
   near: {fileID: 1779359795}
+  DrawLines: 0
 --- !u!4 &1150715058
 Transform:
   m_ObjectHideFlags: 0
