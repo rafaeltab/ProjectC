@@ -126,5 +126,6 @@ public class MovementController : MonoBehaviour
     public static void TeleportPlayer(float x, float y, float z)
     {
         playerObject.GetComponent<Transform>().position = new Vector3(x, y, z);
+        playerObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
     }
 }

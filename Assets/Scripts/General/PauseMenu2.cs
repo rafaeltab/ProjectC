@@ -38,8 +38,11 @@ public class PauseMenu2 : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (!InventoryManager.inventoryEnabled)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
         gamePaused = false;
         player.GetComponentInChildren<CameraMovement>().enabled = true;
     }
