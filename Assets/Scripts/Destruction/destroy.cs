@@ -6,43 +6,37 @@ public class destroy : MonoBehaviour
 {
 
     // Update is called once per frame
+    /// <summary>
+    /// Fire a ray and call destroy on the hit object
+    /// </summary>
     void Update()
     {
       if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("SHOT");
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             
             if (Physics.Raycast(ray, out hit))
             {
                 
-                Destroyable destroy = hit.transform.gameObject.GetComponent<Destroyable>();
-                enemyDeath damage = hit.transform.gameObject.GetComponent<enemyDeath>();
-
-                
+                Destroyable destroy = hit.transform.gameObject.GetComponent<Destroyable>();                
 
                 if (destroy != null)
                 {
-                    Debug.Log("destroys");
-                    StartCoroutine(StartDestroy(0,destroy,hit));
-                }
-                if (damage != null)
-                {
-                    Debug.Log("hits");
-                    damage.Damaged();
-                }
+                    destroy.Destroy(hit);
+                    //StartCoroutine(StartDestroy(0,destroy,hit));
+                }                
             }
         }
 
     }
 
-    IEnumerator StartDestroy(float duration,Destroyable destroy,RaycastHit hit)
-    {
-        yield return new WaitForSeconds(duration);
-        if (Input.GetMouseButtonDown(1))
-        {
-            destroy.Destroy(hit);
-        }        
-    }
+    //IEnumerator StartDestroy(float duration,Destroyable destroy,RaycastHit hit)
+    //{
+    //    yield return new WaitForSeconds(duration);
+    //    if (Input.GetMouseButtonDown(1))
+    //    {
+    //        destroy.Destroy(hit);
+    //    }        
+    //}
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class enemyDeath : MonoBehaviour
 {
+    public GameObject hitEffect;
+
     public bool dead;
 
     GameObject player;
@@ -62,6 +64,17 @@ public class enemyDeath : MonoBehaviour
      public void Damaged()
     {
         enemyHealth -= 20;
+    }
+
+    public void DamagedWithHitEffect(RaycastHit hit)
+    {
+        Damaged();
+        //Create a hit effect
+        if (hitEffect != null)
+        {
+            //Create hitEffect and remove after 5 seconds
+            Destroy(Instantiate(hitEffect, hit.point, Quaternion.Euler(hit.normal), hit.transform),5);
+        }
     }
 }
 

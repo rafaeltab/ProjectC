@@ -328,6 +328,7 @@ GameObject:
   - component: {fileID: 6274089046769250020}
   - component: {fileID: 6274089046769250017}
   - component: {fileID: -8541320714940142212}
+  - component: {fileID: 586336960178959563}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -437,9 +438,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff599b205a20ff949a5579194ec5b3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffect: {fileID: 3601475984985456858, guid: 40082f2587343bc4b80d4b4aa1669254,
+    type: 3}
   dead: 0
   anim: {fileID: 8998963570692229811}
   deathVoidUsed: 0
+  enemyHealth: 0
 --- !u!114 &6274089046769250020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,6 +499,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 12.056475, y: 36.131138, z: 10.64476}
   m_Center: {x: 0.5519604, y: 17.565567, z: 1.7883354}
+--- !u!114 &586336960178959563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608683322754782682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c663b3c8640190438e8284464bc9e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyFunc: 2
 --- !u!1 &3128629895157296123
 GameObject:
   m_ObjectHideFlags: 0
