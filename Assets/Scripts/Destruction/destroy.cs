@@ -11,7 +11,7 @@ public class destroy : MonoBehaviour
     /// </summary>
     void Update()
     {
-      if (Input.GetMouseButtonDown(1))
+      if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

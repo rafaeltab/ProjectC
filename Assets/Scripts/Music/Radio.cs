@@ -19,7 +19,7 @@ public class Radio : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             if (musicLoopInstance.clipNumber == musicLoopInstance.audioClipArray.Length - 1)
             {
