@@ -203,6 +203,8 @@
      <Compile Include="Assets\Scripts\PlayerStats\DeathDisplay.cs" />
      <Compile Include="Assets\Scripts\PlayerStats\HealthDisplay.cs" />
      <Compile Include="Assets\Scripts\PlayerStats\PlayerStats.cs" />
+     <Compile Include="Assets\Scripts\RandomAIs\BatAI.cs" />
+     <Compile Include="Assets\Scripts\RandomAIs\BatSpawner.cs" />
      <Compile Include="Assets\Scripts\Settings\CustomExceptions.cs" />
      <Compile Include="Assets\Scripts\Settings\SettingSerializer.cs" />
      <Compile Include="Assets\Scripts\Settings\SettingsManager.cs" />
