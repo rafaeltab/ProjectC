@@ -87,7 +87,6 @@ public class Hookshot : MonoBehaviour
 
         if (hookTransform.position == grapplePoint)
         {
-            rope.SetVertexCount(0);
             movementController.enabled = false;
             characterController.enabled = true;
             state = State.GrappleFlying;
@@ -111,6 +110,7 @@ public class Hookshot : MonoBehaviour
 
     private void HandleGrappleMovement()
     {
+        LineRenderer ropeReset = hookTransform.GetComponent<LineRenderer>();
         Vector3 grappleDir = (grapplePoint - transform.position).normalized;
 
         float grappleSpeedMin = 10f;
@@ -125,19 +125,22 @@ public class Hookshot : MonoBehaviour
         if (Vector3.Distance(transform.position, grapplePoint) < reachedGrapplePoint)
         {
             //Reached grapple pos
+            ropeReset.SetVertexCount(0);
             ResetStateNormal();
         }
 
         if (InputDownGrapple())
         {
             //Cancel grapple
+            ropeReset.SetVertexCount(0);
             ResetStateNormal();
         }
 
         if (InputDownJump())
         {
             //Cancel grapple by jumping, more movement
-            GetComponent<Rigidbody>().AddForce(new Vector3(0, 15, 0), ForceMode.Impulse);
+            GetComponent<Rigidbody>().AddForce(new Vector3(0, 15, 0), ForceMode.Force);
+            ropeReset.SetVertexCount(0);
             ResetStateNormal();
         }
     }
