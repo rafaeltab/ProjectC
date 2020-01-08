@@ -27,6 +27,7 @@ public class LoadScreen : MonoBehaviour
                     {
                         loadScreen.SetActive(false);
                         movementController.enabled = true;
+                        PauseMenu2.loading = false;
                     }
                 }
                 else

@@ -28,10 +28,21 @@ public class OptionsLoader : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
+    GameObject obj;
+    public void Open(GameObject obj)
+    {
+        gameObject.SetActive(true);
+        this.obj = obj;
+    }
 
     public void Close()
     {
         gameObject.SetActive(false);
+        if (obj != null)
+        {
+            obj.SetActive(true);
+        }
+        PauseMenu2.options = false;
     }
 
     private static Action<OptionsLoader> doWhenReady;

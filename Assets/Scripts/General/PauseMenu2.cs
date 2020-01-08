@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class PauseMenu2 : MonoBehaviour
 {
     public static bool gamePaused = false;
+    public static bool options = false;
+    public static bool loading = true;
 
     public GameObject pauseMenuUI;
     public GameObject player;
@@ -22,17 +24,20 @@ public class PauseMenu2 : MonoBehaviour
             Time.timeScale = 1f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!options && !loading)
         {
-            if (gamePaused)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Resume();
+                if (gamePaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
-            else
-            {
-                Pause();
-            }
-        }
+        }      
     }
 
     public void Resume()
@@ -58,7 +63,9 @@ public class PauseMenu2 : MonoBehaviour
 
     public void LoadOptions()
     {
-        OptionsLoader.GetInstance((c)=> { c.Open(); });
+        OptionsLoader.GetInstance((c)=> { c.Open(pauseMenuUI); });
+        pauseMenuUI.SetActive(false);
+        options = true;
         Debug.Log("Loading options");
     }
 
