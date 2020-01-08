@@ -1351,6 +1351,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3512af5bc98945c4aa0c891183ce184d, type: 3}
   - {fileID: 8300000, guid: 5e5dc62bc372fbc41b48b958484a9719, type: 3}
   - {fileID: 8300000, guid: f89e1a435159e0e4d8609f707577e178, type: 3}
+  clipNumber: 0
 --- !u!4 &1874557259
 Transform:
   m_ObjectHideFlags: 0

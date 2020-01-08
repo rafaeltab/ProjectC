@@ -101,10 +101,13 @@ public class Hookshot : MonoBehaviour
 
         if (InputDownJump())
         {
-            //Cancel grapple by jumping, more movement
-            rope.SetVertexCount(0);
-            GetComponent<Rigidbody>().AddForce(new Vector3(0, 20, 0), ForceMode.Impulse);
-            ResetStateNormal();
+            if (characterController.isGrounded)
+            {
+                //Cancel grapple by jumping, more movement
+                rope.SetVertexCount(0);
+                GetComponent<Rigidbody>().AddForce(new Vector3(0, 20, 0), ForceMode.Impulse);
+                ResetStateNormal();
+            }
         }
     }
 
@@ -139,7 +142,7 @@ public class Hookshot : MonoBehaviour
         if (InputDownJump())
         {
             //Cancel grapple by jumping, more movement
-            GetComponent<Rigidbody>().AddForce(new Vector3(0, 15, 0), ForceMode.Force);
+            GetComponent<Rigidbody>().AddForce(new Vector3(0, 15, 0), ForceMode.Impulse);
             ropeReset.SetVertexCount(0);
             ResetStateNormal();
         }
