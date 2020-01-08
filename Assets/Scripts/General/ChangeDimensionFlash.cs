@@ -10,6 +10,9 @@ public class ChangeDimensionFlash : MonoBehaviour
     private KeyCode changeDimUp;
     private KeyCode changeDimDown;
 
+    /// <summary>
+    /// Gets the change dimension buttons from the settings
+    /// </summary>
     private void ListenToSettings()
     {
         Setting wup = SettingsManager.GetInstance().Settings[0].GetSetting("wup");
@@ -35,7 +38,9 @@ public class ChangeDimensionFlash : MonoBehaviour
         ListenToSettings();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Flash when changing dimensions
+    /// </summary>
     void Update()
     {
         if ((Input.GetKeyDown(changeDimUp) || Input.GetKeyDown(changeDimDown)) && !TutorialManager.cutsceneLock && Cursor.lockState == CursorLockMode.Locked)
@@ -45,7 +50,10 @@ public class ChangeDimensionFlash : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// White screen flash
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ScreenFlash()
     {
         byte opacity = 255;

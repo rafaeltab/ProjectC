@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2, LoadSceneMode.Additive);
 
+        //If player hasn't finished the tutorial before
         if (!PlayerPrefsX.GetBool("tutorialDone", false) && AllowStartTutorial)
         {
             Debug.Log("Not finished tutorial");

@@ -34,18 +34,16 @@ public class Equip : MonoBehaviour
     /// <param name="inventoryList">The list of the inventory with all the item slots</param>
     public static void GetHotbarItemSlots(List<InventoryManager.ItemSlot> inventoryList)
     {
-
         for (int i = 4; i >= 0; i--)
         {
             hotbarList.Add(inventoryList[i]);
         }
 
         selectedItemSlot = hotbarList[0];
-
     }
 
     /// <summary>
-    /// 
+    /// Finds the GameObject of the items and saves it in the list itemEquips with its id
     /// </summary>
     public static void SetupItemEquips()
     {
@@ -115,7 +113,9 @@ public class Equip : MonoBehaviour
         DoItemEquips();
     }
 
-
+    /// <summary>
+    /// Activates the GameObject of the equipped item, and deactivates it when equipping a different item
+    /// </summary>
     public static GameObject oldSelected;
     Item oldItem;
     public void DoItemEquips()
@@ -141,6 +141,9 @@ public class Equip : MonoBehaviour
     }
 }
 
+/// <summary>
+/// ItemEquip class, combines the id and GameObject of an item
+/// </summary>
 public class ItemEquip
 {
     public int itemId;
