@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
         if (!PlayerPrefsX.GetBool("tutorialDone", false) && AllowStartTutorial)
         {
             Debug.Log("Not finished tutorial");
+            Cursor.visible = false;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
         }
         else
@@ -28,6 +29,7 @@ public class MainMenu : MonoBehaviour
     //Moves the scene up one level to the game scene
     public void StartGame()
     {
+        Cursor.visible = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -47,6 +49,7 @@ public class MainMenu : MonoBehaviour
     //Start tutorial
     public void StartTutorial()
     {
+        Cursor.visible = false;
         SceneManager.LoadScene("Tutorial");
     }
 
