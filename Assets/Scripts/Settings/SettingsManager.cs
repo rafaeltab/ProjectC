@@ -142,7 +142,7 @@ public class AudioSettings : Settings
     public AudioSettings()
     {
         ClassName = "Audio";
-        SettingsList.Add(new Setting("Main Volume", "mainvol", 0.0001f, typeof(float)));
+        SettingsList.Add(new Setting("Main Volume", "mainvol", 1f, typeof(float)));
         //SettingsList.Add(new Setting("Music Volume", "musicvol", "", typeof(float)));
         //SettingsList.Add(new Setting("Dialogue Volume", "dialvol", "", typeof(float)));
         //SettingsList.Add(new Setting("Effects Volume", "efxvol", "", typeof(float)));
