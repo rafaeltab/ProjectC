@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 5541897929721583762}
   - component: {fileID: 3487065002640287479}
   m_Layer: 0
-  m_Name: Music Player (OCD)
+  m_Name: Music Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8274,11 +8274,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8160263263630774328}
     m_Modifications:
-    - target: {fileID: 8338069556113038490, guid: 36983d412cf69f3469977763aa9f8232,
-        type: 3}
-      propertyPath: m_Name
-      value: Radio
-      objectReference: {fileID: 0}
     - target: {fileID: 5038859262978895497, guid: 36983d412cf69f3469977763aa9f8232,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8334,6 +8329,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8338069556113038490, guid: 36983d412cf69f3469977763aa9f8232,
+        type: 3}
+      propertyPath: m_Name
+      value: Radio
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36983d412cf69f3469977763aa9f8232, type: 3}
 --- !u!4 &1650834019634435545 stripped
@@ -8349,16 +8349,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2971011153460967434}
     m_Modifications:
-    - target: {fileID: 5077974455221370617, guid: b7751df574f0f154481592acc28c8835,
-        type: 3}
-      propertyPath: m_Name
-      value: Grappling Hook
-      objectReference: {fileID: 0}
-    - target: {fileID: 5077974455221370617, guid: b7751df574f0f154481592acc28c8835,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5077974455221370618, guid: b7751df574f0f154481592acc28c8835,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8412,6 +8402,16 @@ PrefabInstance:
     - target: {fileID: 5077974455221370618, guid: b7751df574f0f154481592acc28c8835,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077974455221370617, guid: b7751df574f0f154481592acc28c8835,
+        type: 3}
+      propertyPath: m_Name
+      value: Grappling Hook
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077974455221370617, guid: b7751df574f0f154481592acc28c8835,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

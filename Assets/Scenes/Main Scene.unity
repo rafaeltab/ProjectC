@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.47907633, g: 0.4757216, b: 0.3905406, a: 1}
+  m_IndirectSpecularColor: {r: 0.47907627, g: 0.47572154, b: 0.3905405, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -155,8 +155,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2608683322754782682, guid: cf53756b0166dbe47bac3b83348297cc,
     type: 3}
   playerPos: {x: 0, y: 0, z: 0}
-  audioMusicPlayer: {fileID: 990766134}
-  musicLoopInstance: {fileID: 990766133}
+  musicLoopInstance: {fileID: 0}
 --- !u!4 &203251063
 Transform:
   m_ObjectHideFlags: 0
@@ -925,11 +924,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5541897929721583762, guid: 26dd10a6e2c5d244ea302f565fe152ab,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2971011153820813724, guid: 26dd10a6e2c5d244ea302f565fe152ab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1030,21 +1024,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2899794187540764335, guid: 26dd10a6e2c5d244ea302f565fe152ab,
+    - target: {fileID: 3959833266833824639, guid: 26dd10a6e2c5d244ea302f565fe152ab,
         type: 3}
-      propertyPath: m_Name
-      value: Music Player (OCD)
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3487065002640287479, guid: 26dd10a6e2c5d244ea302f565fe152ab,
-        type: 3}
-      propertyPath: audioClipArray.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3487065002640287479, guid: 26dd10a6e2c5d244ea302f565fe152ab,
-        type: 3}
-      propertyPath: audioClipArray.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: f89e1a435159e0e4d8609f707577e178, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26dd10a6e2c5d244ea302f565fe152ab, type: 3}
 --- !u!114 &990766132 stripped
@@ -1059,24 +1043,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a24d3cb5b613f844ad5437e43acb0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &990766133 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3487065002640287479, guid: 26dd10a6e2c5d244ea302f565fe152ab,
-    type: 3}
-  m_PrefabInstance: {fileID: 990766131}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adf82afbf181b7946b7714939cebe784, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!82 &990766134 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 5541897929721583762, guid: 26dd10a6e2c5d244ea302f565fe152ab,
-    type: 3}
-  m_PrefabInstance: {fileID: 990766131}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &1003138133 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 5616267961062581252, guid: 26dd10a6e2c5d244ea302f565fe152ab,

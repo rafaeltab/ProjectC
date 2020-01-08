@@ -1244,7 +1244,7 @@ GameObject:
   - component: {fileID: 1874557258}
   - component: {fileID: 1874557257}
   m_Layer: 0
-  m_Name: Music Player (OCD)
+  m_Name: Music Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

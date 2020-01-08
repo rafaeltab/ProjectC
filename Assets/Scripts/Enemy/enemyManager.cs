@@ -15,7 +15,6 @@ public class enemyManager : MonoBehaviour
     public GameObject player;
     public GameObject enemyPrefab;
     public Vector3 playerPos;
-    public AudioSource audioMusicPlayer;
     public MusicLoop musicLoopInstance;
 
     void Start ()
@@ -29,8 +28,7 @@ public class enemyManager : MonoBehaviour
     {
         //checks if no enemies and stops music
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy");
-        Debug.Log(audioMusicPlayer);
-        if (enemyCount.Length <=0 && audioMusicPlayer.clip.name == "BattleMusic")
+        if (enemyCount.Length <=0 && musicLoopInstance._as.clip.name == "BattleMusic")
         {
             Debug.Log("Stop");
             musicLoopInstance.PlayMusic();

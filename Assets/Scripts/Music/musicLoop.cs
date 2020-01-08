@@ -11,14 +11,13 @@ public class MusicLoop : MonoBehaviour
 
     void Awake()
     {
-        instance = null;
+        instance = this;
         _as = GetComponent<AudioSource>();
     }
 
     void Start()
     {
         clipNumber = Random.Range(0, audioClipArray.Length - 1);
-        instance = this;
     }
 
     /// <summary>
@@ -40,6 +39,5 @@ public class MusicLoop : MonoBehaviour
         if (_as.isPlaying) { _as.Stop(); }
         _as.clip = audioClipArray[clipNumber];
         _as.Play();
-
     }
 }
