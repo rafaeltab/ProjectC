@@ -44,6 +44,12 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    //Start tutorial
+    public void StartTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
     public void ResetTutorial()
     {
         PlayerPrefsX.SetBool("tutorialDone", false);
