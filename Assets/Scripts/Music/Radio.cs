@@ -23,7 +23,7 @@ public class Radio : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Cursor.lockState == CursorLockMode.Locked)
+        if (Input.GetMouseButtonDown(0) && Cursor.lockState == CursorLockMode.Locked && musicLoopInstance._as.clip.name != "BattleMusic")
         {
             if (musicLoopInstance.clipNumber == musicLoopInstance.audioClipArray.Length - 1)
             {
