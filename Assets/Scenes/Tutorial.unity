@@ -5691,9 +5691,9 @@ MonoBehaviour:
   fransisco5: {fileID: 8300000, guid: 8b58937fb341f0e4f92618fed381c721, type: 3}
   fransisco6: {fileID: 8300000, guid: 903a328329c2a634ba4611166174d8d1, type: 3}
   fransisco7: {fileID: 8300000, guid: b16845363e6aeb944abb2aa6e6bfd9ba, type: 3}
-  cube_line: {fileID: 8300000, guid: ec91267aa01ebc840abbdc4d0f5493c0, type: 3}
+  cube_uitleg: {fileID: 8300000, guid: b04f6c18bbed1774480a5b98ab6af22d, type: 3}
   kelly1: {fileID: 8300000, guid: 9fbfacd3da620594683f4efbb1036a9d, type: 3}
-  end_maze: {fileID: 0}
+  end_maze: {fileID: 8300000, guid: a3014a674f4a1b645b9ce8df8310f96f, type: 3}
   speed: 15
 --- !u!82 &1429897869
 AudioSource:

@@ -18,7 +18,7 @@ public class Sound : MonoBehaviour
     public AudioClip fransisco5;
     public AudioClip fransisco6;
     public AudioClip fransisco7;
-    public AudioClip cube_line;
+    public AudioClip cube_uitleg;
     public AudioClip kelly1;
     public AudioClip end_maze;
 
@@ -182,9 +182,9 @@ public class Sound : MonoBehaviour
                 StartCoroutine(TextGiver());
                 break;
             case "fransisco7":
-                myAudio.clip = cube_line;
+                myAudio.clip = cube_uitleg;
                 myAudio.Play();
-                //This here is called a hyper cube, it's a 4 dimensional shape that rotates in place on it's 4th axis. this makes it look all wobbly! don't stare at it too long, as you have another objective to complete.
+               
                 StopText();
                 textList.Add("This is called a hyper cube, unlike a normal cube, instead of 3 it has 4 dimensions, x y z and w.");
                 waitTimeList.Add(0);
@@ -229,7 +229,7 @@ public class Sound : MonoBehaviour
                     targetPosition = new Vector3(294.45f, 3.12f, 252f);
                     transform.position = Vector3.MoveTowards(transform.position, targetPosition, step * 4);
                     break;
-                case "4D_Uitleg":
+                case "cube_uitleg":
                     targetPosition = new Vector3(294.45f, -3f, 280f);
                     transform.position = Vector3.MoveTowards(transform.position, targetPosition, step * 4);
                     break;
