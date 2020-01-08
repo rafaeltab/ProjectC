@@ -15,8 +15,8 @@ public class FPSCounter : MonoBehaviour
 
     private void ListenSettings()
     {
-        showFps = (bool) SettingsManager.GetInstance().Settings[3].GetSetting("showfps").Value;
-        SettingsManager.GetInstance().Settings[3].GetSetting("showfps").changeEvent += (sender, value) =>
+        showFps = (bool) SettingsManager.GetInstance().Settings[2].GetSetting("showfps").Value;
+        SettingsManager.GetInstance().Settings[2].GetSetting("showfps").changeEvent += (sender, value) =>
         {
             showFps = (bool) value;
         };

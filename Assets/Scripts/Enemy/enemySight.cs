@@ -31,7 +31,7 @@ public class enemySight : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        audioMusicPlayer = player.transform.Find("Music Player").GetComponent<AudioSource>();
+        audioMusicPlayer = player.transform.Find("Music Player (OCD)").GetComponent<AudioSource>();
     }
 
     /// <summary>

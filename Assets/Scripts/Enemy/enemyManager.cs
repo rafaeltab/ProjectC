@@ -29,7 +29,8 @@ public class enemyManager : MonoBehaviour
     {
         //checks if no enemies and stops music
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy");
-        if(enemyCount.Length <=0 && audioMusicPlayer.clip.name == "BattleMusic")
+        Debug.Log(audioMusicPlayer);
+        if (enemyCount.Length <=0 && audioMusicPlayer.clip.name == "BattleMusic")
         {
             Debug.Log("Stop");
             musicLoopInstance.PlayMusic();
