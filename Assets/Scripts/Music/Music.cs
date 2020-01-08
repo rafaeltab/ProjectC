@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicLoop : MonoBehaviour
+public class Music : MonoBehaviour
 {
-    public static MusicLoop instance;
+    public static Music instance;
     public AudioSource _as;
     public AudioClip[] audioClipArray;
     public int clipNumber;

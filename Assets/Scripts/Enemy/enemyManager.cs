@@ -15,23 +15,23 @@ public class enemyManager : MonoBehaviour
     public GameObject player;
     public GameObject enemyPrefab;
     public Vector3 playerPos;
-    public MusicLoop musicLoopInstance;
+    public Music musicInstance;
 
     void Start ()
     {
         //Start calling the Spawn function repeatedly after a delay.
         InvokeRepeating("Spawn", spawnDelay, spawnTime);
         player = GameObject.FindWithTag("Player");
-        musicLoopInstance = MusicLoop.instance;
+        musicInstance = Music.instance;
     }
     void Update()
     {
         //checks if no enemies and stops music
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemyCount.Length <=0 && musicLoopInstance._as.clip.name == "BattleMusic")
+        if (enemyCount.Length <=0 && musicInstance._as.clip.name == "BattleMusic")
         {
             Debug.Log("Stop");
-            musicLoopInstance.PlayMusic();
+            musicInstance.PlayMusic();
         }
     }
     void Spawn ()

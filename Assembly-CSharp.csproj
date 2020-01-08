@@ -208,7 +208,7 @@
     <Compile Include="Assets\Scripts\MovementController\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\MovementController\HeadBob.cs" />
     <Compile Include="Assets\Scripts\MovementController\MovementController.cs" />
-    <Compile Include="Assets\Scripts\Music\MusicLoop.cs" />
+    <Compile Include="Assets\Scripts\Music\Music.cs" />
     <Compile Include="Assets\Scripts\Music\Radio.cs" />
     <Compile Include="Assets\Scripts\PlayerStats\DeathDisplay.cs" />
     <Compile Include="Assets\Scripts\PlayerStats\HealthDisplay.cs" />

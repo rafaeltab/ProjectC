@@ -155,7 +155,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2608683322754782682, guid: cf53756b0166dbe47bac3b83348297cc,
     type: 3}
   playerPos: {x: 0, y: 0, z: 0}
-  musicLoopInstance: {fileID: 0}
+  musicInstance: {fileID: 0}
 --- !u!4 &203251063
 Transform:
   m_ObjectHideFlags: 0
@@ -1023,11 +1023,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3959833266833824639, guid: 26dd10a6e2c5d244ea302f565fe152ab,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26dd10a6e2c5d244ea302f565fe152ab, type: 3}

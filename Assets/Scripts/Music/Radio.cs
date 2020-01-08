@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Radio : MonoBehaviour
 {
-    public static MusicLoop musicLoopInstance;
+    public static Music musicInstance;
     public GameObject musicTextbox;
     private RectTransform rtTextbox;
     public GameObject musicText;
@@ -13,7 +13,7 @@ public class Radio : MonoBehaviour
 
     void Awake()
     {
-        musicLoopInstance = MusicLoop.instance;
+        musicInstance = Music.instance;
         rtTextbox = musicTextbox.GetComponent<RectTransform>();
         oldSize = rtTextbox.sizeDelta;
     }
@@ -23,18 +23,18 @@ public class Radio : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Cursor.lockState == CursorLockMode.Locked && musicLoopInstance._as.clip.name != "BattleMusic")
+        if (Input.GetMouseButtonDown(0) && Cursor.lockState == CursorLockMode.Locked && musicInstance._as.clip.name != "BattleMusic")
         {
-            if (musicLoopInstance.clipNumber == musicLoopInstance.audioClipArray.Length - 1)
+            if (musicInstance.clipNumber == musicInstance.audioClipArray.Length - 1)
             {
-                musicLoopInstance.clipNumber = 0;
+                musicInstance.clipNumber = 0;
             }
             else
             {
-                musicLoopInstance.clipNumber += 1;
+                musicInstance.clipNumber += 1;
             }
 
-            musicLoopInstance.PlayMusic();
+            musicInstance.PlayMusic();
             UpdateText();
         }
 
@@ -49,7 +49,7 @@ public class Radio : MonoBehaviour
     /// </summary>
     public void UpdateText()
     {
-        string[] strList = ("by " + musicLoopInstance._as.clip.name.Replace('_', ' ')).Split('-');
+        string[] strList = ("by " + musicInstance._as.clip.name.Replace('_', ' ')).Split('-');
         musicText.GetComponent<TextMeshProUGUI>().text = strList[1] + "\n" + strList[0];
     }
 
