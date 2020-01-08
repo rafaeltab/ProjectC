@@ -299,6 +299,7 @@ public class Sound : MonoBehaviour
         yield return new WaitForSeconds(12f);
         PlayerPrefsX.SetBool("tutorialDone", true);
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 4);
     }
 }
