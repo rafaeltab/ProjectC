@@ -216,6 +216,7 @@ public class TutorialManager : MonoBehaviour
             blackScreen.color = new Color32(0, 0, 0, opacity);
             yield return new WaitForSeconds(0.01f);
         }
+
         inventoryAndHotbar.SetActive(true);
         cutsceneLock = false;
 

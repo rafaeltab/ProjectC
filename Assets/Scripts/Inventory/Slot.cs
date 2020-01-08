@@ -20,6 +20,16 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public bool addOneDisabled = false;
 
     /// <summary>
+    /// Fixes some switching scene bugs.
+    /// </summary>
+    public void Awake()
+    {
+        grabbedItemObj = null;
+        grabbedItem = null;
+        grabbedAmount = 0;
+    }
+
+    /// <summary>
     /// Get the itemInfoBox and grabbedItemObj GameObjects
     /// </summary>
     private void Start()

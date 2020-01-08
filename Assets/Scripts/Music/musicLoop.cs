@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class musicLoop : MonoBehaviour
+public class MusicLoop : MonoBehaviour
 {
-
-    public static musicLoop instance;
+    public static MusicLoop instance;
     public AudioSource _as;
     public AudioClip[] audioClipArray;
-    public int clipNumber = 0;
+    public int clipNumber;
 
     void Awake()
     {
+        instance = null;
         _as = GetComponent<AudioSource>();
     }
 
     void Start()
     {
+        clipNumber = Random.Range(0, audioClipArray.Length - 1);
         instance = this;
     }
 
@@ -36,8 +37,9 @@ public class musicLoop : MonoBehaviour
     /// </summary>
     public void PlayMusic()
     {
-        _as.Stop();
+        if (_as.isPlaying) { _as.Stop(); }
         _as.clip = audioClipArray[clipNumber];
         _as.Play();
+
     }
 }

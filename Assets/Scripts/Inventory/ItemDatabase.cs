@@ -58,6 +58,12 @@ public class ItemDatabase : MonoBehaviour
         database.Add(new Item(5, "Radio", "An object emitting sound.\n Use it to change your background music", "dirt", 1));
         Debug.Log("Items added to the database");
     }
-    
 
+    /// <summary>
+    /// Fixes some switching scene bugs.
+    /// </summary>
+    public void Awake()
+    {
+        database.Clear();
+    }
 }
