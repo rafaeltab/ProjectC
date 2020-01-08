@@ -26,6 +26,9 @@ public class TutorialManager : MonoBehaviour
     public static Sound scriptInstance;
     public static GameObject Hamster;
 
+    /// <summary>
+    /// Sets up the start of the tutorial
+    /// </summary>
     void Start()
     {
         cutsceneLock = true;
@@ -220,7 +223,7 @@ public class TutorialManager : MonoBehaviour
         inventoryAndHotbar.SetActive(true);
         cutsceneLock = false;
 
-        yield return new WaitForSeconds(15); //Wait for HJ to mention controls
+        yield return new WaitForSeconds(15); //Wait for Hamster Jesus to mention controls
         currentControlsTutId = 1;
         currentControlsTutObj.SetActive(true);
     }

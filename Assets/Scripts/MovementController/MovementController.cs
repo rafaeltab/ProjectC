@@ -232,7 +232,7 @@ public class MovementController : MonoBehaviour
 
     void OnCollision(Collision theCollision)
     {
-        //if no key is pressed, the rigidbody becomes kinematic (no movement at all)
+        //if no key is pressed, the rigidbody becomes kinematic (no movement at all) but only while touching something
         if (Input.anyKey)
         {
             rb.isKinematic = false;

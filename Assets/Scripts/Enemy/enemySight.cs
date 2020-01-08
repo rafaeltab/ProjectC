@@ -30,6 +30,7 @@ public class enemySight : MonoBehaviour
 
     void Start()
     {
+        //sets the music player to the one the player has
         player = GameObject.FindWithTag("Player");
         musicPlayer = player.transform.Find("Music Player").GetComponent<AudioSource>();
     }
@@ -91,19 +92,19 @@ public class enemySight : MonoBehaviour
             }
 
 
-
+            //checks if distance is shorter than 2f, and attacks if not attacking already
             if(dist <= 2f && attackVoidUsed == false)
             {
                 Attack();
             }
-
+            //checks if out of range
             if(dist >= 2f && oORUsed == false)
             {
                 outOfRange();
             }
 
 
-
+            //does damage if within range and the correct animtion is playing and cooldown is false
             if(dist <= 2f && anim.GetCurrentAnimatorStateInfo(0).IsName("kick") && kickCooldown == false)
             {
                 kickCooldown = true;
@@ -111,6 +112,7 @@ public class enemySight : MonoBehaviour
                 print(player.GetComponent<PlayerStats>().Health);
             }
 
+            //if any other animation than kick is playing, set cooldown to false (to prevent a lot of damage with 1 kick)
             if(!anim.GetCurrentAnimatorStateInfo(0).IsName("kick"))
             {
                 kickCooldown = false;
