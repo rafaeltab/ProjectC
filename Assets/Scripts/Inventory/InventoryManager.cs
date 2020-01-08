@@ -149,6 +149,15 @@ public class InventoryManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Fixes some switching scene bugs.
+    /// </summary>
+    public void Awake()
+    {
+        inventoryEnabled = false;
+        inventoryList.Clear();
+    }
+
+    /// <summary>
     /// Fills the database, updates the UI size, adds the item slots to the inventory and keep them in a list and receive the hotbar slots
     /// </summary>
     private void Start()
@@ -170,10 +179,13 @@ public class InventoryManager : MonoBehaviour
         //Get start items
         if (SceneManager.GetActiveScene().name == "Main Scene")
         {
+            Debug.Log("Add main 3 items");
             InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(3), 1);
             InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(4), 1);
             InventoryManager.PickUpItem(ItemDatabase.FetchItemByID(5), 1);
+            Debug.Log("Items given");
         }
+        Debug.Log("End");
     }
 
 

@@ -8,6 +8,14 @@ public class CheckInventoryHover : MonoBehaviour, IPointerEnterHandler, IPointer
     public static bool hoverInventory = false;
 
     /// <summary>
+    /// Fixes some switching scene bugs.
+    /// </summary>
+    public void Awake()
+    {
+        hoverInventory = false;
+    }
+
+    /// <summary>
     /// Checks if mouse is in the inventory
     /// </summary>
     public void OnPointerEnter(PointerEventData eventData)

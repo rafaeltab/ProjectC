@@ -18,6 +18,17 @@ public class Equip : MonoBehaviour
     public static List<ItemEquip> itemEquips = new List<ItemEquip>();
 
     /// <summary>
+    /// Fixes some switching scene bugs.
+    /// </summary>
+    public void Awake()
+    {
+        hotbarList.Clear();
+        selectedItemSlot = null;
+        ItemGameObjects = null;
+        itemEquips.Clear();
+    }
+
+    /// <summary>
     /// Get the hotbar slots from inventoryList
     /// </summary>
     /// <param name="inventoryList">The list of the inventory with all the item slots</param>
