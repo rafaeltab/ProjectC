@@ -18,7 +18,7 @@ public class enemySight : MonoBehaviour
     bool kickCooldown = false;
 
     //sets the audio stuff
-    public AudioSource bgMusic;
+    public AudioSource audioMusicPlayer;
     public AudioClip battleMusic;
 
     bool battleMusicPlaying = false;
@@ -31,7 +31,7 @@ public class enemySight : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        bgMusic = player.GetComponent<AudioSource>();
+        audioMusicPlayer = player.transform.Find("Music Player").GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -139,10 +139,10 @@ public class enemySight : MonoBehaviour
     /// </summary>
     void playBattleMusicOn()
     {
-        if(bgMusic.clip != battleMusic && battleMusicPlaying == false)
+        if(audioMusicPlayer.clip != battleMusic && battleMusicPlaying == false)
         {
-            bgMusic.clip = battleMusic;
-            bgMusic.Play();
+            audioMusicPlayer.clip = battleMusic;
+            audioMusicPlayer.Play();
             battleMusicPlaying = true;
         }
         
