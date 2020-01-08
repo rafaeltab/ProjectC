@@ -400,8 +400,8 @@ public class InventoryManager : MonoBehaviour
             inventoryEnabled = !inventoryEnabled;
             inventoryPanel.SetActive(inventoryEnabled);
             hotbarPanel.SetActive(!inventoryEnabled);
-            if (inventoryEnabled) { Cursor.lockState = CursorLockMode.None; }
-            else { Cursor.lockState = CursorLockMode.Locked; }
+            if (inventoryEnabled) { Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
+            else { Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; }
         }
 
         //int rest = 0;
