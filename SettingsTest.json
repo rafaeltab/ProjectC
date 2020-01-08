@@ -1,15 +1,15 @@
 {
   "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Object, mscorlib]], mscorlib",
-  "0 mforward": 119,
+  "0 mforw": 119,
   "0 mleft": 97,
-  "0 mdown": 115,
+  "0 mback": 115,
   "0 mright": 100,
   "0 jump": 32,
   "0 crouch": 306,
+  "0 sprint": 304,
   "0 wup": 105,
   "0 wdown": 106,
   "0 oinv": 101,
-  "1 mainvol": 0.9244993,
-  "2 test": "",
-  "3 showfps": true
+  "1 mainvol": 1.0,
+  "2 showfps": false
 }

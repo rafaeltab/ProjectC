@@ -29,7 +29,7 @@ public class SettingsManager
     {
         settings.Add(new ControlsSettings());
         settings.Add(new AudioSettings());
-        settings.Add(new VideoSettings());
+        //settings.Add(new VideoSettings());
         settings.Add(new GeneralSettings());
     }
 
@@ -124,12 +124,13 @@ public class ControlsSettings : Settings {
     public ControlsSettings()
     {
         ClassName = "Controls";
-        SettingsList.Add(new Setting("Move Forward", "mforward", KeyCode.W, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Move Forward", "mforw", KeyCode.W, typeof(KeyCode)));
         SettingsList.Add(new Setting("Move Left", "mleft", KeyCode.A, typeof(KeyCode)));
-        SettingsList.Add(new Setting("Move Backwards", "mdown", KeyCode.S, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Move Backwards", "mback", KeyCode.S, typeof(KeyCode)));
         SettingsList.Add(new Setting("Move Right", "mright", KeyCode.D, typeof(KeyCode)));
         SettingsList.Add(new Setting("Jump", "jump", KeyCode.Space, typeof(KeyCode)));
         SettingsList.Add(new Setting("Crouch", "crouch", KeyCode.LeftControl, typeof(KeyCode)));
+        SettingsList.Add(new Setting("Sprint", "sprint", KeyCode.LeftShift, typeof(KeyCode)));
         SettingsList.Add(new Setting("W-Dimension Up","wup", KeyCode.I,typeof(KeyCode)));
         SettingsList.Add(new Setting("W-Dimension Down", "wdown", KeyCode.J, typeof(KeyCode)));
         SettingsList.Add(new Setting("Open Inventory", "oinv", KeyCode.E, typeof(KeyCode)));
@@ -141,21 +142,21 @@ public class AudioSettings : Settings
     public AudioSettings()
     {
         ClassName = "Audio";
-        SettingsList.Add(new Setting("Main Volume", "mainvol", 0f, typeof(float)));
+        SettingsList.Add(new Setting("Main Volume", "mainvol", 0.0001f, typeof(float)));
         //SettingsList.Add(new Setting("Music Volume", "musicvol", "", typeof(float)));
         //SettingsList.Add(new Setting("Dialogue Volume", "dialvol", "", typeof(float)));
         //SettingsList.Add(new Setting("Effects Volume", "efxvol", "", typeof(float)));
     }
 }
 
-public class VideoSettings : Settings
-{
-    public VideoSettings()
-    {
-        ClassName = "Video";
-        SettingsList.Add(new Setting("TestSetting","test","",typeof(string)));
-    }
-}
+//public class VideoSettings : Settings
+//{
+//    public VideoSettings()
+//    {
+//        ClassName = "Video";
+//        SettingsList.Add(new Setting("TestSetting", "test", "", typeof(string)));
+//    }
+//}
 
 public class GeneralSettings : Settings
 {
