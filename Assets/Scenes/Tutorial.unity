@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3600,6 +3600,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: arrow
       objectReference: {fileID: 0}
+    - target: {fileID: 2534866581884222612, guid: 7d48c63b622e3c34fb814df92ae98c01,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7d48c63b622e3c34fb814df92ae98c01,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3679,11 +3684,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_DynamicOccludee
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2534866581884222612, guid: 7d48c63b622e3c34fb814df92ae98c01,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d48c63b622e3c34fb814df92ae98c01, type: 3}
@@ -8823,6 +8823,11 @@ PrefabInstance:
     - target: {fileID: 2971011153820813724, guid: 26dd10a6e2c5d244ea302f565fe152ab,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795686360076538532, guid: 26dd10a6e2c5d244ea302f565fe152ab,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4320718732463852694, guid: 26dd10a6e2c5d244ea302f565fe152ab,

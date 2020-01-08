@@ -131,12 +131,12 @@ GameObject:
   - component: {fileID: 203251063}
   - component: {fileID: 203251062}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Enemy Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &203251062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,10 +756,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 548273761, guid: 26dd10a6e2c5d244ea302f565fe152ab, type: 3}
-      propertyPath: m_Volume
-      value: 0.861
-      objectReference: {fileID: 0}
     - target: {fileID: 4320718732463852694, guid: 26dd10a6e2c5d244ea302f565fe152ab,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -818,7 +814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1150715057
 MonoBehaviour:
   m_ObjectHideFlags: 0
