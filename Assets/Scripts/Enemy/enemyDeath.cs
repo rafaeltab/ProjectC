@@ -29,18 +29,19 @@ public class enemyDeath : MonoBehaviour
     /// </summary>
     void Update()
     {
+        //starts Death() if enemy has no health and not in use already
         if(enemyHealth <= 0 && deathVoidUsed == false)
         {
             Death();
         }
 
         dist = Vector3.Distance(player.transform.position, transform.position);
-
+        //checks if out of range or the decaytimer is 0 to destroy the enemy so a new one can spawn
         if(dist >= 15f || decayTimer <= 0f)
         {
             Destroy(gameObject);
         }
-
+        //lowers the decaytimer
         if(startTimer)
         {
             decayTimer -= Time.deltaTime;
