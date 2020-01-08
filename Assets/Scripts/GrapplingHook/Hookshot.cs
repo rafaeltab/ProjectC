@@ -103,7 +103,7 @@ public class Hookshot : MonoBehaviour
         {
             if (characterController.isGrounded)
             {
-                //Cancel grapple by jumping, more movement
+                //Cancel grapple by jumping
                 rope.SetVertexCount(0);
                 GetComponent<Rigidbody>().AddForce(new Vector3(0, 20, 0), ForceMode.Impulse);
                 ResetStateNormal();
@@ -119,7 +119,7 @@ public class Hookshot : MonoBehaviour
         float grappleSpeedMin = 10f;
         float grappleSpeedMax = 30f;
         float grappleSpeed = Mathf.Clamp(Vector3.Distance(transform.position, grapplePoint), grappleSpeedMin, grappleSpeedMax);
-        float grappleSpeedMultipl = 1.5f;
+        float grappleSpeedMultipl = 1.2f;
 
         //Move char
         characterController.Move(grappleDir * grappleSpeed * grappleSpeedMultipl * Time.deltaTime);
