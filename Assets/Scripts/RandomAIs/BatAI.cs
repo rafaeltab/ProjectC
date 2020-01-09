@@ -7,7 +7,10 @@ public class BatAI : MonoBehaviour
 {
     private Vector3 target;
     public bool DrawLines = false;
-    // Start is called before the first frame update
+    
+    /// <summary>
+    /// Find a first position to go to
+    /// </summary>
     void Start()
     {
         if (!TryFindPos(100))
@@ -16,12 +19,17 @@ public class BatAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Get a new target
+    /// </summary>
     public void ReTarget()
     {
         TryFindPos(50);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Move and find a new position if we arrived
+    /// </summary>
     void Update()
     {
         if (transform.position == target)
@@ -33,7 +41,11 @@ public class BatAI : MonoBehaviour
         transform.LookAt(target,Vector3.up);
     }
 
-    
+    /// <summary>
+    /// Find a new position
+    /// </summary>
+    /// <param name="maxTries">maximum tries at finding a position</param>
+    /// <returns>Whether or not a position was found</returns>
     public bool TryFindPos(int maxTries)
     {
         int trys = 0;
@@ -54,6 +66,12 @@ public class BatAI : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Find a respawn near a point
+    /// </summary>
+    /// <param name="near">The point to find a respawn near</param>
+    /// <param name="distance">the maximum distance for the respawn</param>
+    /// <returns></returns>
     public Vector3 TryFindRespawn(Vector3 near, int distance)
     {
         int trys = 0;
@@ -73,6 +91,9 @@ public class BatAI : MonoBehaviour
         return near;
     }
 
+    /// <summary>
+    /// Draw the target of the bat
+    /// </summary>
     void OnDrawGizmosSelected()
     {
         // Draw a yellow sphere at the transform's position
@@ -80,6 +101,9 @@ public class BatAI : MonoBehaviour
         Gizmos.DrawSphere(target, 0.2f);
     }
 
+    /// <summary>
+    /// Check whether a position is good or not
+    /// </summary>
     private bool OkPos(Vector3 loc, Vector3 t, float minDistanceFromWall)
     {
         var direction = loc - t;
@@ -104,6 +128,9 @@ public class BatAI : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Draw a line from a point in a direction wit h alength
+    /// </summary>
     public void drawALine(Vector3 pos, Vector3 dir, float length)
     {
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
@@ -112,6 +139,9 @@ public class BatAI : MonoBehaviour
         lineRenderer.SetPosition(1, dir * length + pos);
     }
 
+    /// <summary>
+    /// Find a random point near another point
+    /// </summary>
     public static Vector3 RandomPointNear(Vector3 point, int distanceMax)
     {
         float xMin = point.x - distanceMax;

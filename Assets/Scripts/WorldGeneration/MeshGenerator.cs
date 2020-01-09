@@ -9,10 +9,6 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
 
-//TODO:
-//-optimize
-//-implement Marching Cubes
-
 public class MeshGenerator : MonoBehaviour
 {
     private KeyCode wup;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// A display for when someone changes dimensions
+/// </summary>
 [RequireComponent(typeof(Image))]
 [RequireComponent(typeof(CanvasRenderer))]
 public class DimensionLeapDisplay : MonoBehaviour
@@ -16,8 +19,8 @@ public class DimensionLeapDisplay : MonoBehaviour
     private bool flashing = false;
     private float flashProgress = 0f;
 
-
-    // Start is called before the first frame update
+    /// <summary>
+    /// Instantiate all necessary thingfs
     void Start()
     {
         _instance = this;

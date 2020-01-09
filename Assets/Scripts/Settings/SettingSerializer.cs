@@ -5,8 +5,14 @@ using Newtonsoft.Json;
 using System.IO;
 using System;
 
+/// <summary>
+/// Class used for putting all settings into a file and retrieving settigns from that file on load or quit
+/// </summary>
 public class SettingSerializer : MonoBehaviour
 {
+    /// <summary>
+    /// Application quit so serialize everything and save
+    /// </summary>
     public void OnApplicationQuit()
     {
         Dictionary<string, object> allSettings = new Dictionary<string, object>();
@@ -31,6 +37,9 @@ public class SettingSerializer : MonoBehaviour
         Debug.Log("Yeet");
     }
 
+    /// <summary>
+    /// Awake so we starting up which means we need to deserialize the file and put all the settigns in the right spot
+    /// </summary>
     public void Awake()
     {
         DontDestroyOnLoad(this);

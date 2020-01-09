@@ -9,8 +9,14 @@ using System.Threading.Tasks;
 using UnityEngine;
 using static Assets.Scripts.MeshGenModel;
 
+/// <summary>
+/// A class for serializing and deserializing chunks
+/// </summary>
 public static class ChunkSerializer
 {
+    /// <summary>
+    /// serialize a chunk into a byte array
+    /// </summary>
     public static byte[] Serialize(Chunk chunk)
     {
         List<byte> output = new List<byte>();
@@ -60,6 +66,9 @@ public static class ChunkSerializer
         return output.ToArray();
     }
 
+    /// <summary>
+    /// Deserialize a file into a Chunk using the correct visualizers etc.
+    /// </summary>
     public static Chunk Deserialize(byte[] data,ComputeShader compute, MonoBehaviour generator,Visualizer meshVisualizer)
     {
         /////////

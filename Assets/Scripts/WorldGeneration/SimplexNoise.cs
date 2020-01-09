@@ -9,6 +9,9 @@ using System.Runtime.CompilerServices;
 
 namespace NoiseTest
 {
+    /// <summary>
+    /// A simplex noise generation class
+    /// </summary>
     public class SimplexNoise
     {
         private const double STRETCH_2D = -0.211324865405187;    //(1/Math.sqrt(2+1)-1)/2;
@@ -70,6 +73,9 @@ namespace NoiseTest
         private static Contribution3[] lookup3D;
         private static Contribution4[] lookup4D;
 
+        /// <summary>
+        /// Create a simplex noise object
+        /// </summary>
         static SimplexNoise()
         {
             var base2D = new int[][]
@@ -184,6 +190,9 @@ namespace NoiseTest
             }
         }
 
+        /// <summary>
+        /// A fast flooring method
+        /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int FastFloor(double x)
         {
@@ -191,11 +200,18 @@ namespace NoiseTest
             return x < xi ? xi - 1 : xi;
         }
 
+        /// <summary>
+        /// Create a simplexnoise object (current time as seed)
+        /// </summary>
         public SimplexNoise()
             : this(DateTime.Now.Ticks)
         {
         }
 
+        /// <summary>
+        /// Create a simplex noise object using a seed
+        /// </summary>
+        /// <param name="seed"></param>
         public SimplexNoise(long seed)
         {
             perm = new byte[256];
@@ -226,6 +242,9 @@ namespace NoiseTest
             }
         }
 
+        /// <summary>
+        /// Get a value at x,y coordinate
+        /// </summary>
         public double Evaluate(double x, double y)
         {
             var stretchOffset = (x + y) * STRETCH_2D;
@@ -274,6 +293,9 @@ namespace NoiseTest
             return value * NORM_2D;
         }
 
+        /// <summary>
+        /// Get a value at x,y,z coordinate
+        /// </summary>
         public double Evaluate(double x, double y, double z)
         {
             var stretchOffset = (x + y + z) * STRETCH_3D;
@@ -332,6 +354,9 @@ namespace NoiseTest
             return value * NORM_3D;
         }
 
+        /// <summary>
+        /// Get a value at x,y,z,w coordinate
+        /// </summary>
         public double Evaluate(double x, double y, double z, double w)
         {
             var stretchOffset = (x + y + z + w) * STRETCH_4D;

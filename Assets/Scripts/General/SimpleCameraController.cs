@@ -2,8 +2,14 @@
 
 namespace UnityTemplateProjects
 {
+    /// <summary>
+    /// A very basic camera controller to fly around the world
+    /// </summary>
     public class SimpleCameraController : MonoBehaviour
     {
+        /// <summary>
+        /// The state of the camera, containing rotation and position
+        /// </summary>
         class CameraState
         {
             public float yaw;
@@ -13,6 +19,10 @@ namespace UnityTemplateProjects
             public float y;
             public float z;
 
+            /// <summary>
+            /// Make a camera state from a transform
+            /// </summary>
+            /// <param name="t"></param>
             public void SetFromTransform(Transform t)
             {
                 pitch = t.eulerAngles.x;
@@ -23,6 +33,9 @@ namespace UnityTemplateProjects
                 z = t.position.z;
             }
 
+            /// <summary>
+            /// move the CameraState by a vector3
+            /// </summary>
             public void Translate(Vector3 translation)
             {
                 Vector3 rotatedTranslation = Quaternion.Euler(pitch, yaw, roll) * translation;
@@ -32,6 +45,10 @@ namespace UnityTemplateProjects
                 z += rotatedTranslation.z;
             }
 
+            /// <summary>
+            /// Move somewhere in the middle of a CameraState based on position lerp and rotation lerp defining how much one of the one and how much of the other you get
+            /// </summary>
+            /// <param name="target"></param>
             public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct)
             {
                 yaw = Mathf.Lerp(yaw, target.yaw, rotationLerpPct);
@@ -43,6 +60,10 @@ namespace UnityTemplateProjects
                 z = Mathf.Lerp(z, target.z, positionLerpPct);
             }
 
+            /// <summary>
+            /// Update a transform to contain this Camera state
+            /// </summary>
+            /// <param name="t"></param>
             public void UpdateTransform(Transform t)
             {
                 t.eulerAngles = new Vector3(pitch, yaw, roll);
@@ -70,12 +91,18 @@ namespace UnityTemplateProjects
         [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
         public bool invertY = false;
 
+        /// <summary>
+        /// Set the camera states to be the current position
+        /// </summary>
         void OnEnable()
         {
             m_TargetCameraState.SetFromTransform(transform);
             m_InterpolatingCameraState.SetFromTransform(transform);
         }
 
+        /// <summary>
+        /// Get inputs for finding the next direction
+        /// </summary>
         Vector3 GetInputTranslationDirection()
         {
             Vector3 direction = new Vector3();
@@ -106,6 +133,9 @@ namespace UnityTemplateProjects
             return direction;
         }
         
+        /// <summary>
+        /// Check inputs, quit when necessary, move and update mouse state
+        /// </summary>
         void Update()
         {
             // Exit Sample  
@@ -165,5 +195,4 @@ namespace UnityTemplateProjects
             m_InterpolatingCameraState.UpdateTransform(transform);
         }
     }
-
 }

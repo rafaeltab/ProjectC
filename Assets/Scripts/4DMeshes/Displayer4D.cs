@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// Display a 4 dimensional mesh
+/// </summary>
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 class Displayer4D : MonoBehaviour
@@ -17,6 +20,9 @@ class Displayer4D : MonoBehaviour
     private float Count = 0;
 
     Mesh4D mesh = new Mesh4D(Primitive.HYPERCUBE);
+    /// <summary>
+    /// Update the mesh so we have one
+    /// </summary>
     public void Start()
     {
         UpdateMesh();
@@ -59,7 +65,7 @@ class Displayer4D : MonoBehaviour
             rotation.D *= -1;
         }
 
-        Count += 0.1f;
+        Count += Time.deltaTime * 3;
     }
 
     /// <summary>

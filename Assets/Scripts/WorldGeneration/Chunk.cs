@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    /// <summary>
+    /// A chunk of the world
+    /// </summary>
     public class Chunk
     {
         public readonly Vector3Int position;
@@ -78,11 +81,17 @@ namespace Assets.Scripts
             
         }
 
+        /// <summary>
+        /// Make a file name out of all paramaters for a chunk
+        /// </summary>
         private static string InfoToFileName(Vector3Int pos, float trength, long seed, float threshold, int size = 16, float noiseScale = 1f)
         {
             return $"{pos.x} {pos.y} {pos.z} {trength} {seed} {threshold} {size} {noiseScale}.chunk";
         }
 
+        /// <summary>
+        /// Save the current chunk in a file
+        /// </summary>
         public void Save()
         {
             string filename = InfoToFileName(position, trength, seed, threshold, size, noiseScale);
@@ -91,6 +100,9 @@ namespace Assets.Scripts
             File.WriteAllBytes(@"save\" + filename,serialized);
         }
 
+        /// <summary>
+        /// Attempt to load this chunk from a file
+        /// </summary>
         public static Chunk TryLoadFromFile(Vector3Int pos, float trength, long seed, float threshold, ComputeShader compute, MonoBehaviour generator, MeshGenModel.Visualizer visualizer, int size = 16, float noiseScale = 1f)
         {
             if(!Directory.Exists(@"save\")){

@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace MyMath
 {
+    /// <summary>
+    /// 3 floats in 1 class
+    /// </summary>
     public class float3
     {
         public float3(float x,float y, float z)
@@ -29,6 +32,9 @@ namespace MyMath
         }
     }
 
+    /// <summary>
+    /// 4 floats in 1 class
+    /// </summary>
     public class float4
     {
         public float x { get; set; }
@@ -36,6 +42,9 @@ namespace MyMath
         public float z { get; set; }
         public float w { get; set; }
 
+        /// <summary>
+        /// make a float 4
+        /// </summary>
         public float4(float x, float y, float z, float w)
         {
             this.x = x;
@@ -121,6 +130,9 @@ namespace MyMath
         }
     }
 
+    /// <summary>
+    /// 3 ints in a struct
+    /// </summary>
     public struct int3
     {
         public int a { get; set; }
@@ -128,8 +140,14 @@ namespace MyMath
         public int c { get; set; }
     }
 
+    /// <summary>
+    /// 4 ints in a class
+    /// </summary>
     public class int4
     {
+        /// <summary>
+        /// Make an int4
+        /// </summary>
         public int4(int a, int b, int c, int d)
         {
             this.a = a;
@@ -144,14 +162,23 @@ namespace MyMath
         public int d { get; set; }
     }
 
+    /// <summary>
+    /// 6 floats in 1 class
+    /// </summary>
     [Serializable]
     public class float6
     {
+        /// <summary>
+        /// make an empty float6
+        /// </summary>
         public float6()
         {
 
         }
 
+        /// <summary>
+        /// Make a flaot6 with values
+        /// </summary>
         public float6(float a, float b, float c, float d, float e, float f)
         {
             A = a; B = b; C = c; D = d; E = e; F = f;

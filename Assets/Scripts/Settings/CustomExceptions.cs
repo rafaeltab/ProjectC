@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Exception for when a setting is not found
+/// </summary>
 public class SettingNotFoundException : Exception
 {
     public SettingNotFoundException()
@@ -21,6 +24,9 @@ public class SettingNotFoundException : Exception
     }
 }
 
+/// <summary>
+/// Exceptio nfor when a Settings type is not correctly used
+/// </summary>
 public class SettingTypeNotCompatibleException : Exception
 {
     public SettingTypeNotCompatibleException()
