@@ -6,6 +6,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for displaying and managing a single option
+/// </summary>
 public class SingleOption
 {
     public GameObject settingObject;
@@ -18,6 +21,9 @@ public class SingleOption
     private GameObject prefab;
     private SettingsPrefab settingsPrefab;
 
+    /// <summary>
+    /// Constructor for a single option
+    /// </summary>
     public SingleOption(Setting setting, OptionsPage page, List<SettingsPrefab> settingPrefabs, Transform parent, int pageInd, int settingInd, Rect settingArea,Canvas canvas)
     {
         this.canvas = canvas;
@@ -48,17 +54,26 @@ public class SingleOption
         }
     }
 
+    /// <summary>
+    /// Sets the value of a setting and updates the text
+    /// </summary>
     public void ValueChangedFloat(float val)
     {
         page.settings.SetSetting(setting.Id, val);
         settingObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{val}";
     }
 
+    /// <summary>
+    /// Listens for a change in the value of an option
+    /// </summary>
     public void DoSingle()
     {
         settingObject.GetComponent<Slider>().onValueChanged.AddListener((val) => { ValueChangedFloat(val); });
     }
 
+    /// <summary>
+    /// Resizes the single option
+    /// </summary>
     public void Resize(Transform parent)
     {
         bool wasNull = false;
@@ -79,6 +94,9 @@ public class SingleOption
         }
     }
 
+    /// <summary>
+    /// Scales the single option
+    /// </summary>
     public void DoScale()
     {
         Vector3 startScale = settingObject.transform.localScale;
@@ -87,6 +105,9 @@ public class SingleOption
         settingObject.transform.localScale = startScale;
     }
 
+    /// <summary>
+    /// Positions the single option
+    /// </summary>
     public void DoPos()
     {
         Vector3 startPos = settingObject.transform.position;
@@ -107,6 +128,9 @@ public class SingleOption
         settingObject.transform.position = startPos;
     }
 
+    /// <summary>
+    /// Switch for the different types of options
+    /// </summary>
     public void DoOptionTypes()
     {
         switch (settingsPrefab.name.ToLower())
@@ -131,6 +155,9 @@ public class SingleOption
         }
     }
 
+    /// <summary>
+    /// Listens for changes in the slider and the setting value
+    /// </summary>
     public void DoSingleType()
     {
         settingObject.GetComponentInChildren<Slider>().onValueChanged.AddListener((value) => {
@@ -142,6 +169,9 @@ public class SingleOption
         };
     }
 
+    /// <summary>
+    /// Listens for changes in the toggle
+    /// </summary>
     public void DoBoolType()
     {
         settingObject.GetComponentInChildren<Toggle>().isOn = (bool) setting.Value;
@@ -154,6 +184,9 @@ public class SingleOption
         };
     }
 
+    /// <summary>
+    /// Starts a keycode listener
+    /// </summary>
     public void DoKeyCode()
     {
         settingObject.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>().text = setting.Value.ToString();
@@ -169,11 +202,17 @@ public class SingleOption
         };
     }
 
+    /// <summary>
+    /// Get height of given object
+    /// </summary>
     public float GetHeight(GameObject obj)
     {
         return obj.GetComponent<RectTransform>().rect.height * obj.transform.localScale.y;
     }
 
+    /// <summary>
+    /// Get width of given object
+    /// </summary>
     public float GetWidth(GameObject obj)
     {
         return obj.GetComponent<RectTransform>().rect.width * obj.transform.localScale.x;        

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the loading screen
+/// </summary>
 public class LoadScreen : MonoBehaviour
 {
     public Rigidbody player;
@@ -9,11 +12,17 @@ public class LoadScreen : MonoBehaviour
     public GameObject loadScreen;
     private float timeElapsed;
 
+    /// <summary>
+    /// Sets time elapsed to 0
+    /// </summary>
     private void Start()
     {
         timeElapsed = 0f;
     }
 
+    /// <summary>
+    /// Check if the player is still falling, if the players velocity is under 0.1 the loading screen goes away
+    /// </summary>
     private void Update()
     {
         if (timeElapsed > 1)

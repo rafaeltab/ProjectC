@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Handles the main menu
+/// </summary>
 public class MainMenu : MonoBehaviour
 {
     [Tooltip("Allow the tutorial to run on startup should be true if in production false if you don't want to run tutorial")]
@@ -53,6 +56,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Tutorial");
     }
 
+    //Sets playerpref tutorialDone to false
     public void ResetTutorial()
     {
         PlayerPrefsX.SetBool("tutorialDone", false);

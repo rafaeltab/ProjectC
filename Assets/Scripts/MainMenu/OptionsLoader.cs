@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Class for loading options
+/// </summary>
 public class OptionsLoader : MonoBehaviour
 {
     private static OptionsLoader _instance;
     public static bool loaded = false;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Loads the options scene into the current one
+    /// </summary>
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -24,10 +29,17 @@ public class OptionsLoader : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Activate options screen
+    /// </summary>
     public void Open()
     {
         gameObject.SetActive(true);
     }
+
+    /// <summary>
+    /// Activates options screen in esc menu and saves gameobject for enabling later
+    /// </summary>
     GameObject obj;
     public void Open(GameObject obj)
     {
@@ -35,6 +47,9 @@ public class OptionsLoader : MonoBehaviour
         this.obj = obj;
     }
 
+    /// <summary>
+    /// Closes options menu and activates saved gameobject
+    /// </summary>
     public void Close()
     {
         gameObject.SetActive(false);
@@ -47,6 +62,9 @@ public class OptionsLoader : MonoBehaviour
 
     private static Action<OptionsLoader> doWhenReady;
 
+    /// <summary>
+    /// Get instance of options loader
+    /// </summary>
     public static void GetInstance(Action<OptionsLoader> DoWhenReady)
     {
         if(_instance == null)

@@ -12,7 +12,9 @@ public class PauseMenu2 : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject player;
 
-    // Update is called once per frame
+    /// <summary>
+    /// Listens for the pause button ESC, and pauses time if paused
+    /// </summary>
     void Update()
     {
         if (gamePaused)
@@ -40,6 +42,9 @@ public class PauseMenu2 : MonoBehaviour
         }      
     }
 
+    /// <summary>
+    /// Resumes the game
+    /// </summary>
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
@@ -52,6 +57,9 @@ public class PauseMenu2 : MonoBehaviour
         player.GetComponentInChildren<CameraMovement>().enabled = true;
     }
 
+    /// <summary>
+    /// Pauses the game
+    /// </summary>
     void Pause()
     {
         pauseMenuUI.SetActive(true);
@@ -61,6 +69,9 @@ public class PauseMenu2 : MonoBehaviour
         player.GetComponentInChildren<CameraMovement>().enabled = false;
     }
 
+    /// <summary>
+    /// Loads the options menu
+    /// </summary>
     public void LoadOptions()
     {
         OptionsLoader.GetInstance((c)=> { c.Open(pauseMenuUI); });
@@ -69,6 +80,9 @@ public class PauseMenu2 : MonoBehaviour
         Debug.Log("Loading options");
     }
 
+    /// <summary>
+    /// Quits the game
+    /// </summary>
     public void QuitGame()
     {
         Debug.Log("Quitting game");

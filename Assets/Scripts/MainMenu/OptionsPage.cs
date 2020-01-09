@@ -6,6 +6,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles the options page
+/// </summary>
 public class OptionsPage : IOptionsButton
 {
     public Button pageButton;
@@ -21,6 +24,9 @@ public class OptionsPage : IOptionsButton
         return false;
     }
 
+    /// <summary>
+    /// Constructor for option page
+    /// </summary>
     public OptionsPage(Button pageButton, Settings settings, Canvas parentCanvas, OptionsMenu optionsMenu, Vector2 buttonLocations, int btnIndex)
     {
         this.settings = settings;
@@ -31,6 +37,13 @@ public class OptionsPage : IOptionsButton
         Rescale(pageButton, btnIndex);
     }
 
+    /// <summary>
+    /// Rescales the elements in the options page
+    /// </summary>
+    /// <param name="pageButton"></param>
+    /// <param name="ind"></param>
+    /// <param name="oldWidth"></param>
+    /// <param name="oldHeight"></param>
     public void Rescale(Button pageButton, int ind, float oldWidth = 1920, float oldHeight = 1080)
     {
         bool wasNull = false;
@@ -89,12 +102,18 @@ public class OptionsPage : IOptionsButton
         }
     }
 
+    /// <summary>
+    /// Handles clicking a button
+    /// </summary>
     public void HandleClick()
     {
         optionsMenu.Enable(this);
         Enable();
     }
 
+    /// <summary>
+    /// Enables options to show in the options page
+    /// </summary>
     public void Enable()
     {
         foreach (var option in options)
@@ -103,6 +122,9 @@ public class OptionsPage : IOptionsButton
         }
     }
 
+    /// <summary>
+    /// Disables options to show in the options page
+    /// </summary>
     public void Disable()
     {
         //remove the display of all the settings for this page
@@ -112,6 +134,9 @@ public class OptionsPage : IOptionsButton
         }
     }
 
+    /// <summary>
+    /// Puts all the individual options in the options page
+    /// </summary>
     public void HandleButton(string name, int ind, bool firstRun)
     {
         Vector3 pos = new Vector3(Screen.width * (buttonLocations.x), 0, 0);
@@ -136,6 +161,9 @@ public class OptionsPage : IOptionsButton
         }
     }
 
+    /// <summary>
+    /// Grabs the height of a button
+    /// </summary>
     public static float GetButtonHeight(Button btn)
     {
         return btn.GetComponent<RectTransform>().rect.height * btn.transform.localScale.y;

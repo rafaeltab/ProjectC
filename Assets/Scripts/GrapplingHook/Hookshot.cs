@@ -17,6 +17,9 @@ public class Hookshot : MonoBehaviour
     private Vector3 grapplePoint;
     public GameObject grapplingHook;
 
+    /// <summary>
+    /// The different states of the grappling hook
+    /// </summary>
     private enum State
     {
         Normal,
@@ -24,6 +27,10 @@ public class Hookshot : MonoBehaviour
         GrappleFlying
     }
 
+    /// <summary>
+    /// Grabs the character controller and the movement controller, puts state to normal. 
+    /// Runs on first launch
+    /// </summary>
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -31,6 +38,9 @@ public class Hookshot : MonoBehaviour
         state = State.Normal;
     }
 
+    /// <summary>
+    /// Switches to the different states
+    /// </summary>
     private void Update()
     {
         if (grapplingHook.activeSelf)
@@ -52,6 +62,9 @@ public class Hookshot : MonoBehaviour
         else { ResetStateNormal(); }
     }
 
+    /// <summary>
+    /// Raycast to the target, checks if it's hookable and switches state to Grapple Shot
+    /// </summary>
     private void HandleGrappleStart()
     {
         if (InputDownGrapple() && Cursor.lockState == CursorLockMode.Locked)
@@ -62,7 +75,6 @@ public class Hookshot : MonoBehaviour
                 {
 
                     //Hit object
-                    //hookTransform.position = raycastHit.point;
                     grapplePoint = raycastHit.point;
                     hookTransform.SetParent(null, true);
                     state = State.GrappleShot;
@@ -76,6 +88,9 @@ public class Hookshot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Shoots the hook to the raycast point and draws rope between the hook and the gun
+    /// </summary>
     private void HandleGrappleShot()
     {
         LineRenderer rope = hookTransform.GetComponent<LineRenderer>();
@@ -111,6 +126,9 @@ public class Hookshot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Moves the character towards the hook, fast at first slower the closer it gets
+    /// </summary>
     private void HandleGrappleMovement()
     {
         LineRenderer ropeReset = hookTransform.GetComponent<LineRenderer>();
@@ -158,6 +176,9 @@ public class Hookshot : MonoBehaviour
         return Input.GetKeyDown(KeyCode.Space);
     }
 
+    /// <summary>
+    /// Resets state to normal and returns the hook to the gun
+    /// </summary>
     private void ResetStateNormal()
     {
         state = State.Normal;

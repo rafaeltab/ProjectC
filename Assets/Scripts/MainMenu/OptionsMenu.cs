@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles the options menu
+/// </summary>
 [RequireComponent(typeof(Canvas))]
 public class OptionsMenu : MonoBehaviour
 {
@@ -17,6 +20,9 @@ public class OptionsMenu : MonoBehaviour
     public float OptionsPadding = 10f;
     public GameObject eventSystem;
 
+    /// <summary>
+    /// Adds all the page buttons in the options menu
+    /// </summary>
     public void Start()
     {
         OptionsPages.Add(new BackButton(buttonTemplate, GetComponent<Canvas>(),this,buttonLocations));
@@ -29,11 +35,9 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-
-    }
-
+    /// <summary>
+    /// Opens a single options page
+    /// </summary>
     public void Enable(OptionsPage optionsPage)
     {
         foreach(var op in OptionsPages)
@@ -45,11 +49,17 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initiates rescaling of buttons when screen size changes
+    /// </summary>
     public void OnRectTransformDimensionsChange()
     {
         Rescale();
     }
 
+    /// <summary>
+    /// Rescaling of the buttons
+    /// </summary>
     public void Rescale()
     {
         int ind = -1;

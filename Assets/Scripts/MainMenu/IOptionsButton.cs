@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.UI;
 
+/// <summary>
+/// Interface for every option to be used
+/// </summary>
 public interface IOptionsButton
 {
     bool IsBackButton();

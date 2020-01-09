@@ -7,6 +7,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles the back button in the options menu
+/// </summary>
 public class BackButton : IOptionsButton
 {
     public Button pageButton;
@@ -14,6 +17,9 @@ public class BackButton : IOptionsButton
     public OptionsMenu optionsMenu;
     public Vector2 buttonLocations;
 
+    /// <summary>
+    /// Constructor for the back button in options menu
+    /// </summary>
     public BackButton(Button pageButton, Canvas parentCanvas, OptionsMenu optionsMenu, Vector2 buttonLocations)
     {
         this.parentCanvas = parentCanvas;
@@ -32,6 +38,9 @@ public class BackButton : IOptionsButton
         return true;
     }
 
+    /// <summary>
+    /// Scales the button for different resolutions
+    /// </summary>
     public void Rescale(Button pageButton,int ind,float oldWidth = 1920, float oldHeight = 1080)
     {
         if (this.pageButton == null)
@@ -55,16 +64,25 @@ public class BackButton : IOptionsButton
         HandleButton();
     }
 
+    /// <summary>
+    /// Closes the options menu
+    /// </summary>
     public void Enable()
     {
         OptionsLoader.GetInstance((c)=>{ c.Close(); });
     }
 
+    /// <summary>
+    /// Grabs the page button
+    /// </summary>
     public Button GetButton()
     {
         return pageButton;
     }
 
+    /// <summary>
+    /// Positions the back button in the correct place
+    /// </summary>
     public void HandleButton()
     {
         Vector3 pos = new Vector3(Screen.width * (buttonLocations.x), 0, 0);

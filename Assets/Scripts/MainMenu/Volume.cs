@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+/// <summary>
+/// Class that handles the volume slider
+/// </summary>
 public class Volume : MonoBehaviour
 {
     private float master;
@@ -14,6 +17,9 @@ public class Volume : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// checks the volume from Settings Manager and calls to change the volume
+    /// </summary>
     private void Start()
     {
         //Volume
@@ -28,6 +34,9 @@ public class Volume : MonoBehaviour
     }
     public AudioMixer mixer;
 
+    /// <summary>
+    /// Changes the volume in the mixer
+    /// </summary>
     public void SetLevel(float sliderValue)
     {
         mixer.SetFloat("MasterVolume", Mathf.Log10(sliderValue) * 20);
