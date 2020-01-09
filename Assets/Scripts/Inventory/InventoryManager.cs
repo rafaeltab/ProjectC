@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour
     public int startSlotRows;
     private int slotRow;
     public static List<ItemSlot> inventoryList = new List<ItemSlot>();
+    public static InventoryManager instance;
     public GameObject canvas;
     public static Vector3 offsetInventory;
     public static Vector3 offsetHotbar;
@@ -149,12 +150,13 @@ public class InventoryManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Fixes some switching scene bugs.
+    /// Fixes some switching scene bugs and set instance.
     /// </summary>
     public void Awake()
     {
         inventoryEnabled = false;
         inventoryList.Clear();
+        instance = this;
     }
 
     /// <summary>
@@ -395,13 +397,9 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetKeyDown(openInvButton) && !TutorialManager.cutsceneLock)
+        if (Input.GetKeyDown(openInvButton) && !TutorialManager.cutsceneLock && !PauseMenu2.gamePaused)
         {
-            inventoryEnabled = !inventoryEnabled;
-            inventoryPanel.SetActive(inventoryEnabled);
-            hotbarPanel.SetActive(!inventoryEnabled);
-            if (inventoryEnabled) { Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
-            else { Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; }
+            ActivateInventory();
         }
 
         //int rest = 0;
@@ -418,6 +416,18 @@ public class InventoryManager : MonoBehaviour
         //{
         //    Debug.Log("Rest " + rest);
         //}
+    }
+
+    /// <summary>
+    /// Activate or deactivate the inventory
+    /// </summary>
+    public void ActivateInventory()
+    {
+        inventoryEnabled = !inventoryEnabled;
+        inventoryPanel.SetActive(inventoryEnabled);
+        hotbarPanel.SetActive(!inventoryEnabled);
+        if (inventoryEnabled) { Cursor.lockState = CursorLockMode.None; Cursor.visible = true; }
+        else { Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; }
     }
 
     /// <summary>

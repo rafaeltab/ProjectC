@@ -44,13 +44,16 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(true);
-        hovering = true;
-        if (itemSlot.amount != 0 && grabbedAmount == 0)
+        if (!PauseMenu2.gamePaused)
         {
-            itemInfoBox.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = itemSlot.item.title;
-            itemInfoBox.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = itemSlot.item.description;
-            itemInfoBox.SetActive(true);
+            itemSlot.slotObj.transform.Find("Hover").gameObject.SetActive(true);
+            hovering = true;
+            if (itemSlot.amount != 0 && grabbedAmount == 0)
+            {
+                itemInfoBox.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = itemSlot.item.title;
+                itemInfoBox.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = itemSlot.item.description;
+                itemInfoBox.SetActive(true);
+            }
         }
     }
 
@@ -65,8 +68,18 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     public void Update()
     {
-        offset = new Vector3(itemInfoBox.GetComponent<RectTransform>().rect.width / 2 + 10, itemInfoBox.GetComponent<RectTransform>().rect.height / -2 + 10, 0);
-        itemInfoBox.transform.position = Input.mousePosition + offset;
+        if (!PauseMenu2.gamePaused)
+        {
+            // Move itemInfoBox to the mouse position
+            offset = new Vector3(itemInfoBox.GetComponent<RectTransform>().rect.width / 2 + 10, itemInfoBox.GetComponent<RectTransform>().rect.height / -2 + 10, 0);
+            itemInfoBox.transform.position = Input.mousePosition + offset;
+
+            // Move the grabbed item to the mouse position
+            if (grabbedItem != null)
+            {
+                grabbedItemObj.transform.position = Input.mousePosition;
+            }
+        }
 
         if (hovering)
         {
@@ -142,7 +155,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     addOneDisabled = true;
                     itemSlot.AddOne();
                 }
-
             }
 
 
@@ -151,12 +163,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 grabbedItemObj.SetActive(false);
                 grabbedItemObj.GetComponent<CanvasGroup>().blocksRaycasts = true;
             }
-        }
-
-        // Move the grabbed item to the mouse position
-        if (grabbedItem != null)
-        {
-            grabbedItemObj.transform.position = Input.mousePosition;
         }
 
         //Check if mouse is outside inventory (For dropping items) ## Disabled for now ##

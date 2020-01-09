@@ -8,6 +8,8 @@ public class DeathDisplay : MonoBehaviour
 {
     public Transform playerTransform;
 
+    public InventoryManager inventoryInstance;
+
     private Vector3 playerStartPos;
 
     /// <summary>
@@ -15,6 +17,7 @@ public class DeathDisplay : MonoBehaviour
     /// </summary>
     void Start()
     {
+        inventoryInstance = InventoryManager.instance;
         playerStartPos = playerTransform.position;
         //Initialize all components
         GetComponentInChildren<Button>().onClick.AddListener(Respawn);
@@ -29,7 +32,11 @@ public class DeathDisplay : MonoBehaviour
         gameObject.SetActive(true);
         Time.timeScale = 0;
 
+        //If inventory is active, deactivate it
+        if (InventoryManager.inventoryEnabled) { inventoryInstance.ActivateInventory(); }
+
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     /// <summary>
@@ -38,9 +45,11 @@ public class DeathDisplay : MonoBehaviour
     public void Respawn()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         gameObject.SetActive(false);
         Time.timeScale = 1;
+
         //TODO reset items
         playerTransform.position = playerStartPos;
         playerTransform.GetComponentInChildren<PlayerStats>().Health = playerTransform.GetComponentInChildren<PlayerStats>().maxHealth;
