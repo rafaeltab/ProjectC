@@ -12,7 +12,9 @@ public class BatSpawner : MonoBehaviour
     public bool DrawLines = false;
     private bool checking = false;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Spawn a few bats 
+    /// </summary>
     void Start()
     {
         bats = new List<GameObject>();
@@ -25,7 +27,9 @@ public class BatSpawner : MonoBehaviour
 
     bool oldDrawLines = false;
 
-    // Update is called once per frame
+    /// <summary>
+    /// Put all bats back near the player if they're to far away
+    /// </summary>
     void Update()
     {
         if(DrawLines != oldDrawLines)
@@ -43,6 +47,10 @@ public class BatSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Check all bats for their distance in a Coroutine for speed 
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DoCheck()
     {
         checking = true;

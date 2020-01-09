@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// A 3 dimensional mesh
+/// </summary>
 public class Mesh3D
 {
     public float3[] vertices;

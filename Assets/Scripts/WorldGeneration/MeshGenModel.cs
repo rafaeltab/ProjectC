@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    /// <summary>
+    /// Model for the meshGenerator so we don't use as much space
+    /// </summary>
     [Serializable]
     public class MeshGenModel
     {

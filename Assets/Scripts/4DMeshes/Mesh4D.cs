@@ -4,6 +4,9 @@ using System;
 using MyMath;
 using UnityEngine;
 
+/// <summary>
+/// A 4 dimensional mesh
+/// </summary>
 public class Mesh4D
 {
     public float4[] vertices;

@@ -38,9 +38,8 @@ public class Sound : MonoBehaviour
         waitTimeList.Clear();
     }
 
-    // Start is called before the first frame update
     /// <summary>
-    /// Starts the first textbox text
+    /// Starts the first textbox text depending on which scene it is
     /// </summary>
     void Start()
     {
@@ -239,7 +238,9 @@ public class Sound : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Starts the end_maze audio and text
+    /// </summary>
     public void MazeFinish()
     {
         Debug.Log("MazeFinish");
@@ -294,6 +295,10 @@ public class Sound : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Gets called when finishing the maze, moves the player to the Menu scene and sets the playerpref "tutorialDone" to true
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Finish()
     {
         yield return new WaitForSeconds(12f);

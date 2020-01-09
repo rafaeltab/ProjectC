@@ -33,10 +33,10 @@ public class SettingsManager
         settings.Add(new GeneralSettings());
     }
 
-    public SettingsManager()
-    {
-
-    }
+    /// <summary>
+    /// Create an empty SettingsManager
+    /// </summary>
+    public SettingsManager(){}
 
     /// <summary>
     /// Get an instance of the SettingsManager
@@ -120,7 +120,13 @@ public abstract class Settings
     }
 }
 
+/// <summary>
+/// All control settings
+/// </summary>
 public class ControlsSettings : Settings {
+    /// <summary>
+    /// add the default settings
+    /// </summary>
     public ControlsSettings()
     {
         ClassName = "Controls";
@@ -137,8 +143,14 @@ public class ControlsSettings : Settings {
     }
 } 
 
+/// <summary>
+/// All Audio settings 
+/// </summary>
 public class AudioSettings : Settings
 {
+    /// <summary>
+    /// Add the main volume setting
+    /// </summary>
     public AudioSettings()
     {
         ClassName = "Audio";
@@ -158,8 +170,15 @@ public class AudioSettings : Settings
 //    }
 //}
 
+
+/// <summary>
+/// all general settings
+/// </summary>
 public class GeneralSettings : Settings
 {
+    /// <summary>
+    /// Add fps setting
+    /// </summary>
     public GeneralSettings()
     {
         ClassName = "General";
@@ -167,6 +186,9 @@ public class GeneralSettings : Settings
     }
 }
 
+/// <summary>
+/// Setting template for individual settings
+/// </summary>
 public class Setting
 {
     /// <summary>
@@ -176,6 +198,9 @@ public class Setting
     public EventHandler<object> changeEvent; 
     private object _value;
 
+    /// <summary>
+    /// The value of the setting
+    /// </summary>
     public object Value
     {
         get { return _value; }
@@ -185,10 +210,26 @@ public class Setting
             changeEvent?.Invoke(this, value);
         }
     }
+    /// <summary>
+    /// the settings name
+    /// </summary>
     public string Name { get; set; } = "";
+    /// <summary>
+    /// The settigns type
+    /// </summary>
     public Type Type { get; private set; }
+    /// <summary>
+    /// The settings id which is used to identify it
+    /// </summary>
     public string Id { get; private set; }
 
+    /// <summary>
+    /// Create a setting
+    /// </summary>
+    /// <param name="name">the name</param>
+    /// <param name="id">the id used for referencing the setting</param>
+    /// <param name="defaultValue">the default value of the setting</param>
+    /// <param name="t">the type of the setting</param>
     public Setting(string name,string id, object defaultValue,Type t)
     {
         Type = t;

@@ -9,12 +9,18 @@ public class Music : MonoBehaviour
     public AudioClip[] audioClipArray;
     public int clipNumber;
 
+    /// <summary>
+    /// Sets it's instance to a static variable and get the audio source
+    /// </summary>
     void Awake()
     {
         instance = this;
         _as = GetComponent<AudioSource>();
     }
 
+    /// <summary>
+    /// Randomly choose a song to play
+    /// </summary>
     void Start()
     {
         clipNumber = Random.Range(0, audioClipArray.Length - 1);

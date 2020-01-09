@@ -15,7 +15,7 @@ public class Destroyable : MonoBehaviour
     public DestroyType destroyFunc;
     
     /// <summary>
-    /// Use the correct way to destroy this object
+    /// activated when hit with a raycast that calls upon this script on hit.
     /// </summary>
     public void Destroy(RaycastHit hit)
     {

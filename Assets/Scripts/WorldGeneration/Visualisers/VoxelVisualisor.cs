@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    /// <summary>
+    /// An ugly ass mesh visualizer DONT USE PLEASE... PLEASE! Do your eyes a favour
+    /// </summary>
     public class VoxelVisualisor : IMeshVisualiser
     {
         private float threshold = 0.5f;
@@ -20,6 +23,10 @@ namespace Assets.Scripts
             threshold = thres;
         }
 
+        /// <summary>
+        /// Get the size offset
+        /// </summary>
+        /// <returns></returns>
         public int sizeOffset()
         {
             return 0;

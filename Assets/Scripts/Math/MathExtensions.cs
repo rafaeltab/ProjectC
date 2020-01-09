@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyMath
 {
+    /// <summary>
+    /// A class for hosting extensions to the Single class with extra functions
+    /// </summary>
     public static class MathExtensions
     {
         /// <summary>

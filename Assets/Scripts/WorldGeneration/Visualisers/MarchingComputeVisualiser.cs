@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Visualisers
 {
+    /// <summary>
+    /// A mesh viualizer that utlizes the GPU to make a nice looking mesh
+    /// </summary>
     public class MarchingComputeVisualiser : IMeshVisualiser
     {
         private float threshold;
@@ -118,6 +121,9 @@ namespace Assets.Scripts.Visualisers
             return template;
         }
 
+        /// <summary>
+        /// Generate uvs for the mesh so we can display a texture without being bored
+        /// </summary>
         private Mesh DoUvs(Mesh mesh)
         {
             float scaleFactor = 0.1f;
@@ -226,6 +232,9 @@ namespace Assets.Scripts.Visualisers
             return template;
         }
 
+        /// <summary>
+        /// Get the tris from the triangle buffer
+        /// </summary>
         private Tri[] GetTris(int nrTris)
         {
             Tri[] tris = new Tri[nrTris];

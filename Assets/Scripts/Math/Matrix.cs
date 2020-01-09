@@ -2,20 +2,32 @@
 
 namespace MyMath
 {
+    /// <summary>
+    /// A template for all matrixes only saves the dimensions
+    /// </summary>
     public class Matrix
     {
         public int dimension;
     }
 
+    /// <summary>
+    /// a 1 dimensional matrix
+    /// </summary>
     public class Matrix1D : Matrix
     {
         public float[] values;
+        /// <summary>
+        /// Make a 1 dimensional matrix with a size of size
+        /// </summary>
         public Matrix1D(int size)
         {
             values = new float[size];
             dimension = 1;
         }
 
+        /// <summary>
+        /// Make a 1 dimensional matrix with values
+        /// </summary>
         public Matrix1D(float[] values)
         {
             this.values = values;
@@ -91,15 +103,24 @@ namespace MyMath
         }
     }
 
+    /// <summary>
+    /// A 2 dimensional matrix
+    /// </summary>
     public class Matrix2D : Matrix
     {
         public float[,] values;
 
+        /// <summary>
+        /// Make a 2 dimensional matrix with a width and height
+        /// </summary>
         public Matrix2D(int width, int height)
         {
             values = new float[width, height];
         }
 
+        /// <summary>
+        /// Make a 2 dimensional matrix with values
+        /// </summary>
         public Matrix2D(float[,] values)
         {
             this.values = values;

@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Visualisers
 {
+    /// <summary>
+    /// A mesh visualizer that is a bit better then a voxel one but isn't as good as the Compute one
+    /// </summary>
     public class MarchingVisualiser : IMeshVisualiser
     {
         private float threshold;
@@ -92,6 +95,9 @@ namespace Assets.Scripts.Visualisers
         }
 
         private static readonly Vector3[] corners = new Vector3[]{(new Vector3(0,0,0)), new Vector3(1,0,0), new Vector3(1, 0, 1), new Vector3(0, 0, 1), new Vector3(0, 1, 0), new Vector3(1, 1, 0), new Vector3(1,1,1), new Vector3(0, 1, 1)};
+        /// <summary>
+        /// Find the correct Corrner
+        /// </summary>
         private Vector3 Corners(int cornerIndex,Vector3 offset)
         {
             return corners[cornerIndex] + offset;
@@ -129,6 +135,9 @@ namespace Assets.Scripts.Visualisers
             return 1;
         }
 
+        /// <summary>
+        /// Copy this of the internet please don't be like the guy that made this
+        /// </summary>
         private static readonly int[,] TriangleConnectionTable = new int[,]
         {
         {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},

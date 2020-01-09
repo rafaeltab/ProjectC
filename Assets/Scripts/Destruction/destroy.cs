@@ -7,7 +7,7 @@ public class destroy : MonoBehaviour
 
     // Update is called once per frame
     /// <summary>
-    /// Fire a ray and call destroy on the hit object
+    /// Fire a ray and upon hit will call the game objects destroyable script.
     /// </summary>
     void Update()
     {
@@ -24,19 +24,10 @@ public class destroy : MonoBehaviour
                 if (destroy != null)
                 {
                     destroy.Destroy(hit);
-                    //StartCoroutine(StartDestroy(0,destroy,hit));
+                    
                 }                
             }
         }
 
     }
-
-    //IEnumerator StartDestroy(float duration,Destroyable destroy,RaycastHit hit)
-    //{
-    //    yield return new WaitForSeconds(duration);
-    //    if (Input.GetMouseButtonDown(1))
-    //    {
-    //        destroy.Destroy(hit);
-    //    }        
-    //}
 }

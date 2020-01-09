@@ -10,7 +10,9 @@ public class DeathDisplay : MonoBehaviour
 
     private Vector3 playerStartPos;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Make sure everything is setup and not active right now nothing goes wrong
+    /// </summary>
     void Start()
     {
         playerStartPos = playerTransform.position;
@@ -19,6 +21,9 @@ public class DeathDisplay : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Kill the player
+    /// </summary>
     public void Die()
     {
         gameObject.SetActive(true);
@@ -27,6 +32,9 @@ public class DeathDisplay : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    /// <summary>
+    /// Respawn the player
+    /// </summary>
     public void Respawn()
     {
         Cursor.lockState = CursorLockMode.Locked;

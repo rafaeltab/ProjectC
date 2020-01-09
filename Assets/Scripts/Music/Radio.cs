@@ -11,6 +11,9 @@ public class Radio : MonoBehaviour
     public GameObject musicText;
     private Vector2 oldSize;
 
+    /// <summary>
+    /// Get the music instance, RectTransform of the musicTextBox and the size of the musicTextBox
+    /// </summary>
     void Awake()
     {
         musicInstance = Music.instance;
@@ -38,6 +41,7 @@ public class Radio : MonoBehaviour
             UpdateText();
         }
 
+        //Calls UpdatePos if textbox size changes
         if (rtTextbox.sizeDelta != oldSize)
         {
             UpdatePos();
@@ -76,6 +80,9 @@ public class Radio : MonoBehaviour
         UpdateText();
     }
 
+    /// <summary>
+    /// When unequipping Radio
+    /// </summary>
     public void OnDisable()
     {
         musicTextbox.SetActive(false);
